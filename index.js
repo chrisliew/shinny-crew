@@ -1,5 +1,4 @@
 const express = require('express');
-const cowsay = require('cowsay');
 const cors = require('cors');
 // Create the server
 const app = express();
