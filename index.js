@@ -4,23 +4,8 @@ const cors = require('cors');
 // Create the server
 const app = express();
 // Serve our api route /cow that returns a custom talking text cow
-app.get('/api/cow/:say', cors(), async (req, res, next) => {
-  try {
-    const text = req.params.say;
-    const moo = cowsay.say({ text });
-    res.json({ moo });
-  } catch (err) {
-    next(err);
-  }
-});
-// Serve our base route that returns a Hello World cow
-app.get('/api/cow/', cors(), async (req, res, next) => {
-  try {
-    const moo = cowsay.say({ text: 'Hello World!' });
-    res.json({ moo });
-  } catch (err) {
-    next(err);
-  }
+app.use('/api', (req, res) => {
+  res.json('HI!!!!');
 });
 
 const path = require('path');
