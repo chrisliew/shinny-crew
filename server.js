@@ -12,7 +12,7 @@ const app = express();
 app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000, // One day in milliseconds
-    keys: ['randomstringhere']
+    keys: [keys.cookieKey]
   })
 );
 
