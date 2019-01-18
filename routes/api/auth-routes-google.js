@@ -15,16 +15,25 @@ module.exports = app => {
   // The middleware receives the data from Google and runs the function on Strategy config
   app.get(
     '/auth/google/callback',
-    passport.authenticate('google'),
-    (req, res) => {
-      res.redirect('/secret');
-    }
+    passport.authenticate('google', {
+      successRedirect: '/',
+      failureRedirect: '/login'
+    })
   );
 
+  // Middleware to check if the user is authenticated
+  const isUserAuthenticated = (req, res, next) => {
+    if (req.user) {
+      next();
+    } else {
+      res.send('You must login!');
+    }
+  };
+
   // Secret route
-  // app.get('/secret', isUserAuthenticated, (req, res) => {
-  //   res.send('You have reached the secret route');
-  // });
+  app.get('/secret', isUserAuthenticated, (req, res) => {
+    res.send('You have reached the secret route');
+  });
 
   app.get('/api/current_user', (req, res) => {
     res.send(req.user);

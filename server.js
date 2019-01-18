@@ -4,7 +4,8 @@ const cookieSession = require('cookie-session');
 const keys = require('./config/keys');
 const passport = require('passport');
 
-const passportSetup = require('./config/passport-setup-google');
+const passportSetupGoogle = require('./config/passport-setup-google');
+const passportSetupFacebook = require('./config/passport-setup-facebook');
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(passport.initialize()); // Used to initialize passport
 app.use(passport.session()); // Used to persist login sessions
 
 // Use Routes
-require('./routes/api/auth-routes')(app);
+require('./routes/api/auth-routes-google')(app);
+require('./routes/api/auth-routes-facebook')(app);
 
 const path = require('path');
 // Serve static files from the React frontend app

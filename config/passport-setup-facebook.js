@@ -1,14 +1,13 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook');
 const keys = require('./keys');
 
-// Strategy config
 passport.use(
-  new GoogleStrategy(
+  new FacebookStrategy(
     {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback'
+      clientID: keys.facebookAppID,
+      clientSecret: keys.facebookAppSecret,
+      callbackURL: '/auth/facebook/callback'
     },
     (accessToken, refreshToken, profile, done) => {
       done(null, profile); // passes the profile data to serializeUser
