@@ -3,11 +3,15 @@ const cors = require('cors');
 const cookieSession = require('cookie-session');
 const keys = require('./config/keys');
 const passport = require('passport');
+const mongoose = require('mongoose');
 
+require('./models/userSchema');
 const passportSetupGoogle = require('./config/passport-setup-google');
 const passportSetupFacebook = require('./config/passport-setup-facebook');
 
 const app = express();
+
+mongoose.connect(keys.mongoURL);
 
 // cookieSession config
 app.use(
@@ -24,13 +28,18 @@ app.use(passport.session()); // Used to persist login sessions
 require('./routes/api/auth-routes-google')(app);
 require('./routes/api/auth-routes-facebook')(app);
 
-const path = require('path');
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, 'client/build')));
-// Anything that doesn't match the above, send back index.html
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname + '/client/build/index.html'));
-// });
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up production assets
+  // like our main.js file, or main.css file
+  app.use(express.static('client/build'));
+
+  // Express will serve up index.html file
+  // if it doesn't recognize the route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Choose the port and start the server
 const PORT = process.env.PORT || 5000;

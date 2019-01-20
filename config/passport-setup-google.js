@@ -1,6 +1,9 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const keys = require('./keys');
+const mongoose = require('mongoose');
+
+const User = mongoose.model('users');
 
 // Strategy config
 passport.use(
@@ -11,17 +14,30 @@ passport.use(
       callbackURL: '/auth/google/callback'
     },
     (accessToken, refreshToken, profile, done) => {
-      done(null, profile); // passes the profile data to serializeUser
+      // existingUser is from the User
+      User.findOne({ googleId: profile.id }).then(existingUser => {
+        if (existingUser) {
+          done(null, profile);
+        } else {
+          new User({
+            googleId: profile.id,
+            displayName: profile.displayName
+          })
+            .save()
+            .then(done(null, profile));
+        }
+      });
     }
   )
 );
 
-// Used to stuff a piece of information into a cookie
 passport.serializeUser((user, done) => {
-  done(null, user);
+  // this is not the same as profile id.
+  done(null, user.id);
 });
 
-// Used to decode the received cookie and persist session
-passport.deserializeUser((user, done) => {
-  done(null, user);
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => {
+    done(null, user);
+  });
 });

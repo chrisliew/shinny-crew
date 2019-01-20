@@ -21,7 +21,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.displayName);
     return (
       <div className='App'>
         <h1>Shinny Crew</h1>
