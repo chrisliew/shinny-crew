@@ -12,26 +12,26 @@ module.exports = app => {
   );
 
   // Middleware to check if the user is authenticated
-  const isUserAuthenticated = (req, res, next) => {
-    if (req.user) {
-      next();
-    } else {
-      res.send('You must login!');
-    }
-  };
+  // const isUserAuthenticated = (req, res, next) => {
+  //   if (req.user) {
+  //     next();
+  //   } else {
+  //     res.send('You must login!');
+  //   }
+  // };
 
-  // Secret route
-  app.get('/secret', isUserAuthenticated, (req, res) => {
-    res.send('You have reached the secret route');
-  });
+  // // Secret route
+  // app.get('/secret', isUserAuthenticated, (req, res) => {
+  //   res.send('You have reached the secret route');
+  // });
 
-  app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
-  });
+  // app.get('/api/current_user', (req, res) => {
+  //   res.send(req.user);
+  // });
 
-  // Logout route
-  app.get('/api/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-  });
+  // // Logout route
+  // app.get('/api/logout', (req, res) => {
+  //   req.logout();
+  //   res.redirect('/');
+  // });
 };

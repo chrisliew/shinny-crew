@@ -1,32 +1,41 @@
 const express = require('express');
-const cors = require('cors');
+const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const keys = require('./config/keys');
-const passport = require('passport');
-const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 require('./models/userSchema');
-const passportSetupGoogle = require('./config/passport-setup-google');
-const passportSetupFacebook = require('./config/passport-setup-facebook');
+const passportSetup = require('./config/passport-setup-google');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express();
 
-mongoose.connect(keys.mongoURL);
-
-// cookieSession config
 app.use(
   cookieSession({
-    maxAge: 24 * 60 * 60 * 1000, // One day in milliseconds
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
     keys: [keys.cookieKey]
   })
 );
 
-app.use(passport.initialize()); // Used to initialize passport
-app.use(passport.session()); // Used to persist login sessions
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Bodyparser Middleware
+app.use(bodyParser.json());
+
+// DB config
+const db = keys.mongoURL;
+
+// Connect to Mongo
+mongoose
+  .connect(db)
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
 
 // Use Routes
 require('./routes/api/auth-routes-google')(app);
-require('./routes/api/auth-routes-facebook')(app);
+
+// Code for production env
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
@@ -41,8 +50,20 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Choose the port and start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server listening it up on port ${PORT}`);
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
 });
+
+app.all('/*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => console.log(`Server started on ${port}`));

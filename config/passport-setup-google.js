@@ -1,36 +1,9 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const keys = require('./keys');
+const GoogleStrategy = require('passport-google-oauth20');
 const mongoose = require('mongoose');
+const keys = require('./keys');
 
 const User = mongoose.model('users');
-
-// Strategy config
-passport.use(
-  new GoogleStrategy(
-    {
-      clientID: keys.googleClientID,
-      clientSecret: keys.googleClientSecret,
-      callbackURL: '/auth/google/callback',
-      proxy: true
-    },
-    (accessToken, refreshToken, profile, done) => {
-      // existingUser is from the User
-      User.findOne({ googleId: profile.id }).then(existingUser => {
-        if (existingUser) {
-          done(null, profile);
-        } else {
-          new User({
-            googleId: profile.id,
-            displayName: profile.displayName
-          })
-            .save()
-            .then(done(null, profile));
-        }
-      });
-    }
-  )
-);
 
 passport.serializeUser((user, done) => {
   // this is not the same as profile id.
@@ -42,3 +15,29 @@ passport.deserializeUser((id, done) => {
     done(null, user);
   });
 });
+
+passport.use(
+  new GoogleStrategy(
+    {
+      // options for the google strat
+      callbackURL: '/auth/google/callback',
+      clientID: keys.googleClientID,
+      clientSecret: keys.googleClientSecret,
+      proxy: true
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({ googleId: profile.id });
+      if (existingUser) {
+        // we already have a record with the given profile ID
+        done(null, existingUser);
+      } else {
+        // we don't have a user record with this ID, make a new record
+        const user = await new User({
+          googleId: profile.id,
+          displayName: profile.displayName
+        }).save();
+        done(null, user);
+      }
+    }
+  )
+);
