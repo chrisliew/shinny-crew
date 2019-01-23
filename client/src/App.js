@@ -1,37 +1,35 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import './App.css';
+import Home from './components/Home';
+import { connect } from 'react-redux';
+import { simpleAction } from './actions/simpleAction';
+
+import './App.scss';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      displayName: '',
-      data: ''
-    };
-  }
-
-  componentDidMount() {
-    axios.get('/api/current_user').then(res => {
-      this.setState({
-        displayName: res.data.displayName,
-        data: res.data
-      });
-    });
-  }
+  simpleAction = event => {
+    this.props.simpleAction();
+  };
 
   render() {
     return (
       <div className='App'>
-        <h1>Shinny Crew</h1>
-        <span>Logged in as {this.state.displayName}</span>
-        <a href='/auth/google'>Login with Google</a>
-        <a href='/api/logout'>Logout</a>
-        <a href='/api/current_user'>Current User</a>
-        <a href='/auth/facebook'>Login with Facebook</a>
-        <div>{}</div>
+        <Home />
+        <button onClick={this.simpleAction}>Simple Action</button>
+        <pre>{JSON.stringify(this.props)}</pre>
       </div>
     );
   }
 }
-export default App;
+
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  simpleAction: () => dispatch(simpleAction())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
