@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
-require('./models/userSchema');
+require('./models/User');
+require('./models/Game');
 const passportSetup = require('./config/passport-setup-google');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 const app = express();
 
@@ -34,6 +34,7 @@ mongoose
 
 // Use Routes
 require('./routes/api/auth-routes-google')(app);
+require('./routes/api/game-routes')(app);
 
 // Code for production env
 

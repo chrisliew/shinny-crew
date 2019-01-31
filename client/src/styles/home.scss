@@ -1,7 +1,59 @@
-.home {
+@import './_colors';
+
+.home-welcome {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background: $primary-color;
+  color: $text-color-secondary;
+  // height: 20em;
+  padding: 5em 0 5em 0;
+}
+
+.box {
+  justify-self: center;
+  align-self: center;
+}
+
+.business-description {
+  font-size: 3em;
+  max-width: 60%;
+}
+
+.login {
+  background-image: url('/images/american-player.jpg');
+  align-self: stretch;
+  background-size: 100% auto;
+}
+
+.upcoming-games {
+  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 20em;
+}
+
+.upcoming-games h2 {
+  margin-bottom: 2em;
+}
+
+.games {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 2em;
-  white-space: pre;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.game-container {
+  display: flex;
+  max-width: 600px;
+  height: 300px;
+  border: 5px solid $border-color-base;
+  margin-bottom: 3em;
+}
+
+.game-picture {
+  width: 50%;
+  height: 100%;
+}
+
+.game-details {
+  margin: 1em auto 0 auto;
 }

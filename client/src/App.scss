@@ -1,7 +1,19 @@
 @import './styles/_colors.scss';
+@import './styles/buttons.scss';
 
 @import './styles/home.scss';
+@import './styles/addGame.scss';
+@import './styles/navbar.scss';
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
 body {
-  color: $primary-font-color;
+  color: $text-color;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 600;
 }

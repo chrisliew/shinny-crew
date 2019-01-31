@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import Home from './components/Home';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 
+import Home from './components/Home';
+import AddGame from './components/AddGame';
+import Navbar from './components/Navbar';
+
 import './App.scss';
+import 'react-dropdown/style.css';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class App extends Component {
   componentDidMount() {
@@ -12,7 +17,9 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <Navbar />
         <Home />
+        {/* <AddGame /> */}
       </div>
     );
   }
