@@ -1,7 +1,8 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
 import Dropdown from 'react-dropdown';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class AddGame extends React.Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class AddGame extends React.Component {
       endTime: new Date(),
       endDate: new Date(),
       slots: 20,
-      skill: 'Beginner'
+      skill: 'Beginner',
+      password: ''
     };
   }
 
@@ -61,13 +63,15 @@ class AddGame extends React.Component {
     });
   };
 
+  handleOnChangePassword = password => {
+    this.setState({
+      password: password.target.value
+    });
+  };
+
   handleOnSubmit = event => {
     event.preventDefault();
-    const gameInfo = this.state;
-    console.log('gameinfo', gameInfo);
-    axios.post('/api/games', gameInfo).then(res => {
-      console.log('New game request sent');
-    });
+    this.props.addGameRequest(this.state);
   };
 
   render() {
@@ -76,7 +80,7 @@ class AddGame extends React.Component {
     const skillOptions = ['Beginner', 'Intermediate', 'Advanced'];
 
     return (
-      <div className='arena'>
+      <div className='add-game'>
         <h3>Select Arena</h3>
         <Dropdown
           options={arenaOptions}
@@ -125,10 +129,21 @@ class AddGame extends React.Component {
           onChange={this.handleOnChangeSkill}
           placeholder={this.state.skill}
         />
-        <button onClick={this.handleOnSubmit}>Add Game</button>
+        <h3>Password</h3>
+        <input
+          type='password'
+          name='password'
+          onChange={this.handleOnChangePassword}
+        />
+        <button className='book-game-button' onClick={this.handleOnSubmit}>
+          Add Game
+        </button>
       </div>
     );
   }
 }
 
-export default AddGame;
+export default connect(
+  null,
+  actions
+)(AddGame);

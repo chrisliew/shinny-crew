@@ -5,7 +5,6 @@
   grid-template-columns: 50% 50%;
   background: $primary-color;
   color: $text-color-secondary;
-  // height: 20em;
   padding: 5em 0 5em 0;
 }
 
@@ -17,12 +16,6 @@
 .business-description {
   font-size: 3em;
   max-width: 60%;
-}
-
-.login {
-  background-image: url('/images/american-player.jpg');
-  align-self: stretch;
-  background-size: 100% auto;
 }
 
 .upcoming-games {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Home from './components/Home';
 import AddGame from './components/AddGame';
@@ -16,11 +17,13 @@ class App extends Component {
   }
   render() {
     return (
-      <div className='App'>
-        <Navbar />
-        <Home />
-        {/* <AddGame /> */}
-      </div>
+      <Router>
+        <div className='App'>
+          <Navbar />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/addgame' component={AddGame} />
+        </div>
+      </Router>
     );
   }
 }

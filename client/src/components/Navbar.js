@@ -22,9 +22,12 @@ class Navbar extends Component {
     return (
       <div className='navbar'>
         <div className='navbar-left child'>
-          <h3>Shinny Crew</h3>
+          <a href='/'>
+            <h3>Shinny Crew</h3>
+          </a>
           <div>
             <a href='/api/current_user'>Current User</a>
+            <a href='/addgame'>Add Game</a>
           </div>
         </div>
         <div className='child'>{this.loggedInStatus()}</div>

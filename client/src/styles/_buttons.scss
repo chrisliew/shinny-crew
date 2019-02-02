@@ -25,7 +25,6 @@
   display: inline-block;
   cursor: pointer;
   color: #333333;
-  // font-family: Arial;
   font-size: 19px;
   font-weight: bold;
   padding: 9px 16px;
@@ -70,6 +69,109 @@
   background-color: #5cbf2a;
 }
 .book-game-button:active {
+  position: relative;
+  top: 1px;
+}
+
+// ********************** GOOGLE BUTTON ******************
+
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #fff;
+  width: 50%;
+}
+.loginBtn:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0, 0, 0, 0.1);
+}
+
+.loginBtn--google {
+  font-family: raleway;
+  background: #dd4b39;
+  margin-top: 1em;
+}
+.loginBtn--google:before {
+  border-right: #bb3f30 1px solid;
+  background: url('/images/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #e74b37;
+}
+
+// ********************** LOGIN SUBMIT ******************
+
+.login-submit-button {
+  font-family: raleway;
+  -moz-box-shadow: inset 0px 1px 0px 0px #9acc85;
+  -webkit-box-shadow: inset 0px 1px 0px 0px #9acc85;
+  box-shadow: inset 0px 1px 0px 0px #9acc85;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #74ad5a),
+    color-stop(1, #68a54b)
+  );
+  background: -moz-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+  background: -webkit-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+  background: -o-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+  background: -ms-linear-gradient(top, #74ad5a 5%, #68a54b 100%);
+  background: linear-gradient(to bottom, #74ad5a 5%, #68a54b 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#74ad5a', endColorstr='#68a54b',GradientType=0);
+  background-color: #74ad5a;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #3b6e22;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: bold;
+  padding: 7px 50px;
+  text-decoration: none;
+  margin-top: 1.5em;
+  width: 21em;
+}
+.login-submit-button:hover {
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0.05, #68a54b),
+    color-stop(1, #74ad5a)
+  );
+  background: -moz-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+  background: -webkit-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+  background: -o-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+  background: -ms-linear-gradient(top, #68a54b 5%, #74ad5a 100%);
+  background: linear-gradient(to bottom, #68a54b 5%, #74ad5a 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#68a54b', endColorstr='#74ad5a',GradientType=0);
+  background-color: #68a54b;
+}
+.login-submit-button:active {
   position: relative;
   top: 1px;
 }

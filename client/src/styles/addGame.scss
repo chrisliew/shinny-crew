@@ -1,6 +1,16 @@
-.arena {
+.add-game {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  width: 70em;
+  justify-content: center;
+  margin-top: 5em;
+}
+
+.add-game h3 {
+  margin: 0em 2em 0 1em;
+  font-weight: bolder;
+}
+
+.add-game button {
+  margin-left: 2em;
 }
