@@ -10,6 +10,7 @@ export const fetchUser = () => {
 };
 
 export const addGameRequest = gameDetails => {
+  console.log('gamedetails', gameDetails);
   return dispatch => {
     return axios.post('/api/games', gameDetails).then(res => {
       dispatch({ type: ADD_GAME_REQUEST, payload: res.data });

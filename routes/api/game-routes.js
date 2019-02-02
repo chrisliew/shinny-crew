@@ -20,6 +20,7 @@ module.exports = app => {
   });
 
   app.post('/api/games/', (req, res) => {
+    console.log('reqbody', req.body);
     const newGame = new Game({
       arena: req.body.arena,
       address: '123 fake street',
@@ -39,9 +40,7 @@ module.exports = app => {
       skill: req.body.skill,
       players: ['']
     });
-    if (req.body.password === keys.adminPassword) {
-      newGame.save().then(Game => res.json(Game));
-    }
+    newGame.save().then(Game => res.json(Game));
   });
 };
 // DELETE /api/games * Allows Admin to delete games.  * ADMIN
