@@ -6,8 +6,8 @@ Shinny Crew is a hockey match scheduler for informal games known as shinny. It m
 
 ## Tech Stack
 
-Front End: Javascript, React.js
-Back End: Mongo DB, Express, Node
+Front End: Javascript, React.js <br/>
+Back End: Mongo DB, Express, Node <br/>
 Libraries/Frameworks: Redux, Mongoose, Passport.js, Moment.js, SASS
 
 # Screenshots
