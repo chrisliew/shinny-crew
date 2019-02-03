@@ -4,9 +4,9 @@ class LoginForm extends Component {
   render() {
     return (
       <div className='login'>
-        <button className='loginBtn loginBtn--google'>
-          Sign in With Google
-        </button>
+        <a href='/auth/google' className='loginBtn loginBtn--google'>
+          Login with Google
+        </a>
         <form>
           <input className='login-input' placeholder='Sign In/Register Email' />
           <br />
@@ -15,7 +15,7 @@ class LoginForm extends Component {
             placeholder='Sign In/Register Password'
           />
           <br />
-          <a href='/' class='login-submit-button'>
+          <a href='/' className='login-submit-button'>
             Sign In/Register
           </a>
         </form>

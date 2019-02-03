@@ -10,15 +10,19 @@ class Navbar extends Component {
         return <a href='/auth/google'>Login with Google</a>;
       default:
         return (
-          <div>
-            Logged in as {this.props.auth.displayName}{' '}
-            <a href='/api/logout'>Logout</a>
+          <div className='navbar-logged-in'>
+            <div>
+              <a href='/'>Your Games</a>
+            </div>
+            <div>Logged in as {this.props.auth.displayName} </div>
+            <div>
+              <a href='/api/logout'>Logout</a>
+            </div>
           </div>
         );
     }
   };
   render() {
-    console.log('auth', this.props.auth);
     return (
       <div className='navbar'>
         <div className='navbar-left child'>

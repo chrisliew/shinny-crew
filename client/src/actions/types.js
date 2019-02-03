@@ -1,3 +1,4 @@
 export const FETCH_USER = 'FETCH_USER';
 export const ADD_GAME_REQUEST = 'ADD_GAME_REQUEST';
+export const ADD_GAME_USER_REQUEST = 'ADD_GAME_USER_REQUEST';
 export const FETCH_GAMES = 'FETCH_GAMES';

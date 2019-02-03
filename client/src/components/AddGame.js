@@ -71,7 +71,6 @@ class AddGame extends React.Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
-    console.log('Fuck');
     this.props.addGameRequest(this.state);
   };
 

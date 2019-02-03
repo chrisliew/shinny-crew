@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Home from './components/Home';
 import AddGame from './components/AddGame';
 import Navbar from './components/Navbar';
+import Landing from './components/Landing';
 
 import './App.scss';
 import 'react-dropdown/style.css';
@@ -22,6 +23,7 @@ class App extends Component {
           <Navbar />
           <Route exact path='/' component={Home} />
           <Route exact path='/addgame' component={AddGame} />
+          <Route exact path='/landing' component={Landing} />
         </div>
       </Router>
     );
