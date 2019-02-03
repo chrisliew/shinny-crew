@@ -7,7 +7,7 @@ class Navbar extends Component {
       case null:
         return;
       case false:
-        return <a href='/auth/google'>Login with Google</a>;
+        return <a href='/auth/google'>Login</a>;
       default:
         return (
           <div className='navbar-logged-in'>
@@ -30,8 +30,8 @@ class Navbar extends Component {
             <h3>Shinny Crew</h3>
           </a>
           <div>
-            <a href='/api/current_user'>Current User</a>
-            <a href='/addgame'>Add Game</a>
+            {/* <a href='/api/current_user'>Current User</a> */}
+            {/* <a href='/addgame'>Add Game</a> */}
           </div>
         </div>
         <div className='child'>{this.loggedInStatus()}</div>
