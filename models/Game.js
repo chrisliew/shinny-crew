@@ -10,7 +10,7 @@ const gameSchema = new Schema({
   endTime: String,
   slots: Number,
   skill: String,
-  players: [String]
+  players: Array
 });
 
 module.exports = Game = mongoose.model('games', gameSchema);

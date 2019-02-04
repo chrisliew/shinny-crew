@@ -8,7 +8,9 @@ class UpcomingGamesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      open: false,
+      gameId: '',
+      userId: ''
     };
   }
   componentDidMount() {
@@ -27,15 +29,22 @@ class UpcomingGamesList extends Component {
     // When click book, check to see if there is user id in redux, if not prompt login, if there is, check if gameID is in the games array, if not, then add this game to the user, give success validation.
     // if booked already, don't show book button, only show the
     event.preventDefault();
-    console.log('auth', this.props);
-    console.log('value', event.target.value);
-    // !this.props.auth.games.includes(event.target.value)
+    const gameId = event.target.value;
+    const userId = this.props.auth._id;
+
+    const gameUserId = {
+      gameId: gameId,
+      userId: userId
+    };
 
     if (!this.props.auth) {
       this.onOpenModal();
+    } else if (!this.props.auth.games.includes(gameId)) {
+      this.props.addGameUserRequest(gameUserId);
+      alert('You have successfully registered for this game');
+      window.location.reload();
     } else {
-      console.log('fuck');
-      this.props.addGameUserRequest(event.target.value);
+      alert('You have already registered for this game');
     }
   };
 
@@ -73,7 +82,13 @@ class UpcomingGamesList extends Component {
                     End Time: {game.endTime} <br />
                     Available Spots: {game.slots} <br />
                     Skill: {game.skill} <br />
-                    Id: {game._id} <br />
+                    Players:{' '}
+                    <ul>
+                      {game.players.map(player => {
+                        return <li>{player}</li>;
+                      })}{' '}
+                    </ul>
+                    <br />
                     <br />
                     <br />
                     <button

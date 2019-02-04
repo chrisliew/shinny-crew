@@ -10,10 +10,20 @@ const keys = require('../../config/keys');
 // POST (or post and delete?) /api/games *  Allows current user to add or delete self from games * PRIVATE
 
 module.exports = app => {
-  app.post('/api/user/', (req, res) => {
+  app.put('/api/games/', (req, res) => {
     User.findByIdAndUpdate(
-      '5c5657195cec46f6c95dc506',
-      { $push: { games: 'game 6969' } },
+      // User ID
+      req.body.userId,
+      { $push: { games: req.body.gameId } },
+      { safe: true, upsert: true },
+      function(err, model) {
+        console.log(err);
+      }
+    );
+    Game.findByIdAndUpdate(
+      // Game ID
+      req.body.gameId,
+      { $push: { players: req.body.userId } },
       { safe: true, upsert: true },
       function(err, model) {
         console.log(err);
@@ -47,7 +57,7 @@ module.exports = app => {
         .format('LT'),
       slots: req.body.slots,
       skill: req.body.skill,
-      players: ['']
+      players: []
     });
     newGame.save().then(Game => res.json(Game));
   });

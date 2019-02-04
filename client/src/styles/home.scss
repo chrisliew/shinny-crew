@@ -38,9 +38,9 @@
 .game-container {
   display: flex;
   max-width: 600px;
-  height: 300px;
+  min-height: 300px;
   border: 5px solid $border-color-base;
-  margin-bottom: 3em;
+  margin-bottom: 1em;
 }
 
 .game-picture {

@@ -23,9 +23,12 @@ export const addGameRequest = gameDetails => {
   };
 };
 
-export const addGameUserRequest = gameId => {
+export const addGameUserRequest = gameUserId => {
   return dispatch => {
-    return dispatch({ type: ADD_GAME_USER_REQUEST, payload: gameId });
+    return axios.put('/api/games', gameUserId).then(res => {
+      dispatch({ type: ADD_GAME_USER_REQUEST, payload: res.data });
+      console.log('Add user and game Id');
+    });
   };
 };
 

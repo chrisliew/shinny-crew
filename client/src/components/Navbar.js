@@ -31,7 +31,7 @@ class Navbar extends Component {
           </a>
           <div>
             {/* <a href='/api/current_user'>Current User</a> */}
-            {/* <a href='/addgame'>Add Game</a> */}
+            <a href='/addgame'>Add Game</a>
           </div>
         </div>
         <div className='child'>{this.loggedInStatus()}</div>
