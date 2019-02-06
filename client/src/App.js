@@ -7,6 +7,8 @@ import Home from './components/Home';
 import AddGame from './components/AddGame';
 import Navbar from './components/Navbar';
 import Landing from './components/Landing';
+import UserGames from './components/UserGames';
+import Game from './components/Game';
 
 import './App.scss';
 import 'react-dropdown/style.css';
@@ -22,8 +24,10 @@ class App extends Component {
         <div className='App'>
           <Navbar />
           <Route exact path='/' component={Home} />
-          <Route exact path='/addgame' component={AddGame} />
+          <Route exact path='/games/new' component={AddGame} />
           <Route exact path='/landing' component={Landing} />
+          <Route exact path='/games' component={UserGames} />
+          <Route path='/game/:id' component={Game} />
         </div>
       </Router>
     );

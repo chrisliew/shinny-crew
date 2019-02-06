@@ -12,7 +12,7 @@ class Navbar extends Component {
         return (
           <div className='navbar-logged-in'>
             <div>
-              <a href='/'>Your Games</a>
+              <a href='/games'>Your Games</a>
             </div>
             <div>Logged in as {this.props.auth.displayName} </div>
             <div>
@@ -26,12 +26,17 @@ class Navbar extends Component {
     return (
       <div className='navbar'>
         <div className='navbar-left child'>
-          <a href='/'>
-            <h3>Shinny Crew</h3>
-          </a>
+          {this.props.auth ? (
+            <a href='/landing'>
+              {' '}
+              <h3>Shinny Crew</h3>
+            </a>
+          ) : (
+            <a href='/'>Shinny Crew</a>
+          )}
           <div>
             {/* <a href='/api/current_user'>Current User</a> */}
-            <a href='/addgame'>Add Game</a>
+            <a href='/games/new'>Add Game</a>
           </div>
         </div>
         <div className='child'>{this.loggedInStatus()}</div>

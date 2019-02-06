@@ -38,7 +38,7 @@
 .game-container {
   display: flex;
   max-width: 600px;
-  min-height: 300px;
+  min-height: 22em;
   border: 5px solid $border-color-base;
   margin-bottom: 1em;
 }
@@ -46,6 +46,10 @@
 .game-picture {
   width: 50%;
   height: 100%;
+}
+
+.game-details-container {
+  margin: auto;
 }
 
 .game-details {

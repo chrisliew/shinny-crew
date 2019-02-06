@@ -3,7 +3,8 @@ import {
   FETCH_USER,
   ADD_GAME_REQUEST,
   ADD_GAME_USER_REQUEST,
-  FETCH_GAMES
+  FETCH_GAMES,
+  FETCH_ONE_GAME
 } from './types';
 
 export const fetchUser = () => {
@@ -28,6 +29,15 @@ export const addGameUserRequest = gameUserId => {
     return axios.put('/api/games', gameUserId).then(res => {
       dispatch({ type: ADD_GAME_USER_REQUEST, payload: res.data });
       console.log('Add user and game Id');
+    });
+  };
+};
+
+export const fetchOneGame = gameId => {
+  return function(dispatch) {
+    axios.get('/api/games/' + gameId).then(res => {
+      console.log('fetchongegame', FETCH_ONE_GAME);
+      dispatch({ type: FETCH_ONE_GAME, payload: res.data });
     });
   };
 };

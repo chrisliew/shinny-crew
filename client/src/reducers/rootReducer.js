@@ -3,10 +3,12 @@ import authReducer from './authReducer';
 import addGameReducer from './addGameReducer';
 import addGameUserReducer from './addGameUserReducer';
 import fetchGames from './fetchGames';
+import fetchOneGameReducer from './fetchOneGameReducer';
 
 export default combineReducers({
   auth: authReducer,
   addGame: addGameReducer,
   addGameUser: addGameUserReducer,
-  fetchGames: fetchGames
+  fetchGames: fetchGames,
+  fetchOneGame: fetchOneGameReducer
 });

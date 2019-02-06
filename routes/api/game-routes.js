@@ -10,32 +10,16 @@ const keys = require('../../config/keys');
 // POST (or post and delete?) /api/games *  Allows current user to add or delete self from games * PRIVATE
 
 module.exports = app => {
-  app.put('/api/games/', (req, res) => {
-    User.findByIdAndUpdate(
-      // User ID
-      req.body.userId,
-      { $push: { games: req.body.gameId } },
-      { safe: true, upsert: true },
-      function(err, model) {
-        console.log(err);
-      }
-    );
-    Game.findByIdAndUpdate(
-      // Game ID
-      req.body.gameId,
-      { $push: { players: req.body.userId } },
-      { safe: true, upsert: true },
-      function(err, model) {
-        console.log(err);
-      }
-    );
-  });
-
   // GET /api/games *  Returns list of all upcoming games * PUBLIC
   app.get('/api/games/', (req, res) => {
     Game.find()
       .sort({ dateOrder: -1 })
       .then(games => res.json(games));
+  });
+
+  // GET /api/games/:id * Get Game by Id * PUBLIC
+  app.get('/api/games/:id', (req, res) => {
+    Game.findById(req.params.id).then(games => res.json(games));
   });
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
@@ -61,5 +45,30 @@ module.exports = app => {
     });
     newGame.save().then(Game => res.json(Game));
   });
+
+  // PUT /api/games/ * Adds user to game, and game to user.  * PRIVATE
+  app.put('/api/games/', (req, res) => {
+    User.findByIdAndUpdate(
+      // User ID
+      req.body.userId,
+      { $push: { games: req.body.gameId } },
+      { safe: true, upsert: true },
+      function(err, model) {
+        console.log(err);
+      }
+    );
+    Game.findByIdAndUpdate(
+      // Game ID
+      req.body.gameId,
+      { $push: { players: req.body.userId } },
+      { safe: true, upsert: true },
+      function(err, model) {
+        console.log(err);
+      }
+    );
+  });
+
+  // DELETE /api/games/:id * Delete User from Game by Id * PRIVATE
+
+  // DELETE /api/games/:id * Delete Game by Id * ADMIN
 };
-// DELETE /api/games * Allows Admin to delete games.  * ADMIN

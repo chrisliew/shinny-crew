@@ -1,0 +1,11 @@
+.game h1 {
+  text-align: center;
+  margin-top: 1em;
+}
+.game .game-details {
+  display: flex;
+  justify-content: center;
+  border: 3px solid black;
+  padding: 3em;
+  max-width: 30%;
+}
