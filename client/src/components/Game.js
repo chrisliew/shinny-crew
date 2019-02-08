@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import * as actions from '../actions';
 
 class Game extends Component {
   constructor(props) {
@@ -17,6 +19,10 @@ class Game extends Component {
     });
   }
 
+  handleDeleteGame = () => {
+    this.props.deleteUserFromGame(this.props.auth._id);
+  };
+
   render() {
     console.log('game', this.state.game);
     const { game } = this.state;
@@ -33,10 +39,22 @@ class Game extends Component {
             <li>{game.endTime}</li>
             <li>{game.skill}</li>
           </ul>
+          <button onClick={this.handleDeleteGame}>Delete Game</button>
         </div>
       </div>
     );
   }
 }
 
-export default Game;
+const mapStateToProps = state => {
+  return {
+    games: state.fetchGames,
+    auth: state.auth,
+    selectedGame: state.fetchOneGame
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(Game);

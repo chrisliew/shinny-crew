@@ -4,7 +4,8 @@ import {
   ADD_GAME_REQUEST,
   ADD_GAME_USER_REQUEST,
   FETCH_GAMES,
-  FETCH_ONE_GAME
+  FETCH_ONE_GAME,
+  DELETE_GAME_FROM_USER
 } from './types';
 
 export const fetchUser = () => {
@@ -33,10 +34,18 @@ export const addGameUserRequest = gameUserId => {
   };
 };
 
+export const deleteUserFromGame = gameUserId => {
+  return dispatch => {
+    return axios.delete('/api/game', { data: gameUserId }).then(res => {
+      dispatch({ type: DELETE_GAME_FROM_USER, payload: res.data });
+      console.log('Deleted One Game from User');
+    });
+  };
+};
+
 export const fetchOneGame = gameId => {
   return function(dispatch) {
     axios.get('/api/games/' + gameId).then(res => {
-      console.log('fetchongegame', FETCH_ONE_GAME);
       dispatch({ type: FETCH_ONE_GAME, payload: res.data });
     });
   };

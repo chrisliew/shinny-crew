@@ -57,16 +57,28 @@ class UpcomingGamesList extends Component {
       gameId: gameId
     };
 
-    console.log('gameid', gameId);
-
     if (!this.props.auth.games.includes(gameId)) {
-      console.log('is this working?');
       this.props.addGameUserRequest(gameUserId);
       alert('You have successfully registered for this game');
       window.location.reload();
     } else {
       alert('You have already registered for this game');
     }
+  };
+
+  handleOnDeleteGame = event => {
+    const userId = this.props.auth._id;
+    const gameId = this.props.selectedGame._id;
+
+    const gameUserId = {
+      userId: userId,
+      gameId: gameId
+    };
+
+    console.log('game-user-id', gameUserId);
+
+    this.props.deleteUserFromGame(gameUserId);
+    window.location.reload();
   };
 
   render() {
@@ -99,7 +111,6 @@ class UpcomingGamesList extends Component {
                   <div className='game-details-container'>
                     <p className='game-details'>
                       Date: {game.startDate} <br />
-                      GameID: {game._id} <br />
                       <br />
                       Arena: {game.arena} <br />
                       Address: {game.address} <br />
@@ -113,11 +124,11 @@ class UpcomingGamesList extends Component {
                     </p>
                     <div>
                       {this.props.auth &&
-                      this.props.auth.games.includes(game._id) ? (
+                      game.players.includes(this.props.auth._id) ? (
                         <div key={game._id}>
                           already registered
                           <br />
-                          <a href={`/games/${game._id}`}>
+                          <a href={`/game/${game._id}`}>
                             <button
                               className='delete-game-button'
                               onClick={this.handleSelectOneGame(game)}
@@ -140,6 +151,38 @@ class UpcomingGamesList extends Component {
                       )}
                     </div>
                   </div>
+                  <Modal open={openGame} onClose={this.onCloseGameModal} center>
+                    <div>
+                      <h1>Game Details</h1>
+                      Instructions: Bring gear, go to the game and bring a puck.{' '}
+                      <br />
+                      <p>
+                        Arena: {selectedGame.arena} <br />
+                        Address: {selectedGame.address} <br />
+                        date: {selectedGame.startDate} <br />
+                        Start Time: {selectedGame.startTime} <br />
+                        End Time: {selectedGame.endTime} <br />
+                        Available Spots: {selectedGame.slots} <br />
+                        Skill: {selectedGame.skill} <br />
+                      </p>
+                      {selectedGame.players &&
+                      selectedGame.players.includes(this.props.auth._id) ? (
+                        <button
+                          className='delete-game-button'
+                          onClick={this.handleOnDeleteGame}
+                        >
+                          Quit Game
+                        </button>
+                      ) : (
+                        <button
+                          className='book-game-button'
+                          onClick={this.handleOnSubmitBookGame}
+                        >
+                          Book Game
+                        </button>
+                      )}
+                    </div>
+                  </Modal>
                 </div>
               );
             }
@@ -149,32 +192,6 @@ class UpcomingGamesList extends Component {
             <LoginForm />
           </Modal>
           {/* Game details Modal */}
-          <Modal open={openGame} onClose={this.onCloseGameModal} center>
-            <div>
-              <h1>Game Details</h1>
-              Instructions: Bring gear, go to the game and bring a puck. <br />
-              <p>
-                Arena: {selectedGame.arena} <br />
-                Address: {selectedGame.address} <br />
-                date: {selectedGame.date} <br />
-                Start Time: {selectedGame.startTime} <br />
-                End Time: {selectedGame.endTime} <br />
-                Available Spots: {selectedGame.slots} <br />
-                Skill: {selectedGame.skill} <br />
-              </p>
-              {this.props.auth &&
-              !this.props.auth.games.includes(selectedGame._id) ? (
-                <button
-                  className='book-game-button'
-                  onClick={this.handleOnSubmitBookGame}
-                >
-                  Book Game
-                </button>
-              ) : (
-                <button className='delete-game-button'>Quit Game</button>
-              )}
-            </div>
-          </Modal>
         </div>
       </div>
     );

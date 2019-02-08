@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
 import UpcomingGamesList from './UpcomingGamesList';
+import { connect } from 'react-redux';
 
 class Home extends Component {
   render() {
@@ -22,4 +23,10 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps)(Home);

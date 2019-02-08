@@ -48,17 +48,9 @@ module.exports = app => {
 
   // PUT /api/games/ * Adds user to game, and game to user.  * PRIVATE
   app.put('/api/games/', (req, res) => {
-    User.findByIdAndUpdate(
-      // User ID
-      req.body.userId,
-      { $push: { games: req.body.gameId } },
-      { safe: true, upsert: true },
-      function(err, model) {
-        console.log(err);
-      }
-    );
+    console.log('req-body', req.body);
+
     Game.findByIdAndUpdate(
-      // Game ID
       req.body.gameId,
       { $push: { players: req.body.userId } },
       { safe: true, upsert: true },
@@ -68,7 +60,17 @@ module.exports = app => {
     );
   });
 
-  // DELETE /api/games/:id * Delete User from Game by Id * PRIVATE
+  // DELETE /api/game * Delete User from Game and Game from User by Id * PRIVATE
+  app.delete('/api/game/', (req, res) => {
+    Game.findByIdAndUpdate(
+      req.body.gameId,
+      { $pull: { players: req.body.userId } },
+      { safe: true, upsert: true },
+      function(err, model) {
+        console.log(err);
+      }
+    );
+  });
 
   // DELETE /api/games/:id * Delete Game by Id * ADMIN
 };
