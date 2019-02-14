@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Modal from 'react-responsive-modal';
 import LoginForm from './LoginForm';
+import ReactTable from 'react-table';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -105,10 +106,22 @@ class UpcomingGamesList extends Component {
                 <div className='game-container' key={game._id}>
                   <img
                     className='game-picture'
-                    src='/images/american-player.jpg'
+                    src='/images/game-day-icon.png'
                     alt='player'
                   />
                   <div className='game-details-container'>
+                    <div className='game-details-table'>
+                      <table>
+                        <tr>
+                          <td>Date:</td>
+                          <td>{game.startDate}</td>
+                        </tr>
+                        <tr>
+                          <td>Arena:</td>
+                          <td>{game.arena}</td>
+                        </tr>
+                      </table>
+                    </div>
                     <p className='game-details'>
                       Date: {game.startDate} <br />
                       <br />
@@ -116,9 +129,10 @@ class UpcomingGamesList extends Component {
                       Address: {game.address} <br />
                       Start Time: {game.startTime} <br />
                       End Time: {game.endTime} <br />
-                      Available Spots: {game.slots} <br />
+                      Available Forward Spots: {game.forwardSlots} <br />
+                      Available Defense Spots: {game.defenseSlots} <br />
+                      Available Goalie Spots: {game.goalieSlots} <br />
                       Skill: {game.skill} <br />
-                      Players:
                       <br />
                       <br />
                     </p>
@@ -162,9 +176,52 @@ class UpcomingGamesList extends Component {
                         date: {selectedGame.startDate} <br />
                         Start Time: {selectedGame.startTime} <br />
                         End Time: {selectedGame.endTime} <br />
-                        Available Spots: {selectedGame.slots} <br />
+                        Available Forward Spots: {
+                          selectedGame.forwardSlots
+                        }{' '}
+                        <br />
+                        Available Defense Spots: {
+                          selectedGame.defenseSlots
+                        }{' '}
+                        <br />
+                        Available Goalie Spots: {selectedGame.goalieSlots}{' '}
+                        <br />
                         Skill: {selectedGame.skill} <br />
                       </p>
+                      <div>
+                        Choose Your Position:
+                        <div>
+                          <input
+                            className='position-radio-button'
+                            id='forward'
+                            name='position'
+                            type='radio'
+                            value='Forward'
+                            checked
+                          />
+                          <label for='forward'>Forward</label>
+                        </div>
+                        <div>
+                          <input
+                            className='position-radio-button'
+                            id='defense'
+                            name='position'
+                            type='radio'
+                            value='Defense'
+                          />
+                          <label for='defense'>Defense</label>
+                        </div>
+                        <div>
+                          <input
+                            className='position-radio-button'
+                            id='goalie'
+                            name='position'
+                            type='radio'
+                            value='Goalie'
+                          />
+                          <label for='goalie'>Goalie</label>
+                        </div>
+                      </div>
                       {selectedGame.players &&
                       selectedGame.players.includes(this.props.auth._id) ? (
                         <button

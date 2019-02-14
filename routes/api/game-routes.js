@@ -39,7 +39,10 @@ module.exports = app => {
       endTime: moment(req.body.endTime)
         .tz('America/Los_Angeles')
         .format('LT'),
-      slots: req.body.slots,
+      forwardSlots: req.body.forwardSlots,
+      defenseSlots: req.body.defenseSlots,
+      goalieSlots: req.body.goalieSlots,
+      // slots: req.body.slots,
       skill: req.body.skill,
       players: []
     });

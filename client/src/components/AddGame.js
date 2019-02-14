@@ -13,7 +13,10 @@ class AddGame extends React.Component {
       startTime: new Date(),
       endTime: new Date(),
       endDate: new Date(),
-      slots: 20,
+      forwardSlots: 18,
+      defenseSlots: 8,
+      goalieSlots: 2,
+      // slots: 20,
       skill: 'Beginner',
       password: ''
     };
@@ -51,9 +54,21 @@ class AddGame extends React.Component {
     });
   };
 
-  handleOnChangeSlots = slots => {
+  handleOnChangeForwardSlots = forwardSlots => {
     this.setState({
-      slots: slots.value
+      forwardSlots: forwardSlots.value
+    });
+  };
+
+  handleOnChangeDefenseSlots = defenseSlots => {
+    this.setState({
+      defenseSlots: defenseSlots.value
+    });
+  };
+
+  handleOnChangeGoalieSlots = goalieSlots => {
+    this.setState({
+      goalieSlots: goalieSlots.value
     });
   };
 
@@ -72,11 +87,28 @@ class AddGame extends React.Component {
   handleOnSubmit = event => {
     event.preventDefault();
     this.props.addGameRequest(this.state);
+    alert('You have added this game');
   };
 
   render() {
     const arenaOptions = ['Arena 1', 'Arena 2', 'Arena 3', 'Arena 4'];
-    const slotsOptions = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+    const forwardSlotsOptions = [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ];
+    const defenseSlotsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const goalieSlotsOptions = [1, 2, 3, 4];
     const skillOptions = ['Beginner', 'Intermediate', 'Advanced'];
 
     return (
@@ -117,11 +149,23 @@ class AddGame extends React.Component {
           dateFormat='h:mm aa'
           timeCaption='Time'
         />
-        <h3>Select Slots</h3>
+        <h3>Select Forward Slots</h3>
         <Dropdown
-          options={slotsOptions}
-          onChange={this.handleOnChangeSlots}
-          placeholder={this.state.slots}
+          options={forwardSlotsOptions}
+          onChange={this.handleOnChangeForwardSlots}
+          placeholder={this.state.forwardSlots}
+        />
+        <h3>Select Defense Slots</h3>
+        <Dropdown
+          options={defenseSlotsOptions}
+          onChange={this.handleOnChangeDefenseSlots}
+          placeholder={this.state.defenseSlots}
+        />
+        <h3>Select Goalie Slots</h3>
+        <Dropdown
+          options={goalieSlotsOptions}
+          onChange={this.handleOnChangeGoalieSlots}
+          placeholder={this.state.goalieSlots}
         />
         <h3>Select Skill</h3>
         <Dropdown

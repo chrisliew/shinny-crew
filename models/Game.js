@@ -8,7 +8,9 @@ const gameSchema = new Schema({
   endDate: String,
   startTime: String,
   endTime: String,
-  slots: Number,
+  forwardSlots: Number,
+  defenseSlots: Number,
+  goalieSlots: Number,
   skill: String,
   players: Array
 });
