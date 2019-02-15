@@ -29,14 +29,19 @@ class Navbar extends Component {
           {this.props.auth ? (
             <a href='/landing'>
               {' '}
-              <h3>Shinny Crew</h3>
+              <h3>Shinny Squad</h3>
             </a>
           ) : (
-            <a href='/'>Shinny Crew</a>
+            <a href='/'>Shinny Squad</a>
           )}
           <div>
-            {/* <a href='/api/current_user'>Current User</a> */}
             <a href='/games/new'>Add Game</a>
+          </div>
+          <div>
+            <a href='/how-it-works'>How It Works</a>
+          </div>
+          <div>
+            <a href='/contact'>Contact</a>
           </div>
         </div>
         <div className='child'>{this.loggedInStatus()}</div>

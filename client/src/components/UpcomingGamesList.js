@@ -104,36 +104,50 @@ class UpcomingGamesList extends Component {
             if (new Date() < new Date(game.startDate)) {
               return (
                 <div className='game-container' key={game._id}>
-                  <img
-                    className='game-picture'
-                    src='/images/game-day-icon.png'
-                    alt='player'
-                  />
+                  ${game.price}
+                  <div className='image-container'>
+                    <img
+                      className='game-picture'
+                      src='/images/game-day-icon.png'
+                      alt='player'
+                    />
+                  </div>
                   <div className='game-details-container'>
                     <div className='game-details-table'>
                       <table>
                         <tr>
-                          <td>Date:</td>
+                          <td>{game.skill} Skill Game</td>
+                        </tr>
+                        <tr>
                           <td>{game.startDate}</td>
                         </tr>
                         <tr>
-                          <td>Arena:</td>
+                          <td>
+                            {game.startTime} to {game.endTime}
+                          </td>
+                        </tr>
+                        <tr>
                           <td>{game.arena}</td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <a
+                              target='_blank'
+                              rel='noopener noreferrer'
+                              href={`https://maps.google.com/?q=${game.arena}${
+                                game.address
+                              }`}
+                            >
+                              {game.address}
+                            </a>
+                          </td>
                         </tr>
                       </table>
                     </div>
                     <p className='game-details'>
-                      Date: {game.startDate} <br />
-                      <br />
-                      Arena: {game.arena} <br />
-                      Address: {game.address} <br />
-                      Start Time: {game.startTime} <br />
-                      End Time: {game.endTime} <br />
                       Available Forward Spots: {game.forwardSlots} <br />
                       Available Defense Spots: {game.defenseSlots} <br />
                       Available Goalie Spots: {game.goalieSlots} <br />
-                      Skill: {game.skill} <br />
-                      <br />
                       <br />
                     </p>
                     <div>

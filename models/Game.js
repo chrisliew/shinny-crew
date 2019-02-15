@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const gameSchema = new Schema({
   arena: String,
   address: String,
+  price: Number,
   startDate: String,
   endDate: String,
   startTime: String,

@@ -26,7 +26,8 @@ module.exports = app => {
   app.post('/api/games/', (req, res) => {
     const newGame = new Game({
       arena: req.body.arena,
-      address: '123 fake street',
+      address: req.body.address,
+      price: req.body.price,
       startDate: moment(req.body.startDate)
         .tz('America/Los_Angeles')
         .format('L'),
@@ -42,7 +43,6 @@ module.exports = app => {
       forwardSlots: req.body.forwardSlots,
       defenseSlots: req.body.defenseSlots,
       goalieSlots: req.body.goalieSlots,
-      // slots: req.body.slots,
       skill: req.body.skill,
       players: []
     });

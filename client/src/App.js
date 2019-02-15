@@ -9,6 +9,8 @@ import Navbar from './components/Navbar';
 import Landing from './components/Landing';
 import UserGames from './components/UserGames';
 import Game from './components/Game';
+import HowItWorks from './components/HowItWorks';
+import Contact from './components/Contact';
 
 import './App.scss';
 import 'react-dropdown/style.css';
@@ -27,6 +29,8 @@ class App extends Component {
           <Route exact path='/games/new' component={AddGame} />
           <Route exact path='/landing' component={Landing} />
           <Route exact path='/games' component={UserGames} />
+          <Route exact path='/how-it-works' component={HowItWorks} />
+          <Route exact path='/contact' component={Contact} />
           <Route path='/game/:id' component={Game} />
         </div>
       </Router>

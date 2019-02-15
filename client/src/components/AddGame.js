@@ -8,7 +8,9 @@ class AddGame extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arena: 'Select arena',
+      arena: 'Select Arena',
+      address: 'Select Address',
+      price: 18,
       startDate: new Date(),
       startTime: new Date(),
       endTime: new Date(),
@@ -16,7 +18,6 @@ class AddGame extends React.Component {
       forwardSlots: 18,
       defenseSlots: 8,
       goalieSlots: 2,
-      // slots: 20,
       skill: 'Beginner',
       password: ''
     };
@@ -25,6 +26,18 @@ class AddGame extends React.Component {
   handleOnChangeArena = arena => {
     this.setState({
       arena: arena.value
+    });
+  };
+
+  handleOnChangeAddress = address => {
+    this.setState({
+      address: address.value
+    });
+  };
+
+  handleOnChangePrice = price => {
+    this.setState({
+      price: price.value
     });
   };
 
@@ -91,7 +104,30 @@ class AddGame extends React.Component {
   };
 
   render() {
-    const arenaOptions = ['Arena 1', 'Arena 2', 'Arena 3', 'Arena 4'];
+    const arenaOptions = ['Killarney Rink', 'Sunset Arena', 'Trout Lake Rink'];
+    const addresses = [
+      '6260 Killarney St, Vancouver, BC',
+      '390 E 51st Ave, Vancouver, BC',
+      '3360 Victoria Dr, Vancouver, BC'
+    ];
+    const prices = [
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25
+    ];
     const forwardSlotsOptions = [
       12,
       13,
@@ -118,6 +154,18 @@ class AddGame extends React.Component {
           options={arenaOptions}
           onChange={this.handleOnChangeArena}
           placeholder={this.state.arena}
+        />
+        <h3>Select Address</h3>
+        <Dropdown
+          options={addresses}
+          onChange={this.handleOnChangeAddress}
+          placeholder={this.state.address}
+        />
+        <h3>Select Price</h3>
+        <Dropdown
+          options={prices}
+          onChange={this.handleOnChangePrice}
+          placeholder={this.state.price}
         />
         <h3>Select Start Date</h3>
         <DatePicker

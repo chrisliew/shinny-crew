@@ -45,16 +45,26 @@
   border-radius: 10px;
 }
 
+.game-container .image-container {
+  background-color: $primary-color;
+  padding: 1em;
+}
+
 .game-picture {
-  width: 100%;
+  width: 50%;
   height: 8em;
-  border-radius: 10px 10px 0 0;
+  border-radius: 50%;
   background-color: white;
   padding: 1em;
 }
 
 .game-details-container {
   margin: auto;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .game-details {
