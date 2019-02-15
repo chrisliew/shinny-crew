@@ -2,7 +2,7 @@
 
 ## :round_pushpin: Summary :round_pushpin:
 
-Shinny Squad is a hockey match scheduler for informal games known as shinny. It matches users with similar skill levels and arranges games for the players at a chosen arena. Hosted on: https://shinny-crew.herokuapp.com/
+Shinny Squad is a hockey match scheduler for informal games known as shinny. It matches users with similar skill levels and arranges games for the players at a chosen arena. Hosted on: https://shinny-squad.herokuapp.com/
 
 ## Tech Stack
 
