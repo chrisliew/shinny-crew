@@ -16,13 +16,6 @@ class UserGames extends Component {
 
   handleOnSubmit = event => {
     event.preventDefault();
-    const gameId = event.target.value;
-    const userId = this.props.auth._id;
-
-    const gameUserId = {
-      gameId: gameId,
-      userId: userId
-    };
   };
 
   render() {
@@ -56,6 +49,8 @@ class UserGames extends Component {
             </td>
           </tr>
         );
+      } else {
+        return null;
       }
     });
 

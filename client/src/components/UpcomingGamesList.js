@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Modal from 'react-responsive-modal';
 import LoginForm from './LoginForm';
-import ReactTable from 'react-table';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -12,7 +11,9 @@ class UpcomingGamesList extends Component {
       open: false,
       gameId: '',
       userId: '',
-      openGame: false
+      openGame: false,
+      position: 'forward',
+      gameUsersId: []
     };
   }
   componentDidMount() {
@@ -38,7 +39,6 @@ class UpcomingGamesList extends Component {
   handleSelectOneGame = game => event => {
     event.preventDefault();
     const gameId = event.target.value;
-    const userId = this.props.auth._id;
 
     this.props.fetchOneGame(gameId);
 
@@ -53,13 +53,14 @@ class UpcomingGamesList extends Component {
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
 
-    const gameUserId = {
+    const gameUserIdPosition = {
       userId: userId,
-      gameId: gameId
+      gameId: gameId,
+      position: this.state.position
     };
 
     if (!this.props.auth.games.includes(gameId)) {
-      this.props.addGameUserRequest(gameUserId);
+      this.props.addGameUserRequest(gameUserIdPosition);
       alert('You have successfully registered for this game');
       window.location.reload();
     } else {
@@ -82,6 +83,12 @@ class UpcomingGamesList extends Component {
     window.location.reload();
   };
 
+  handleOnChangePosition = event => {
+    this.setState({
+      position: event.target.value
+    });
+  };
+
   render() {
     const sortGames = (a, b) => {
       if (a.startDate < b.startDate) {
@@ -97,15 +104,15 @@ class UpcomingGamesList extends Component {
     const selectedGame = this.props.selectedGame;
 
     return (
-      <div className='upcoming-games'>
+      <div id='upcoming-games' className='upcoming-games'>
         <h2>Upcoming Games</h2>
         <div className='games'>
           {games.map(game => {
             if (new Date() < new Date(game.startDate)) {
               return (
                 <div className='game-container' key={game._id}>
-                  ${game.price}
                   <div className='image-container'>
+                    ${game.price}
                     <img
                       className='game-picture'
                       src='/images/game-day-icon.png'
@@ -115,33 +122,35 @@ class UpcomingGamesList extends Component {
                   <div className='game-details-container'>
                     <div className='game-details-table'>
                       <table>
-                        <tr>
-                          <td>{game.skill} Skill Game</td>
-                        </tr>
-                        <tr>
-                          <td>{game.startDate}</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            {game.startTime} to {game.endTime}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>{game.arena}</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <a
-                              target='_blank'
-                              rel='noopener noreferrer'
-                              href={`https://maps.google.com/?q=${game.arena}${
-                                game.address
-                              }`}
-                            >
-                              {game.address}
-                            </a>
-                          </td>
-                        </tr>
+                        <tbody>
+                          <tr>
+                            <td>{game.skill} Skill Game</td>
+                          </tr>
+                          <tr>
+                            <td>{game.startDate}</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              {game.startTime} to {game.endTime}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>{game.arena}</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <a
+                                target='_blank'
+                                rel='noopener noreferrer'
+                                href={`https://maps.google.com/?q=${
+                                  game.arena
+                                }${game.address}`}
+                              >
+                                {game.address}
+                              </a>
+                            </td>
+                          </tr>
+                        </tbody>
                       </table>
                     </div>
                     <p className='game-details'>
@@ -152,7 +161,9 @@ class UpcomingGamesList extends Component {
                     </p>
                     <div>
                       {this.props.auth &&
-                      game.players.includes(this.props.auth._id) ? (
+                      game.players
+                        .map(player => player.userID)
+                        .includes(this.props.auth._id) ? (
                         <div key={game._id}>
                           already registered
                           <br />
@@ -204,37 +215,31 @@ class UpcomingGamesList extends Component {
                       </p>
                       <div>
                         Choose Your Position:
-                        <div>
-                          <input
-                            className='position-radio-button'
-                            id='forward'
-                            name='position'
-                            type='radio'
-                            value='Forward'
-                            checked
-                          />
-                          <label for='forward'>Forward</label>
-                        </div>
-                        <div>
-                          <input
-                            className='position-radio-button'
-                            id='defense'
-                            name='position'
-                            type='radio'
-                            value='Defense'
-                          />
-                          <label for='defense'>Defense</label>
-                        </div>
-                        <div>
-                          <input
-                            className='position-radio-button'
-                            id='goalie'
-                            name='position'
-                            type='radio'
-                            value='Goalie'
-                          />
-                          <label for='goalie'>Goalie</label>
-                        </div>
+                        <br />
+                        <input
+                          type='radio'
+                          name='position'
+                          value='forward'
+                          onChange={this.handleOnChangePosition}
+                          defaultChecked
+                        />{' '}
+                        Forward
+                        <br />
+                        <input
+                          type='radio'
+                          name='position'
+                          value='defense'
+                          onChange={this.handleOnChangePosition}
+                        />{' '}
+                        Defense
+                        <br />
+                        <input
+                          type='radio'
+                          name='position'
+                          value='goalie'
+                          onChange={this.handleOnChangePosition}
+                        />{' '}
+                        Goalie
                       </div>
                       {selectedGame.players &&
                       selectedGame.players.includes(this.props.auth._id) ? (
@@ -257,7 +262,9 @@ class UpcomingGamesList extends Component {
                 </div>
               );
             }
+            return null;
           })}
+
           {/* Login Modal  */}
           <Modal open={open} onClose={this.onCloseModal} center>
             <LoginForm />

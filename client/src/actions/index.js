@@ -25,11 +25,12 @@ export const addGameRequest = gameDetails => {
   };
 };
 
+// Adds user to game ID
 export const addGameUserRequest = gameUserId => {
   return dispatch => {
     return axios.put('/api/games', gameUserId).then(res => {
       dispatch({ type: ADD_GAME_USER_REQUEST, payload: res.data });
-      console.log('Add user and game Id');
+      console.log('Add userId to Game');
     });
   };
 };
