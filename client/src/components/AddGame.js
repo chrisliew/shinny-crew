@@ -149,84 +149,119 @@ class AddGame extends React.Component {
 
     return (
       <div className='add-game'>
-        <h3>Select Arena</h3>
-        <Dropdown
-          options={arenaOptions}
-          onChange={this.handleOnChangeArena}
-          placeholder={this.state.arena}
-        />
-        <h3>Select Address</h3>
-        <Dropdown
-          options={addresses}
-          onChange={this.handleOnChangeAddress}
-          placeholder={this.state.address}
-        />
-        <h3>Select Price</h3>
-        <Dropdown
-          options={prices}
-          onChange={this.handleOnChangePrice}
-          placeholder={this.state.price}
-        />
-        <h3>Select Start Date</h3>
-        <DatePicker
-          selected={this.state.startDate}
-          onChange={this.handleStartDateChange}
-        />
-        <h3>Select Start Time</h3>
-        <DatePicker
-          selected={this.state.startTime}
-          onChange={this.handleStartTimeChange}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals={5}
-          dateFormat='h:mm aa'
-          timeCaption='Time'
-        />
-        <h3>Select End Date</h3>
-        <DatePicker
-          selected={this.state.endDate}
-          onChange={this.handleEndDateChange}
-        />
-        <h3>Select End Time</h3>
-        <DatePicker
-          selected={this.state.endTime}
-          onChange={this.handleEndTimeChange}
-          showTimeSelect
-          showTimeSelectOnly
-          timeIntervals={5}
-          dateFormat='h:mm aa'
-          timeCaption='Time'
-        />
-        <h3>Select Forward Slots</h3>
-        <Dropdown
-          options={forwardSlotsOptions}
-          onChange={this.handleOnChangeForwardSlots}
-          placeholder={this.state.forwardSlots}
-        />
-        <h3>Select Defense Slots</h3>
-        <Dropdown
-          options={defenseSlotsOptions}
-          onChange={this.handleOnChangeDefenseSlots}
-          placeholder={this.state.defenseSlots}
-        />
-        <h3>Select Goalie Slots</h3>
-        <Dropdown
-          options={goalieSlotsOptions}
-          onChange={this.handleOnChangeGoalieSlots}
-          placeholder={this.state.goalieSlots}
-        />
-        <h3>Select Skill</h3>
-        <Dropdown
-          options={skillOptions}
-          onChange={this.handleOnChangeSkill}
-          placeholder={this.state.skill}
-        />
-        <h3>Password</h3>
-        <input
-          type='password'
-          name='password'
-          onChange={this.handleOnChangePassword}
-        />
+        <div className='add-game-child'>
+          <h3>Arena</h3>
+          <Dropdown
+            options={arenaOptions}
+            onChange={this.handleOnChangeArena}
+            placeholder={this.state.arena}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Address</h3>
+          <Dropdown
+            options={addresses}
+            onChange={this.handleOnChangeAddress}
+            placeholder={this.state.address}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Price</h3>
+          <Dropdown
+            options={prices}
+            onChange={this.handleOnChangePrice}
+            placeholder={this.state.price}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Start Date</h3>
+          <DatePicker
+            selected={this.state.startDate}
+            onChange={this.handleStartDateChange}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Start Time</h3>
+          <DatePicker
+            selected={this.state.startTime}
+            onChange={this.handleStartTimeChange}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={5}
+            dateFormat='h:mm aa'
+            timeCaption='Time'
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>End Date</h3>
+          <DatePicker
+            selected={this.state.endDate}
+            onChange={this.handleEndDateChange}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>End Time</h3>
+          <DatePicker
+            selected={this.state.endTime}
+            onChange={this.handleEndTimeChange}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={5}
+            dateFormat='h:mm aa'
+            timeCaption='Time'
+          />
+        </div>
+        <br />
+        <div className='add-game-child'>
+          <h3>Forward Slots</h3>
+          <Dropdown
+            options={forwardSlotsOptions}
+            onChange={this.handleOnChangeForwardSlots}
+            placeholder={this.state.forwardSlots}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Defense Slots</h3>
+          <Dropdown
+            options={defenseSlotsOptions}
+            onChange={this.handleOnChangeDefenseSlots}
+            placeholder={this.state.defenseSlots}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Goalie Slots</h3>
+          <Dropdown
+            options={goalieSlotsOptions}
+            onChange={this.handleOnChangeGoalieSlots}
+            placeholder={this.state.goalieSlots}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Skill</h3>
+          <Dropdown
+            options={skillOptions}
+            onChange={this.handleOnChangeSkill}
+            placeholder={this.state.skill}
+          />
+        </div>
+
+        <div className='add-game-child'>
+          <h3>Password</h3>
+          <input
+            type='password'
+            name='password'
+            onChange={this.handleOnChangePassword}
+          />
+        </div>
         <button className='book-game-button' onClick={this.handleOnSubmit}>
           Add Game
         </button>

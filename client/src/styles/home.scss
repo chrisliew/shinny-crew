@@ -36,31 +36,35 @@
 }
 
 .game-container {
-  background: lightgrey;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('/images/pond-rink.jpg');
+  background-size: cover;
   width: 20em;
   min-height: 22em;
   border: 2px solid lightgrey;
   margin-bottom: 1em;
   padding-bottom: 2em;
   border-radius: 10px;
+  color: white;
 }
 
 .game-container .image-container {
   background-color: $primary-color;
   padding: 1em 0 2em 0;
   -webkit-clip-path: polygon(1% 0, 100% 0%, 100% 89%, 0% 100%);
-  clip-path: polygon(1% 0, 100% 0%, 100% 80%, 0% 100%);
+  clip-path: polygon(0% 0, 100% 0%, 100% 80%, 0% 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url('/images/connor.jpg');
 }
 
 .game-picture {
-  width: 50%;
   height: 8em;
-  border-radius: 50%;
-  background-color: white;
-  padding: 1em;
+}
+
+.game-price {
+  font-size: 2em;
 }
 
 .game-details-container {
@@ -70,6 +74,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.game-details-container .skill {
+  font-size: 1.3em;
+}
+
+.game-details-container .slots {
+  color: red;
+  font-size: 1.3em;
 }
 
 .game-details {

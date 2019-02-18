@@ -112,30 +112,26 @@ class UpcomingGamesList extends Component {
               return (
                 <div className='game-container' key={game._id}>
                   <div className='image-container'>
-                    ${game.price}
-                    <img
-                      className='game-picture'
-                      src='/images/game-day-icon.png'
-                      alt='player'
-                    />
+                    <div className='game-price'>${game.price}</div>
+                    <img className='game-picture' alt='' />
                   </div>
                   <div className='game-details-container'>
                     <div className='game-details-table'>
                       <table>
                         <tbody>
-                          <tr>
-                            <td>{game.skill} Skill Game</td>
+                          <tr className='skill'>
+                            <td>{game.skill} Skill</td>
                           </tr>
                           <tr>
-                            <td>{game.startDate}</td>
+                            <td>Date: {game.startDate}</td>
                           </tr>
                           <tr>
                             <td>
-                              {game.startTime} to {game.endTime}
+                              Time: {game.startTime} to {game.endTime}
                             </td>
                           </tr>
                           <tr>
-                            <td>{game.arena}</td>
+                            <td>Location: {game.arena}</td>
                           </tr>
                           <tr>
                             <td>
@@ -154,9 +150,12 @@ class UpcomingGamesList extends Component {
                       </table>
                     </div>
                     <p className='game-details'>
-                      Available Forward Spots: {game.forwardSlots} <br />
-                      Available Defense Spots: {game.defenseSlots} <br />
-                      Available Goalie Spots: {game.goalieSlots} <br />
+                      Forward Spots Remaining:{' '}
+                      <span className='slots'>{game.forwardSlots}</span> <br />
+                      Defense Spots Remaining:{' '}
+                      <span className='slots'>{game.defenseSlots}</span> <br />
+                      Goalie Spots Remaining:{' '}
+                      <span className='slots'>{game.goalieSlots}</span> <br />
                       <br />
                     </p>
                     <div>
@@ -165,7 +164,7 @@ class UpcomingGamesList extends Component {
                         .map(player => player.userID)
                         .includes(this.props.auth._id) ? (
                         <div key={game._id}>
-                          already registered
+                          Registered
                           <br />
                           <a href={`/game/${game._id}`}>
                             <button
