@@ -88,3 +88,21 @@
 .game-details {
   margin: 1em auto 0 auto;
 }
+
+.choose-game-modal {
+  height: 500em;
+}
+
+.game-details-modal {
+  margin: 1em;
+}
+
+.game-details-modal h1 {
+  margin-bottom: 0.5em;
+  border-bottom: 2px solid black;
+}
+
+.upcoming-games .position {
+  color: red;
+  padding-bottom: 1em;
+}

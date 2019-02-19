@@ -164,7 +164,15 @@ class UpcomingGamesList extends Component {
                         .map(player => player.userID)
                         .includes(this.props.auth._id) ? (
                         <div key={game._id}>
-                          Registered
+                          Registered as a{' '}
+                          <span className='position'>
+                            {
+                              game.players[
+                                game.players.findIndex(x => x.userID)
+                              ].position
+                            }
+                          </span>
+                          <br />
                           <br />
                           <a href={`/game/${game._id}`}>
                             <button
@@ -189,10 +197,15 @@ class UpcomingGamesList extends Component {
                       )}
                     </div>
                   </div>
-                  <Modal open={openGame} onClose={this.onCloseGameModal} center>
-                    <div>
+                  <Modal
+                    className='choose-game-modal'
+                    open={openGame}
+                    onClose={this.onCloseGameModal}
+                    center
+                  >
+                    <div className='game-details-modal'>
                       <h1>Game Details</h1>
-                      Instructions: Bring gear, go to the game and bring a puck.{' '}
+                      Instructions: Bring gear, and go to changeroom #1 <br />
                       <br />
                       <p>
                         Arena: {selectedGame.arena} <br />
@@ -200,6 +213,7 @@ class UpcomingGamesList extends Component {
                         date: {selectedGame.startDate} <br />
                         Start Time: {selectedGame.startTime} <br />
                         End Time: {selectedGame.endTime} <br />
+                        <br />
                         Available Forward Spots: {
                           selectedGame.forwardSlots
                         }{' '}
@@ -211,6 +225,7 @@ class UpcomingGamesList extends Component {
                         Available Goalie Spots: {selectedGame.goalieSlots}{' '}
                         <br />
                         Skill: {selectedGame.skill} <br />
+                        <br />
                       </p>
                       <div>
                         Choose Your Position:
@@ -241,7 +256,9 @@ class UpcomingGamesList extends Component {
                         Goalie
                       </div>
                       {selectedGame.players &&
-                      selectedGame.players.includes(this.props.auth._id) ? (
+                      selectedGame.players
+                        .map(player => player.userID)
+                        .includes(this.props.auth._id) ? (
                         <button
                           className='delete-game-button'
                           onClick={this.handleOnDeleteGame}

@@ -51,8 +51,6 @@ module.exports = app => {
 
   // PUT /api/games/ * Adds user to game  * PRIVATE
   app.put('/api/games/', (req, res) => {
-    console.log('req-body', req.body);
-
     Game.findByIdAndUpdate(
       req.body.gameId,
       {
@@ -95,6 +93,7 @@ module.exports = app => {
 
   // DELETE /api/game * Delete User from Game and Game from User by Id * PRIVATE
   app.delete('/api/game/', (req, res) => {
+    console.log('delete route req.body', req.body);
     Game.findByIdAndUpdate(
       req.body.gameId,
       { $pull: { players: req.body.userId } },
