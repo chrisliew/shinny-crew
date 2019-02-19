@@ -100,9 +100,11 @@
 .game-details-modal h1 {
   margin-bottom: 0.5em;
   border-bottom: 2px solid black;
+  color: $primary-color;
 }
 
-.upcoming-games .position {
+.upcoming-games .position,
+.game-details-modal .position {
   color: red;
-  padding-bottom: 1em;
+  margin-bottom: 1em;
 }

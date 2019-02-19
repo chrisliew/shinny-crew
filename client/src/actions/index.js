@@ -35,9 +35,9 @@ export const addGameUserRequest = gameUserId => {
   };
 };
 
-export const deleteUserFromGame = gameUserId => {
+export const deleteUserFromGame = gameUserIdPosition => {
   return dispatch => {
-    return axios.delete('/api/game', { data: gameUserId }).then(res => {
+    return axios.delete('/api/game', { data: gameUserIdPosition }).then(res => {
       dispatch({ type: DELETE_GAME_FROM_USER, payload: res.data });
       console.log('Deleted One Game from User');
     });

@@ -91,17 +91,46 @@ module.exports = app => {
     }
   });
 
-  // DELETE /api/game * Delete User from Game and Game from User by Id * PRIVATE
+  // DELETE /api/game * Delete User from Game and Add position back * PRIVATE
   app.delete('/api/game/', (req, res) => {
     console.log('delete route req.body', req.body);
     Game.findByIdAndUpdate(
       req.body.gameId,
-      { $pull: { players: req.body.userId } },
+      {
+        $pull: {
+          players: { userID: req.body.userId }
+        }
+      },
       { safe: true, upsert: true },
       function(err, model) {
         console.log(err);
       }
     );
+    if (req.body.position === 'forward') {
+      Game.findByIdAndUpdate(
+        req.body.gameId,
+        { $inc: { forwardSlots: +1 } },
+        function(err, model) {
+          console.log(err);
+        }
+      );
+    } else if (req.body.position === 'defense') {
+      Game.findByIdAndUpdate(
+        req.body.gameId,
+        { $inc: { defenseSlots: +1 } },
+        function(err, model) {
+          console.log(err);
+        }
+      );
+    } else if (req.body.position === 'goalie') {
+      Game.findByIdAndUpdate(
+        req.body.gameId,
+        { $inc: { goalieSlots: +1 } },
+        function(err, model) {
+          console.log(err);
+        }
+      );
+    }
   });
 
   // DELETE /api/games/:id * Delete Game by Id * ADMIN

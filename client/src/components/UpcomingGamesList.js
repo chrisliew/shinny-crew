@@ -68,18 +68,18 @@ class UpcomingGamesList extends Component {
     }
   };
 
-  handleOnDeleteGame = event => {
+  handleOnDeleteGame = position => event => {
+    event.preventDefault();
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
 
-    const gameUserId = {
+    const gameUserIdPosition = {
       userId: userId,
-      gameId: gameId
+      gameId: gameId,
+      position: position
     };
 
-    console.log('game-user-id', gameUserId);
-
-    this.props.deleteUserFromGame(gameUserId);
+    this.props.deleteUserFromGame(gameUserIdPosition);
     window.location.reload();
   };
 
@@ -210,7 +210,7 @@ class UpcomingGamesList extends Component {
                       <p>
                         Arena: {selectedGame.arena} <br />
                         Address: {selectedGame.address} <br />
-                        date: {selectedGame.startDate} <br />
+                        Date: {selectedGame.startDate} <br />
                         Start Time: {selectedGame.startTime} <br />
                         End Time: {selectedGame.endTime} <br />
                         <br />
@@ -227,51 +227,71 @@ class UpcomingGamesList extends Component {
                         Skill: {selectedGame.skill} <br />
                         <br />
                       </p>
-                      <div>
-                        Choose Your Position:
-                        <br />
-                        <input
-                          type='radio'
-                          name='position'
-                          value='forward'
-                          onChange={this.handleOnChangePosition}
-                          defaultChecked
-                        />{' '}
-                        Forward
-                        <br />
-                        <input
-                          type='radio'
-                          name='position'
-                          value='defense'
-                          onChange={this.handleOnChangePosition}
-                        />{' '}
-                        Defense
-                        <br />
-                        <input
-                          type='radio'
-                          name='position'
-                          value='goalie'
-                          onChange={this.handleOnChangePosition}
-                        />{' '}
-                        Goalie
-                      </div>
                       {selectedGame.players &&
                       selectedGame.players
                         .map(player => player.userID)
                         .includes(this.props.auth._id) ? (
-                        <button
-                          className='delete-game-button'
-                          onClick={this.handleOnDeleteGame}
-                        >
-                          Quit Game
-                        </button>
+                        <div>
+                          Registered as{' '}
+                          <span className='position'>
+                            {
+                              selectedGame.players[
+                                selectedGame.players.findIndex(x => x.userID)
+                              ].position
+                            }
+                          </span>
+                          <br />
+                          <br />
+                          <div>
+                            <button
+                              className='delete-game-button'
+                              onClick={this.handleOnDeleteGame(
+                                selectedGame.players[
+                                  selectedGame.players.findIndex(x => x.userID)
+                                ].position
+                              )}
+                            >
+                              Quit Game
+                            </button>
+                          </div>
+                        </div>
                       ) : (
-                        <button
-                          className='book-game-button'
-                          onClick={this.handleOnSubmitBookGame}
-                        >
-                          Book Game
-                        </button>
+                        <div>
+                          Choose Your Position:
+                          <br />
+                          <input
+                            type='radio'
+                            name='position'
+                            value='forward'
+                            onChange={this.handleOnChangePosition}
+                            defaultChecked
+                          />{' '}
+                          Forward
+                          <br />
+                          <input
+                            type='radio'
+                            name='position'
+                            value='defense'
+                            onChange={this.handleOnChangePosition}
+                          />{' '}
+                          Defense
+                          <br />
+                          <input
+                            type='radio'
+                            name='position'
+                            value='goalie'
+                            onChange={this.handleOnChangePosition}
+                          />{' '}
+                          Goalie
+                          <div>
+                            <button
+                              className='book-game-button'
+                              onClick={this.handleOnSubmitBookGame}
+                            >
+                              Book Game
+                            </button>
+                          </div>
+                        </div>
                       )}
                     </div>
                   </Modal>
