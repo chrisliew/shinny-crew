@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import LoginForm from './LoginForm';
 import UpcomingGamesList from './UpcomingGamesList';
+import HowItWorks from './HowItWorks';
 import { connect } from 'react-redux';
+import { Button } from 'reactstrap';
 
 class Home extends Component {
   handleOnClickViewGames = () => {
@@ -14,19 +16,20 @@ class Home extends Component {
       <div className='home'>
         <div className='home-welcome'>
           <div className='box business-description'>
-            Join a Drop In Shinny In Vancouver
+            Join a Drop In Hockey Game In Vancouver
             <br />
-            <button
-              className='welcome-button'
-              onClick={this.handleOnClickViewGames}
-            >
-              View Games Now
-            </button>
-          </div>
-          <div className='box'>
-            <LoginForm />
+            <div>
+              <Button
+                onClick={this.handleOnClickViewGames}
+                size='lg'
+                color='success'
+              >
+                View Games Now
+              </Button>
+            </div>
           </div>
         </div>
+        <HowItWorks />
         <UpcomingGamesList />
       </div>
     );

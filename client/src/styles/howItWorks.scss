@@ -1,12 +1,27 @@
 .how-it-works {
   text-align: center;
+  padding-bottom: 3em;
+  color: black;
 }
 
 .how-it-works h1 {
-  margin: 1em 0 1em 0;
+  padding: 1em 0 1em 0;
 }
 
-.how-it-works .description {
-  font-size: 1.3em;
-  margin-bottom: 2em;
+.how-it-works .container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.how-it-works .container .item {
+  width: 12em;
+  height: 12em;
+  margin-top: 1em;
+}
+
+.how-it-works .container .item img {
+  width: 5em;
+  height: 5em;
+  margin-bottom: 1em;
 }

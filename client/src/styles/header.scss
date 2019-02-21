@@ -1,0 +1,31 @@
+@import './_colors';
+
+.header {
+  background: $primary-color;
+  border-bottom: 2px solid black;
+  text-align: center;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.navbar div {
+  padding: 0.5em 0.5em 0.5em 0.5em;
+}
+
+// .navbar a {
+//   margin-left: 1em;
+//   text-decoration: none;
+// }
+
+.navbar-logged-in {
+  display: flex;
+  // list-style-type: none;
+  align-items: center;
+}
+
+.header button {
+  margin-left: 1em;
+}

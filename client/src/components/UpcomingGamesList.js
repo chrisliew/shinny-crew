@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Modal from 'react-responsive-modal';
 import LoginForm from './LoginForm';
+import Payments from './Payments';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -78,7 +79,6 @@ class UpcomingGamesList extends Component {
       gameId: gameId,
       position: position
     };
-
     this.props.deleteUserFromGame(gameUserIdPosition);
     window.location.reload();
   };
@@ -284,6 +284,7 @@ class UpcomingGamesList extends Component {
                           />{' '}
                           Goalie
                           <div>
+                            <Payments onClick={this.handleOnSubmitBookGame} />
                             <button
                               className='book-game-button'
                               onClick={this.handleOnSubmitBookGame}

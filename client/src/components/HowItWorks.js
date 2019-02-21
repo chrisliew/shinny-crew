@@ -6,16 +6,22 @@ class HowItWorks extends Component {
       <div className='how-it-works'>
         <h1>How It Works</h1>
         <div>
-          <p className='description'>
-            1. Sign into your account using Facebook or Google <br />
-            <br />
-            2. Select a game at your skill level that you want to join <br />
-            <br />
-            3. Pay with a credit card to book the game. <br />
-            <br />
-            4. Show up at the time and arena shown with your gear and ready to
-            play!
-          </p>
+          <div className='container'>
+            <div className='item'>
+              <img src='/images/puck.png' alt='item-icon' />
+              <div>
+                Find a game at your skill level and choose your position{' '}
+              </div>
+            </div>
+            <div className='item'>
+              <img src='/images/debit-card.png' alt='item-icon' />
+              <div>Pay online. No more fumbling with cash at the game.</div>
+            </div>
+            <div className='item'>
+              <img src='/images/hockey-sticks.png' alt='item-icon' />
+              <div>Show up with your gear and ready to play!</div>
+            </div>
+          </div>
         </div>
         <a href='/landing'>
           <button className='book-game-button'>View Upcoming Games</button>

@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Home from './components/Home';
 import AddGame from './components/AddGame';
-import Navbar from './components/Navbar';
+import Header from './components/Header';
 import Landing from './components/Landing';
 import UserGames from './components/UserGames';
 import Game from './components/Game';
@@ -26,7 +26,7 @@ class App extends Component {
     return (
       <Router>
         <div className='App'>
-          <Navbar />
+          <Header />
           <Route exact path='/' component={Home} />
           <Route exact path='/games/new' component={AddGame} />
           <Route exact path='/landing' component={Landing} />
