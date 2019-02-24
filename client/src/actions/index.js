@@ -5,7 +5,8 @@ import {
   ADD_GAME_USER_REQUEST,
   FETCH_GAMES,
   FETCH_ONE_GAME,
-  DELETE_GAME_FROM_USER
+  DELETE_GAME_FROM_USER,
+  FETCH_PAYMENT
 } from './types';
 
 export const fetchUser = () => {
@@ -58,4 +59,10 @@ export const fetchGames = () => {
       dispatch({ type: FETCH_GAMES, payload: res.data });
     });
   };
+};
+
+export const handleToken = token => async dispatch => {
+  console.log('handletoken', token);
+  const res = await axios.post('/api/stripe', token);
+  dispatch({ type: FETCH_PAYMENT, payload: res.data });
 };

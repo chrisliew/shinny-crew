@@ -21,15 +21,21 @@ class UserGames extends Component {
   render() {
     const sortGames = (a, b) => {
       if (a.startDate < b.startDate) {
-        return -1;
-      } else if (a.startDate > b.startDate) {
         return 1;
+      } else if (a.startDate > b.startDate) {
+        return -1;
       }
       return 0;
     };
     const games = this.props.games.sort(sortGames);
-    const gamesList = games.map(game => {
-      if (game.players.includes(this.props.auth._id)) {
+    console.log('games', this.props.games);
+
+    // db.games.find({userID})
+
+    const gamesList = games.map((game, index) => {
+      if (
+        game.players.filter(player => player.userID === this.props.auth._id)
+      ) {
         return (
           <tr>
             <td>{game.startDate}</td>

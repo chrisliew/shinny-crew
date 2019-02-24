@@ -4,6 +4,7 @@ const moment = require('moment-timezone');
 const Game = require('../../models/Game');
 const User = require('../../models/User');
 const keys = require('../../config/keys');
+const stripe = require('stripe')(keys.stripeSecretKey);
 
 // GET /api/games *  Returns list of games for current user. * PRIVATE
 
@@ -92,20 +93,17 @@ module.exports = app => {
   });
 
   // DELETE /api/game * Delete User from Game and Add position back * PRIVATE
-  app.delete('/api/game/', (req, res) => {
-    console.log('delete route req.body', req.body);
-    Game.findByIdAndUpdate(
-      req.body.gameId,
-      {
-        $pull: {
-          players: { userID: req.body.userId }
-        }
-      },
-      { safe: true, upsert: true },
-      function(err, model) {
-        console.log(err);
+  app.delete('/api/game/', async (req, res) => {
+    console.log('delete route req.body', req.body.stripeChargeId);
+    const refundGame = await stripe.refunds.create({
+      charge: req.body.stripeChargeId
+    });
+    const deleteGame = await Game.findByIdAndUpdate(req.body.gameId, {
+      $pull: {
+        players: { userID: req.body.userId }
       }
-    );
+    });
+
     if (req.body.position === 'forward') {
       Game.findByIdAndUpdate(
         req.body.gameId,
@@ -132,6 +130,4 @@ module.exports = app => {
       );
     }
   });
-
-  // DELETE /api/games/:id * Delete Game by Id * ADMIN
 };

@@ -13,7 +13,7 @@ class UpcomingGamesList extends Component {
       gameId: '',
       userId: '',
       openGame: false,
-      position: 'forward',
+      position: '',
       gameUsersId: []
     };
   }
@@ -69,7 +69,7 @@ class UpcomingGamesList extends Component {
     }
   };
 
-  handleOnDeleteGame = position => event => {
+  handleOnDeleteGame = userInfo => event => {
     event.preventDefault();
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
@@ -77,7 +77,8 @@ class UpcomingGamesList extends Component {
     const gameUserIdPosition = {
       userId: userId,
       gameId: gameId,
-      position: position
+      position: userInfo.position,
+      stripeChargeId: userInfo.stripeChargeId
     };
     this.props.deleteUserFromGame(gameUserIdPosition);
     window.location.reload();
@@ -149,22 +150,14 @@ class UpcomingGamesList extends Component {
                         </tbody>
                       </table>
                     </div>
-                    <p className='game-details'>
-                      Forward Spots Remaining:{' '}
-                      <span className='slots'>{game.forwardSlots}</span> <br />
-                      Defense Spots Remaining:{' '}
-                      <span className='slots'>{game.defenseSlots}</span> <br />
-                      Goalie Spots Remaining:{' '}
-                      <span className='slots'>{game.goalieSlots}</span> <br />
-                      <br />
-                    </p>
+
                     <div>
                       {this.props.auth &&
                       game.players
                         .map(player => player.userID)
                         .includes(this.props.auth._id) ? (
                         <div key={game._id}>
-                          Registered as a{' '}
+                          You Are Registered as a{' '}
                           <span className='position'>
                             {
                               game.players[
@@ -185,15 +178,33 @@ class UpcomingGamesList extends Component {
                           </a>
                         </div>
                       ) : (
-                        <a href={`/games/${game._id}`}>
-                          <button
-                            onClick={this.handleSelectOneGame(game)}
-                            className='book-game-button'
-                            value={game._id}
-                          >
-                            Book Game
-                          </button>
-                        </a>
+                        <div>
+                          <p className='game-details'>
+                            Forward Spots Remaining:{' '}
+                            <span className='slots'>{game.forwardSlots}</span>{' '}
+                            <br />
+                            Defense Spots Remaining:{' '}
+                            <span className='slots'>
+                              {game.defenseSlots}
+                            </span>{' '}
+                            <br />
+                            Goalie Spots Remaining:{' '}
+                            <span className='slots'>
+                              {game.goalieSlots}
+                            </span>{' '}
+                            <br />
+                            <br />
+                          </p>
+                          <a href={`/games/${game._id}`}>
+                            <button
+                              onClick={this.handleSelectOneGame(game)}
+                              className='book-game-button'
+                              value={game._id}
+                            >
+                              Book Game
+                            </button>
+                          </a>
+                        </div>
                       )}
                     </div>
                   </div>
@@ -208,23 +219,12 @@ class UpcomingGamesList extends Component {
                       Instructions: Bring gear, and go to changeroom #1 <br />
                       <br />
                       <p>
+                        Skill: {selectedGame.skill} <br />
                         Arena: {selectedGame.arena} <br />
                         Address: {selectedGame.address} <br />
                         Date: {selectedGame.startDate} <br />
                         Start Time: {selectedGame.startTime} <br />
                         End Time: {selectedGame.endTime} <br />
-                        <br />
-                        Available Forward Spots: {
-                          selectedGame.forwardSlots
-                        }{' '}
-                        <br />
-                        Available Defense Spots: {
-                          selectedGame.defenseSlots
-                        }{' '}
-                        <br />
-                        Available Goalie Spots: {selectedGame.goalieSlots}{' '}
-                        <br />
-                        Skill: {selectedGame.skill} <br />
                         <br />
                       </p>
                       {selectedGame.players &&
@@ -248,7 +248,7 @@ class UpcomingGamesList extends Component {
                               onClick={this.handleOnDeleteGame(
                                 selectedGame.players[
                                   selectedGame.players.findIndex(x => x.userID)
-                                ].position
+                                ]
                               )}
                             >
                               Quit Game
@@ -259,38 +259,69 @@ class UpcomingGamesList extends Component {
                         <div>
                           Choose Your Position:
                           <br />
-                          <input
-                            type='radio'
-                            name='position'
-                            value='forward'
-                            onChange={this.handleOnChangePosition}
-                            defaultChecked
-                          />{' '}
-                          Forward
+                          {selectedGame.forwardSlots > 1 ? (
+                            <input
+                              type='radio'
+                              name='position'
+                              value='forward'
+                              onChange={this.handleOnChangePosition}
+                            />
+                          ) : (
+                            <input
+                              type='radio'
+                              name='position'
+                              value='forward'
+                              onChange={this.handleOnChangePosition}
+                              disabled
+                            />
+                          )}
+                          {`Forward - ${
+                            selectedGame.forwardSlots
+                          } spots remaining`}
                           <br />
-                          <input
-                            type='radio'
-                            name='position'
-                            value='defense'
-                            onChange={this.handleOnChangePosition}
-                          />{' '}
-                          Defense
+                          {selectedGame.defenseSlots > 1 ? (
+                            <input
+                              type='radio'
+                              name='position'
+                              value='defense'
+                              onChange={this.handleOnChangePosition}
+                            />
+                          ) : (
+                            <input
+                              type='radio'
+                              name='position'
+                              value='defense'
+                              onChange={this.handleOnChangePosition}
+                              disabled
+                            />
+                          )}
+                          {`Defense - ${
+                            selectedGame.defenseSlots
+                          } spots remaining`}
                           <br />
-                          <input
-                            type='radio'
-                            name='position'
-                            value='goalie'
-                            onChange={this.handleOnChangePosition}
-                          />{' '}
-                          Goalie
+                          {selectedGame.goalieSlots > 1 ? (
+                            <input
+                              type='radio'
+                              name='position'
+                              value='goalie'
+                              onChange={this.handleOnChangePosition}
+                            />
+                          ) : (
+                            <input
+                              type='radio'
+                              name='position'
+                              value='goalie'
+                              onChange={this.handleOnChangePosition}
+                              disabled
+                            />
+                          )}
+                          {`Goalie - ${
+                            selectedGame.goalieSlots
+                          } spots remaining`}
                           <div>
-                            <Payments onClick={this.handleOnSubmitBookGame} />
-                            <button
-                              className='book-game-button'
-                              onClick={this.handleOnSubmitBookGame}
-                            >
-                              Book Game
-                            </button>
+                            {this.state.position ? (
+                              <Payments position={this.state.position} />
+                            ) : null}
                           </div>
                         </div>
                       )}

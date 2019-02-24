@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import LoginForm from './LoginForm';
 import UpcomingGamesList from './UpcomingGamesList';
 import HowItWorks from './HowItWorks';
 import { connect } from 'react-redux';
