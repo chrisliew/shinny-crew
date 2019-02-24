@@ -31,7 +31,7 @@ class App extends Component {
           <Route exact path='/' component={Home} />
           <Route exact path='/games/new' component={AddGame} />
           <Route exact path='/landing' component={Landing} />
-          <Route exact path='/games' component={UserGames} />
+          <Route path='/games/:userID' component={UserGames} />
           <Route exact path='/how-it-works' component={HowItWorks} />
           <Route exact path='/contact' component={Contact} />
           <Route exact path='/confirm-game' component={ConfirmAddGame} />

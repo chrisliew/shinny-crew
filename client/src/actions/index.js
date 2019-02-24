@@ -5,6 +5,7 @@ import {
   ADD_GAME_USER_REQUEST,
   FETCH_GAMES,
   FETCH_ONE_GAME,
+  FETCH_USER_GAMES,
   DELETE_GAME_FROM_USER,
   FETCH_PAYMENT
 } from './types';
@@ -36,6 +37,15 @@ export const addGameUserRequest = gameUserId => {
   };
 };
 
+export const fetchUserGames = userID => {
+  return dispatch => {
+    console.log('userID', userID);
+    return axios.get(`/api/games/${userID}`).then(res => {
+      dispatch({ type: FETCH_USER_GAMES, payload: res.data });
+    });
+  };
+};
+
 export const deleteUserFromGame = gameUserIdPosition => {
   return dispatch => {
     return axios.delete('/api/game', { data: gameUserIdPosition }).then(res => {
@@ -47,8 +57,9 @@ export const deleteUserFromGame = gameUserIdPosition => {
 
 export const fetchOneGame = gameId => {
   return function(dispatch) {
-    axios.get('/api/games/' + gameId).then(res => {
+    axios.get('/api/game/' + gameId).then(res => {
       dispatch({ type: FETCH_ONE_GAME, payload: res.data });
+      console.log('Fetched One Game');
     });
   };
 };

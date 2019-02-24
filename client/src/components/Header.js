@@ -34,7 +34,7 @@ class Header extends Component {
       default:
         return [
           <div key='1' className='navbar-logged-in'>
-            <a href='/games'>Your Games</a>
+            <a href={`/games/${this.props.auth._id}`}>Your Games</a>
             <div>Logged in as {this.props.auth.displayName} </div>
             <a href='/api/logout'>Logout</a>
           </div>

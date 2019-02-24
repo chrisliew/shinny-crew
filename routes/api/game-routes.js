@@ -5,6 +5,7 @@ const Game = require('../../models/Game');
 const User = require('../../models/User');
 const keys = require('../../config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
+const db = keys.mongoURL;
 
 // GET /api/games *  Returns list of games for current user. * PRIVATE
 
@@ -18,9 +19,16 @@ module.exports = app => {
       .then(games => res.json(games));
   });
 
-  // GET /api/games/:id * Get Game by Id * PUBLIC
-  app.get('/api/games/:id', (req, res) => {
+  // GET /api/game/:id * Get Game by Id * PUBLIC
+  app.get('/api/game/:id', (req, res) => {
     Game.findById(req.params.id).then(games => res.json(games));
+  });
+
+  // GET /api/games/:id * Get User Games by UserID * PRIVATE
+  app.get('/api/games/:id', (req, res) => {
+    Game.find()
+      .elemMatch('players', { userID: req.params.id })
+      .then(games => res.json(games));
   });
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
@@ -94,13 +102,13 @@ module.exports = app => {
 
   // DELETE /api/game * Delete User from Game and Add position back * PRIVATE
   app.delete('/api/game/', async (req, res) => {
-    console.log('delete route req.body', req.body.stripeChargeId);
-    const refundGame = await stripe.refunds.create({
-      charge: req.body.stripeChargeId
-    });
+    console.log('delete route req.body', req.body);
+    // const refundGame = await stripe.refunds.create({
+    //   charge: req.body.stripeChargeId
+    // });
     const deleteGame = await Game.findByIdAndUpdate(req.body.gameId, {
       $pull: {
-        players: { userID: req.body.userId }
+        players: { userID: req.body.userID }
       }
     });
 

@@ -7,25 +7,29 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: []
+      game: [],
+      player: []
     };
   }
 
   componentDidMount() {
-    axios.get('/api/games/' + this.props.match.params.id).then(res => {
-      this.setState({
-        game: res.data
-      });
-    });
+    this.props.fetchOneGame(this.props.match.params.id);
+    console.log('game', this.props.selectedGame.players);
   }
 
-  handleDeleteGame = () => {
-    this.props.deleteUserFromGame(this.props.auth._id);
+  handleDeleteGame = userInfo => event => {
+    event.preventDefault();
+    console.log('userinfo', userInfo);
+    const playerInfo = userInfo.filter(
+      player => player.userID === this.props.auth._id
+    );
+    playerInfo[0]['gameId'] = this.props.selectedGame._id;
+
+    this.props.deleteUserFromGame(playerInfo[0]);
   };
 
   render() {
-    console.log('game', this.state.game);
-    const { game } = this.state;
+    const game = this.props.selectedGame;
 
     return (
       <div className='game'>
@@ -39,7 +43,9 @@ class Game extends Component {
             <li>{game.endTime}</li>
             <li>{game.skill}</li>
           </ul>
-          <button onClick={this.handleDeleteGame}>Delete Game</button>
+          <button onClick={this.handleDeleteGame(game.players)}>
+            Delete Game
+          </button>
         </div>
       </div>
     );

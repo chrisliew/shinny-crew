@@ -71,11 +71,11 @@ class UpcomingGamesList extends Component {
 
   handleOnDeleteGame = userInfo => event => {
     event.preventDefault();
-    const userId = this.props.auth._id;
+    const userID = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
 
     const gameUserIdPosition = {
-      userId: userId,
+      userID: userID,
       gameId: gameId,
       position: userInfo.position,
       stripeChargeId: userInfo.stripeChargeId
