@@ -67,7 +67,6 @@ module.exports = app => {
           players: { userID: req.body.userId, position: req.body.position }
         }
       },
-      // { $inc: { forwardSlots: -1 } },
       { safe: true, upsert: true },
       function(err, model) {
         console.log(err);

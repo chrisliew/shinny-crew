@@ -58,7 +58,6 @@ class UserGames extends Component {
     return (
       <div className='user-games'>
         <h2>Your Games</h2>
-        auth ID {this.props.auth._id}
         <table>
           <thead>
             <tr>
