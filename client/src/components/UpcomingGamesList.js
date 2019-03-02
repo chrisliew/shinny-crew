@@ -4,6 +4,7 @@ import * as actions from '../actions';
 import Modal from 'react-responsive-modal';
 import LoginForm from './LoginForm';
 import Payments from './Payments';
+import { Button } from 'reactstrap';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -14,11 +15,13 @@ class UpcomingGamesList extends Component {
       userId: '',
       openGame: false,
       position: '',
-      gameUsersId: []
+      gameUsersId: [],
+      loading: true
     };
   }
   componentDidMount() {
     this.props.fetchGames();
+    this.setState({ loading: false });
   }
 
   onOpenModal = () => {
@@ -60,13 +63,13 @@ class UpcomingGamesList extends Component {
       position: this.state.position
     };
 
-    if (!this.props.auth.games.includes(gameId)) {
-      this.props.addGameUserRequest(gameUserIdPosition);
-      alert('You have successfully registered for this game');
-      window.location.reload();
-    } else {
-      alert('You have already registered for this game');
-    }
+    // if (!this.props.auth.games.includes(gameId)) {
+    this.props.addGameUserRequest(gameUserIdPosition);
+    // alert('You have successfully registered for this game');
+    window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
+    // } else {
+    // alert('You have already registered for this game');
+    // }
   };
 
   handleOnDeleteGame = userInfo => event => {
@@ -107,6 +110,7 @@ class UpcomingGamesList extends Component {
     return (
       <div id='upcoming-games' className='upcoming-games'>
         <h2>Upcoming Games</h2>
+
         <div className='games'>
           {games.map(game => {
             if (new Date() < new Date(game.startDate)) {
@@ -259,7 +263,7 @@ class UpcomingGamesList extends Component {
                         <div>
                           Choose Your Position:
                           <br />
-                          {selectedGame.forwardSlots > 1 ? (
+                          {selectedGame.forwardSlots > 0 ? (
                             <input
                               type='radio'
                               name='position'
@@ -279,7 +283,7 @@ class UpcomingGamesList extends Component {
                             selectedGame.forwardSlots
                           } spots remaining`}
                           <br />
-                          {selectedGame.defenseSlots > 1 ? (
+                          {selectedGame.defenseSlots > 0 ? (
                             <input
                               type='radio'
                               name='position'
@@ -299,7 +303,7 @@ class UpcomingGamesList extends Component {
                             selectedGame.defenseSlots
                           } spots remaining`}
                           <br />
-                          {selectedGame.goalieSlots > 1 ? (
+                          {selectedGame.goalieSlots > 0 ? (
                             <input
                               type='radio'
                               name='position'
@@ -319,8 +323,19 @@ class UpcomingGamesList extends Component {
                             selectedGame.goalieSlots
                           } spots remaining`}
                           <div>
-                            {this.state.position ? (
-                              <Payments position={this.state.position} />
+                            {this.state.position === 'goalie' ? (
+                              <Button
+                                onClick={this.handleOnSubmitBookGame}
+                                color='success'
+                              >
+                                Goalies Play Free!
+                              </Button>
+                            ) : null}
+                            {this.state.position === 'forward' ||
+                            this.state.position === 'defense' ? (
+                              <Payments position={this.state.position}>
+                                Pay Now
+                              </Payments>
                             ) : null}
                           </div>
                         </div>

@@ -4,6 +4,20 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 
 class Payments extends Component {
+  handleOnSubmitBookGame = event => {
+    const userId = this.props.auth._id;
+    const gameId = this.props.selectedGame._id;
+
+    const gameUserIdPosition = {
+      userId: userId,
+      gameId: gameId,
+      position: this.props.position
+    };
+
+    this.props.addGameUserRequest(gameUserIdPosition);
+    window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
+  };
+
   render() {
     return (
       <div>
@@ -22,13 +36,19 @@ class Payments extends Component {
                 auth: this.props.auth,
                 position: this.props.position
               })
+              .then(() => this.handleOnSubmitBookGame)
               .then(alert('You have successfully registered for this game'))
-              .then((window.location.href = '/'))
+              .then(
+                (window.location.href = `/confirm-game/${
+                  this.props.selectedGame._id
+                }`)
+              )
           }
           allowRememberMe='true'
           stripeKey={process.env.REACT_APP_STRIPE_KEY}
         >
           <button className='book-game-button'>Pay For Game</button>
+          <p className='payment-mandatory'>No cancellation 48 hours before </p>
         </StripeCheckout>
       </div>
     );

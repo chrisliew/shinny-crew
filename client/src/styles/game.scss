@@ -1,3 +1,6 @@
+.game {
+  margin-bottom: 3em;
+}
 .game h1 {
   text-align: center;
   margin-top: 1em;
@@ -5,7 +8,23 @@
 .game .game-details {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   border: 3px solid black;
   padding: 3em;
   max-width: 30%;
+}
+
+.game button {
+  width: 50%;
+  margin: auto;
+  margin-top: 1em;
+}
+
+.game ul {
+  list-style-type: none;
+}
+
+.game .no-refund-warning {
+  text-align: center;
+  color: red;
 }

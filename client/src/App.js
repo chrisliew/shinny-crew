@@ -34,7 +34,7 @@ class App extends Component {
           <Route path='/games/:userID' component={UserGames} />
           <Route exact path='/how-it-works' component={HowItWorks} />
           <Route exact path='/contact' component={Contact} />
-          <Route exact path='/confirm-game' component={ConfirmAddGame} />
+          <Route path='/confirm-game/:id' component={ConfirmAddGame} />
           <Route
             exact
             path='/terms-and-conditions'

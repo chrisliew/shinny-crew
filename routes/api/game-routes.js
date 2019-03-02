@@ -24,11 +24,23 @@ module.exports = app => {
     Game.findById(req.params.id).then(games => res.json(games));
   });
 
+  // Middleware to check if the user is authenticated
+  // const isUserAuthenticated = (req, res, next) => {
+  //   console.log('req.user', req.user);
+  //   if (req.user) {
+  //     next();
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // };
+
   // GET /api/games/:id * Get User Games by UserID * PRIVATE
   app.get('/api/games/:id', (req, res) => {
-    Game.find()
-      .elemMatch('players', { userID: req.params.id })
-      .then(games => res.json(games));
+    if (req.session.passport.user === req.params.id) {
+      Game.find()
+        .elemMatch('players', { userID: req.params.id })
+        .then(games => res.json(games));
+    }
   });
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
@@ -101,40 +113,41 @@ module.exports = app => {
 
   // DELETE /api/game * Delete User from Game and Add position back * PRIVATE
   app.delete('/api/game/', async (req, res) => {
-    console.log('delete route req.body', req.body);
-    // const refundGame = await stripe.refunds.create({
-    //   charge: req.body.stripeChargeId
-    // });
+    const positionUpdate = await (function update() {
+      if (req.body.position === 'forward') {
+        Game.findByIdAndUpdate(
+          req.body.gameId,
+          { $inc: { forwardSlots: +1 } },
+          function(err, model) {
+            console.log(err);
+          }
+        );
+      } else if (req.body.position === 'defense') {
+        Game.findByIdAndUpdate(
+          req.body.gameId,
+          { $inc: { defenseSlots: +1 } },
+          function(err, model) {
+            console.log(err);
+          }
+        );
+      } else if (req.body.position === 'goalie') {
+        Game.findByIdAndUpdate(
+          req.body.gameId,
+          { $inc: { goalieSlots: +1 } },
+          function(err, model) {
+            console.log(err);
+          }
+        );
+      }
+    })();
+
     const deleteGame = await Game.findByIdAndUpdate(req.body.gameId, {
       $pull: {
         players: { userID: req.body.userID }
       }
     });
-
-    if (req.body.position === 'forward') {
-      Game.findByIdAndUpdate(
-        req.body.gameId,
-        { $inc: { forwardSlots: +1 } },
-        function(err, model) {
-          console.log(err);
-        }
-      );
-    } else if (req.body.position === 'defense') {
-      Game.findByIdAndUpdate(
-        req.body.gameId,
-        { $inc: { defenseSlots: +1 } },
-        function(err, model) {
-          console.log(err);
-        }
-      );
-    } else if (req.body.position === 'goalie') {
-      Game.findByIdAndUpdate(
-        req.body.gameId,
-        { $inc: { goalieSlots: +1 } },
-        function(err, model) {
-          console.log(err);
-        }
-      );
-    }
+    const refundGame = await stripe.refunds.create({
+      charge: req.body.stripeChargeId
+    });
   });
 };

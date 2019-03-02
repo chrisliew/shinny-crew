@@ -4,7 +4,6 @@ const Game = require('../../models/Game');
 
 module.exports = app => {
   app.post('/api/stripe', async (req, res) => {
-    console.log('stripe', req.body);
     const charge = await stripe.charges.create({
       amount: 1800,
       currency: 'cad',

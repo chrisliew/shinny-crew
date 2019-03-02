@@ -1,51 +1,101 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import moment from 'moment';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
       game: [],
-      player: []
+      player: [],
+      gameTime: '',
+      currentTime: new Date(),
+      modal: false
     };
   }
 
+  toggle = userInfo => event => {
+    event.preventDefault();
+    const playerInfo = userInfo.filter(
+      player => player.userID === this.props.auth._id
+    );
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+      position: playerInfo[0].position
+    }));
+  };
+
   componentDidMount() {
     this.props.fetchOneGame(this.props.match.params.id);
-    console.log('game', this.props.selectedGame.players);
   }
 
   handleDeleteGame = userInfo => event => {
     event.preventDefault();
-    console.log('userinfo', userInfo);
     const playerInfo = userInfo.filter(
       player => player.userID === this.props.auth._id
     );
     playerInfo[0]['gameId'] = this.props.selectedGame._id;
-
     this.props.deleteUserFromGame(playerInfo[0]);
+    alert('You have successfully deleted this game')(
+      (window.location.href = '/landing')
+    );
   };
 
   render() {
     const game = this.props.selectedGame;
+    const gameStartTime = moment(`${game.startDate} ${game.startTime}`);
+
+    const now = moment(new Date());
+    const duration = moment.duration(gameStartTime.diff(now));
+    const hoursBeforeStartOfGame = duration.asHours();
 
     return (
       <div className='game'>
         <h1>Game</h1>
         <div className='game-details'>
           <ul>
-            <li>{game.startDate}</li>
-            <li>{game.arena}</li>
-            <li>{game.address}</li>
-            <li>{game.startTime}</li>
-            <li>{game.endTime}</li>
-            <li>{game.skill}</li>
+            <li>Start Date: {game.startDate}</li>
+            <li>Arena: {game.arena}</li>
+            <li>Address: {game.address}</li>
+            <li>Start Time: {game.startTime}</li>
+            <li>End Time: {game.endTime}</li>
+            <li>Skill Level: {game.skill}</li>
           </ul>
-          <button onClick={this.handleDeleteGame(game.players)}>
-            Delete Game
-          </button>
+          {hoursBeforeStartOfGame > 48 ? (
+            <Button
+              color='danger'
+              onClick={this.handleDeleteGame(game.players)}
+            >
+              Delete Game
+            </Button>
+          ) : (
+            <div className='no-refund-warning'>
+              Within 48 hours of the game, no refund available, only transfers.
+              Click here to see why.
+            </div>
+          )}
+
+          <Button color='success' onClick={this.toggle(game.players)}>
+            Change Positions
+          </Button>
+          <Modal
+            isOpen={this.state.modal}
+            toggle={this.toggle}
+            className={this.props.className}
+          >
+            <ModalHeader toggle={this.toggle}>Change Positions</ModalHeader>
+            <ModalBody>Current Position: </ModalBody>
+            <ModalFooter>
+              <Button color='primary' onClick={this.toggle}>
+                Do Something
+              </Button>{' '}
+              <Button color='secondary' onClick={this.toggle}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
         </div>
       </div>
     );
