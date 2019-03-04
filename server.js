@@ -45,6 +45,8 @@ app.use(function(req, res, next) {
 require('./routes/api/auth-routes-google')(app);
 require('./routes/api/game-routes')(app);
 require('./routes/api/billing-routes')(app);
+require('./routes/api/user-routes')(app);
+require('./routes/api/email-routes')(app);
 
 // Code for production env
 

@@ -7,7 +7,11 @@ import {
   NavbarBrand,
   Nav,
   NavItem,
-  NavLink
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap';
 
 class Header extends Component {
@@ -33,9 +37,28 @@ class Header extends Component {
       default:
         return [
           <div key='1' className='navbar-logged-in'>
+            <div className='display-name'>
+              Hello {this.props.auth.displayName}
+            </div>
             <a href={`/games/${this.props.auth._id}`}>Your Games</a>
-            <div>Logged in as {this.props.auth.displayName} </div>
-            <a href='/api/logout'>Logout</a>
+
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                <i className='fas fa-cog' />
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <a href='/settings'>Settings</a>
+                </DropdownItem>
+                <DropdownItem>
+                  <a href={`/games/${this.props.auth._id}`}>Your Games</a>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <a href='/api/logout'>Logout</a>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           </div>
         ];
     }
@@ -46,13 +69,14 @@ class Header extends Component {
         <div>
           <Navbar className='py-0' light expand='md'>
             <NavbarBrand href='/'>Shinny Squad</NavbarBrand>
-            <NavbarBrand href='/'>How It Works</NavbarBrand>
-            <NavLink href='/games/new'>Add Game</NavLink>
+            {this.props.auth._id === '5c7b0b253f0801dc2228f66a' ? (
+              <NavLink href='/games/new'>Add Game</NavLink>
+            ) : null}
             <NavLink href='/landing'>Upcoming Game</NavLink>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className='ml-auto' navbar>
-                <NavItem>{this.loggedInStatus()}</NavItem>
+                {this.loggedInStatus()}
               </Nav>
             </Collapse>
           </Navbar>

@@ -1,51 +1,11 @@
 @import './_colors';
 
-.user-games table {
-  margin: auto;
-  width: 80%;
-  border-collapse: collapse;
-  border: 3px solid black;
-  margin-top: 3em;
+.user-games {
+  padding: 0 3em 0 3em;
+  margin-top: 1em;
 }
 
 .user-games h2 {
   text-align: center;
-  margin-top: 2em;
-}
-
-.user-games thead {
-  border-bottom: 3px solid black;
-}
-
-.user-games thead th:nth-child(1) {
-  width: 15%;
-}
-
-.user-games thead th:nth-child(2) {
-  width: 20%;
-}
-
-.user-games thead th:nth-child(3) {
-  width: 15%;
-}
-
-.user-games thead th:nth-child(4) {
-  width: 20%;
-}
-
-.user-games thead th:nth-child(5) {
-  width: 15%;
-}
-
-.user-games thead th:nth-child(6) {
-  width: 15%;
-}
-
-.user-games th,
-.user-games td {
-  padding: 20px;
-}
-
-.user-games tbody td {
-  text-align: center;
+  margin: 1em 0 1em 0;
 }

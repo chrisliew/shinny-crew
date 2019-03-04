@@ -14,6 +14,7 @@ import Contact from './components/Contact';
 import TermsAndConditions from './components/TermsAndConditions';
 import ConfirmAddGame from './components/ConfirmAddGame';
 import Footer from './components/Footer';
+import Settings from './components/Settings';
 
 import './App.scss';
 import 'react-dropdown/style.css';
@@ -41,6 +42,7 @@ class App extends Component {
             component={TermsAndConditions}
           />
           <Route path='/game/:id' component={Game} />
+          <Route exact path='/settings' component={Settings} />
           <Footer />
         </div>
       </Router>

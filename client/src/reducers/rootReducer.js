@@ -6,6 +6,8 @@ import fetchGames from './fetchGames';
 import fetchUserGames from './fetchUserGames';
 import fetchOneGameReducer from './fetchOneGameReducer';
 import paymentReducer from './paymentReducer';
+import changeEmailReducer from './changeEmailReducer';
+import sendEmailConfirmReducer from './sendEmailConfirmReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -14,5 +16,7 @@ export default combineReducers({
   fetchGames: fetchGames,
   fetchUserGames: fetchUserGames,
   fetchOneGame: fetchOneGameReducer,
-  payment: paymentReducer
+  payment: paymentReducer,
+  changeEmail: changeEmailReducer,
+  sendEmailConfirm: sendEmailConfirmReducer
 });

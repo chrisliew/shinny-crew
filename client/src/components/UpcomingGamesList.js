@@ -116,10 +116,6 @@ class UpcomingGamesList extends Component {
             if (new Date() < new Date(game.startDate)) {
               return (
                 <div className='game-container' key={game._id}>
-                  <div className='image-container'>
-                    <div className='game-price'>${game.price}</div>
-                    <img className='game-picture' alt='' />
-                  </div>
                   <div className='game-details-container'>
                     <div className='game-details-table'>
                       <table>

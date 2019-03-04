@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Table } from 'reactstrap';
 
 class UserGames extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class UserGames extends Component {
           <td>{game.startTime}</td>
           <td>{game.endTime}</td>
           <td>{game.skill}</td>
-          <td>{game._id}</td>
+          <td>{game.players[0].position}</td>
           <td>
             {new Date() < new Date(game.startDate) ? (
               <a href={`/game/${game._id}`}>
@@ -49,7 +50,7 @@ class UserGames extends Component {
     return (
       <div className='user-games'>
         <h2>Your Games</h2>
-        <table>
+        <Table hover striped responsive>
           <thead>
             <tr>
               <th>Date</th>
@@ -58,12 +59,12 @@ class UserGames extends Component {
               <th>Start Time</th>
               <th>End Time</th>
               <th>Skill</th>
-              <th>gameId</th>
+              <th>Position</th>
               <th>Edit</th>
             </tr>
           </thead>
           <tbody>{gamesList}</tbody>
-        </table>
+        </Table>
       </div>
     );
   }

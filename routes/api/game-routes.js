@@ -45,29 +45,33 @@ module.exports = app => {
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
   app.post('/api/games/', (req, res) => {
-    const newGame = new Game({
-      arena: req.body.arena,
-      address: req.body.address,
-      price: req.body.price,
-      startDate: moment(req.body.startDate)
-        .tz('America/Los_Angeles')
-        .format('L'),
-      endDate: moment(req.body.endDate)
-        .tz('America/Los_Angeles')
-        .format('L'),
-      startTime: moment(req.body.startTime)
-        .tz('America/Los_Angeles')
-        .format('LT'),
-      endTime: moment(req.body.endTime)
-        .tz('America/Los_Angeles')
-        .format('LT'),
-      forwardSlots: req.body.forwardSlots,
-      defenseSlots: req.body.defenseSlots,
-      goalieSlots: req.body.goalieSlots,
-      skill: req.body.skill,
-      players: []
-    });
-    newGame.save().then(Game => res.json(Game));
+    if (req.session.passport.user === '5c7b0b253f0801dc2228f66a') {
+      const newGame = new Game({
+        arena: req.body.arena,
+        address: req.body.address,
+        price: req.body.price,
+        startDate: moment(req.body.startDate)
+          .tz('America/Los_Angeles')
+          .format('L'),
+        endDate: moment(req.body.endDate)
+          .tz('America/Los_Angeles')
+          .format('L'),
+        startTime: moment(req.body.startTime)
+          .tz('America/Los_Angeles')
+          .format('LT'),
+        endTime: moment(req.body.endTime)
+          .tz('America/Los_Angeles')
+          .format('LT'),
+        forwardSlots: req.body.forwardSlots,
+        defenseSlots: req.body.defenseSlots,
+        goalieSlots: req.body.goalieSlots,
+        skill: req.body.skill,
+        players: []
+      });
+      newGame.save().then(Game => res.json(Game));
+    } else {
+      return;
+    }
   });
 
   // PUT /api/games/ * Adds user to game  * PRIVATE

@@ -7,7 +7,9 @@ import {
   FETCH_ONE_GAME,
   FETCH_USER_GAMES,
   DELETE_GAME_FROM_USER,
-  FETCH_PAYMENT
+  FETCH_PAYMENT,
+  CHANGE_EMAIL,
+  SEND_EMAIL_CONFIRM
 } from './types';
 
 export const fetchUser = () => {
@@ -73,7 +75,26 @@ export const fetchGames = () => {
 };
 
 export const handleToken = token => async dispatch => {
-  console.log('handletoken', token);
   const res = await axios.post('/api/stripe', token);
   dispatch({ type: FETCH_PAYMENT, payload: res.data });
+};
+
+export const changeEmail = emailUserId => async dispatch => {
+  console.log('email', emailUserId);
+  const res = await axios.put(`/api/email`, emailUserId);
+  dispatch({ type: CHANGE_EMAIL, payload: res.data });
+};
+
+// export const sendEmailConfirm = clientGameInfo => async dispatch => {
+//   const res = await axios.post('/api/email/confirm', clientGameInfo);
+//   dispatch({ type: SEND_EMAIL_CONFIRM, payload: res.data });
+// };
+
+export const sendEmailConfirm = clientGameInfo => {
+  return dispatch => {
+    return axios.post('/api/games', clientGameInfo).then(res => {
+      dispatch({ type: SEND_EMAIL_CONFIRM, payload: res.data });
+      console.log('New Email Confirm Sent');
+    });
+  };
 };

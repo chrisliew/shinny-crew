@@ -1,0 +1,25 @@
+.settings {
+  text-align: center;
+}
+
+.settings h1 {
+  margin: 1em 0 1em 0;
+}
+
+.modal-body {
+  margin: auto;
+}
+
+.settings .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2em;
+  border: 1px solid black;
+  padding: 1em;
+  width: 25em;
+}
+
+.settings .email {
+  margin-right: 1em;
+}
