@@ -92,7 +92,7 @@ export const changeEmail = emailUserId => async dispatch => {
 
 export const sendEmailConfirm = clientGameInfo => {
   return dispatch => {
-    return axios.post('/api/games', clientGameInfo).then(res => {
+    return axios.post('/api/email/confirm', clientGameInfo).then(res => {
       dispatch({ type: SEND_EMAIL_CONFIRM, payload: res.data });
       console.log('New Email Confirm Sent');
     });

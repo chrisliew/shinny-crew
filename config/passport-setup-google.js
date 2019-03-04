@@ -26,7 +26,6 @@ passport.use(
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log('profile', profile);
       const existingUser = await User.findOne({ googleId: profile.id });
       if (existingUser) {
         // we already have a record with the given profile ID

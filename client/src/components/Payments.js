@@ -5,6 +5,7 @@ import * as actions from '../actions';
 
 class Payments extends Component {
   handleOnSubmitBookGame = event => {
+    console.log('wtf', event);
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
 
@@ -15,6 +16,13 @@ class Payments extends Component {
     };
 
     this.props.addGameUserRequest(gameUserIdPosition);
+    const userInfo = {
+      email: this.props.auth.email,
+      startDate: this.props.selectedGame.startDate,
+      address: '123 fake street'
+    };
+    this.props.sendEmailConfirm(userInfo);
+    alert('You have successfully registered for this game');
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
@@ -36,7 +44,7 @@ class Payments extends Component {
                 auth: this.props.auth,
                 position: this.props.position
               })
-              .then(() => this.handleOnSubmitBookGame)
+              .then(res => this.handleOnSubmitBookGame)
               .then(alert('You have successfully registered for this game'))
               .then(
                 (window.location.href = `/confirm-game/${
