@@ -38,6 +38,20 @@ class Game extends Component {
     );
     playerInfo[0]['gameId'] = this.props.selectedGame._id;
     this.props.deleteUserFromGame(playerInfo[0]);
+
+    const { selectedGame, auth } = this.props;
+
+    const userInfoEmail = {
+      email: auth.email,
+      startDate: selectedGame.startDate,
+      address: selectedGame.address,
+      gameId: selectedGame._id,
+      name: auth.displayName,
+      startTime: selectedGame.startTime,
+      arena: selectedGame.arena
+    };
+
+    this.props.sendEmailRefund(userInfoEmail);
     alert('You have successfully deleted this game')(
       (window.location.href = '/landing')
     );

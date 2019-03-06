@@ -50,19 +50,5 @@ module.exports = app => {
         }
       );
     }
-
-    // How to hit two routes at once?  Copy the email template from email routes here.
-
-    sgMail.setApiKey(keys.sendGridKey);
-    const msg = {
-      to: req.body.auth.email,
-      from: 'do-not-reply@ShinnySquad.com',
-      subject: `Shinny Squad Game Confirmation:`,
-      html: `
-        <h1>Game Details</h1>
-        <p>Hello </p>
-      `
-    };
-    sgMail.send(msg);
   });
 };

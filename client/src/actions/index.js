@@ -9,7 +9,8 @@ import {
   DELETE_GAME_FROM_USER,
   FETCH_PAYMENT,
   CHANGE_EMAIL,
-  SEND_EMAIL_CONFIRM
+  SEND_EMAIL_CONFIRM,
+  SEND_EMAIL_REFUND
 } from './types';
 
 export const fetchUser = () => {
@@ -94,6 +95,15 @@ export const sendEmailConfirm = clientGameInfo => {
   return dispatch => {
     return axios.post('/api/email/confirm', clientGameInfo).then(res => {
       dispatch({ type: SEND_EMAIL_CONFIRM, payload: res.data });
+      console.log('New Email Confirm Sent');
+    });
+  };
+};
+
+export const sendEmailRefund = clientGameInfo => {
+  return dispatch => {
+    return axios.post('/api/email/refund', clientGameInfo).then(res => {
+      dispatch({ type: SEND_EMAIL_REFUND, payload: res.data });
       console.log('New Email Confirm Sent');
     });
   };

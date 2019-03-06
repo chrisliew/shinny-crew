@@ -24,16 +24,6 @@ module.exports = app => {
     Game.findById(req.params.id).then(games => res.json(games));
   });
 
-  // Middleware to check if the user is authenticated
-  // const isUserAuthenticated = (req, res, next) => {
-  //   console.log('req.user', req.user);
-  //   if (req.user) {
-  //     next();
-  //   } else {
-  //     res.redirect('/');
-  //   }
-  // };
-
   // GET /api/games/:id * Get User Games by UserID * PRIVATE
   app.get('/api/games/:id', (req, res) => {
     if (req.session.passport.user === req.params.id) {

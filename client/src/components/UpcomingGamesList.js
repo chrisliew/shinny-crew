@@ -54,9 +54,9 @@ class UpcomingGamesList extends Component {
   };
 
   handleOnSubmitBookGame = event => {
-    console.log('huh??');
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
+    const { selectedGame, auth } = this.props;
 
     const gameUserIdPosition = {
       userId: userId,
@@ -67,9 +67,13 @@ class UpcomingGamesList extends Component {
     this.props.addGameUserRequest(gameUserIdPosition);
 
     const userInfo = {
-      email: this.props.auth.email,
-      startDate: this.props.selectedGame.startDate,
-      address: '123 fake street'
+      email: auth.email,
+      startDate: selectedGame.startDate,
+      address: selectedGame.address,
+      gameId: gameId,
+      name: auth.displayName,
+      startTime: selectedGame.startTime,
+      arena: selectedGame.arena
     };
     this.props.sendEmailConfirm(userInfo);
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
@@ -96,10 +100,9 @@ class UpcomingGamesList extends Component {
       gameId: gameId,
       name: auth.displayName,
       startTime: selectedGame.startTime,
-      arena: selectedGame.arena,
-      gameId: gameId
+      arena: selectedGame.arena
     };
-    this.props.sendEmailConfirm(userInfoEmail);
+    this.props.sendEmailRefund(userInfoEmail);
 
     window.location.reload();
   };
@@ -108,15 +111,6 @@ class UpcomingGamesList extends Component {
     this.setState({
       position: event.target.value
     });
-  };
-
-  handleSendEmail = () => {
-    const userInfo = {
-      email: this.props.auth.email,
-      startDate: this.props.selectedGame.startDate,
-      address: '123 fake street'
-    };
-    this.props.sendEmailConfirm(userInfo);
   };
 
   render() {
@@ -136,7 +130,6 @@ class UpcomingGamesList extends Component {
     return (
       <div id='upcoming-games' className='upcoming-games'>
         <h2>Upcoming Games</h2>
-        <button onClick={this.handleSendEmail}>Send Email</button>
 
         <div className='games'>
           {games.map(game => {

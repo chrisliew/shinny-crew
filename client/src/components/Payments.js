@@ -22,7 +22,7 @@ class Payments extends Component {
       address: '123 fake street'
     };
     this.props.sendEmailConfirm(userInfo);
-    alert('You have successfully registered for this game');
+    alert('You have  registered for this game');
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
@@ -44,7 +44,7 @@ class Payments extends Component {
                 auth: this.props.auth,
                 position: this.props.position
               })
-              .then(res => this.handleOnSubmitBookGame)
+              .then(() => this.handleOnSubmitBookGame)
               .then(alert('You have successfully registered for this game'))
               .then(
                 (window.location.href = `/confirm-game/${
