@@ -10,7 +10,7 @@ import Landing from './components/Landing';
 import UserGames from './components/UserGames';
 import Game from './components/Game';
 import HowItWorks from './components/HowItWorks';
-import Contact from './components/Contact';
+import ContactUs from './components/ContactUs';
 import TermsAndConditions from './components/TermsAndConditions';
 import ConfirmAddGame from './components/ConfirmAddGame';
 import Footer from './components/Footer';
@@ -34,7 +34,7 @@ class App extends Component {
           <Route exact path='/landing' component={Landing} />
           <Route path='/games/:userID' component={UserGames} />
           <Route exact path='/how-it-works' component={HowItWorks} />
-          <Route exact path='/contact' component={Contact} />
+          <Route exact path='/contact-us' component={ContactUs} />
           <Route path='/confirm-game/:id' component={ConfirmAddGame} />
           <Route
             exact

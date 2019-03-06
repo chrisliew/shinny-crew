@@ -51,8 +51,12 @@ class Header extends Component {
                   <a href='/settings'>Settings</a>
                 </DropdownItem>
                 <DropdownItem>
+                  <a href='/contact-us'>Contact Us</a>
+                </DropdownItem>
+                <DropdownItem>
                   <a href={`/games/${this.props.auth._id}`}>Your Games</a>
                 </DropdownItem>
+
                 <DropdownItem divider />
                 <DropdownItem>
                   <a href='/api/logout'>Logout</a>

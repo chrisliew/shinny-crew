@@ -54,4 +54,25 @@ module.exports = app => {
     };
     sgMail.send(msg);
   });
+
+  app.post('/api/email/contact', (req, res) => {
+    console.log('contact route', req.body);
+    sgMail.setApiKey(keys.sendGridKey);
+    const msg = {
+      to: 'chriswvliew@gmail.com',
+      from: 'contact-form@ShinnySquad.com',
+      subject: `Contact Info Form Filled Out `,
+      html: `
+        <h1>Contact Info</h1>
+        <p>
+        Name: ${req.body.name} <br/>
+        Email: ${req.body.email} <br/>
+        Phone: ${req.body.phone} <br/>
+        Message: ${req.body.message} <br/>
+        </p>
+
+      `
+    };
+    sgMail.send(msg);
+  });
 };
