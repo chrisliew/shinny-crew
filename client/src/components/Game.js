@@ -60,6 +60,7 @@ class Game extends Component {
   render() {
     const game = this.props.selectedGame;
     const gameStartTime = moment(`${game.startDate} ${game.startTime}`);
+    const authId = this.props.auth._id;
 
     const now = moment(new Date());
     const duration = moment.duration(gameStartTime.diff(now));
@@ -77,7 +78,9 @@ class Game extends Component {
             <li>End Time: {game.endTime}</li>
             <li>Skill Level: {game.skill}</li>
           </ul>
-          {hoursBeforeStartOfGame > 48 ? (
+          {hoursBeforeStartOfGame > 48 &&
+          game.players &&
+          game.players.filter(player => player.userID === authId).length > 0 ? (
             <Button
               color='danger'
               onClick={this.handleDeleteGame(game.players)}
@@ -86,14 +89,26 @@ class Game extends Component {
             </Button>
           ) : (
             <div className='no-refund-warning'>
-              Within 48 hours of the game, no refund available, only transfers.
-              Click here to see why.
+              {game.players &&
+              game.players.filter(player => player.userID === authId).length ===
+                0 ? (
+                <Button
+                  color='danger'
+                  onClick={this.handleDeleteGame(game.players)}
+                >
+                  Register Game
+                </Button>
+              ) : null}
+              <div>
+                Within 48 hours of the game, no refund available, only
+                transfers. Click here to see why.
+              </div>
             </div>
           )}
 
-          <Button color='success' onClick={this.toggle(game.players)}>
+          {/* <Button color='success' onClick={this.toggle(game.players)}>
             Change Positions
-          </Button>
+          </Button> */}
           <Modal
             isOpen={this.state.modal}
             toggle={this.toggle}

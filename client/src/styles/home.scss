@@ -54,36 +54,46 @@
 }
 
 .game-container {
-  // background-image: url('/images/puck.png');
-  // background-size: cover;
-  background-color: black;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('/images/pond-rink.jpg');
+  background-size: cover;
+  width: 20em;
+  min-height: 22em;
   border: 2px solid lightgrey;
-  width: 30em;
-  height: 30em;
   margin-bottom: 1em;
-  padding: 4em;
-  border-radius: 50%;
+  padding-bottom: 2em;
+  border-radius: 10px;
   color: white;
-  font-weight: 900;
 }
 
 .game-container .image-container {
-  // background-color: $primary-color;
-  // padding: 1em 0 2em 0;
-  // -webkit-clip-path: polygon(1% 0, 100% 0%, 100% 89%, 0% 100%);
-  // clip-path: polygon(0% 0, 100% 0%, 100% 80%, 0% 100%);
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
+  background-color: $primary-color;
+  padding: 0.5em 0 1.5em 0;
+  -webkit-clip-path: polygon(1% 0, 100% 0%, 100% 89%, 0% 100%);
+  clip-path: polygon(0% 0, 100% 0%, 100% 80%, 0% 100%);
+  display: flex;
+  justify-content: center;
+
+  flex-direction: column;
+  align-items: flex-start;
   // background-image: url('/images/connor.jpg');
 }
 
-.game-picture {
-  height: 8em;
+.game-price {
+  margin-left: 0.5em;
+  border: 1px solid;
+  padding: 0.3em;
+  border-radius: 50%;
+  background: lightgray;
 }
 
-.game-price {
-  font-size: 2em;
+.game-skill {
+  font-size: 1.5em;
+  align-self: center;
+}
+
+.games .map-link {
+  font-weight: 600;
 }
 
 .game-details-container {

@@ -5,6 +5,7 @@ import Modal from 'react-responsive-modal';
 import LoginForm from './LoginForm';
 import Payments from './Payments';
 import { Button } from 'reactstrap';
+import moment from 'moment';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -136,15 +137,22 @@ class UpcomingGamesList extends Component {
             if (new Date() < new Date(game.startDate)) {
               return (
                 <div className='game-container' key={game._id}>
+                  <div className='image-container'>
+                    <div className='game-price'>${game.price}</div>
+                    <div className='game-skill'>
+                      <div>{game.skill} Game</div>
+                    </div>
+                    <img className='game-picture' alt='' />
+                  </div>
                   <div className='game-details-container'>
                     <div className='game-details-table'>
                       <table>
                         <tbody>
-                          <tr className='skill'>
-                            <td>{game.skill} Skill</td>
-                          </tr>
                           <tr>
-                            <td>Date: {game.startDate}</td>
+                            <td>
+                              Date:{' '}
+                              {moment(game.startDate).format('MMMM Do, YYYY')}
+                            </td>
                           </tr>
                           <tr>
                             <td>
@@ -157,6 +165,7 @@ class UpcomingGamesList extends Component {
                           <tr>
                             <td>
                               <a
+                                className='map-link'
                                 target='_blank'
                                 rel='noopener noreferrer'
                                 href={`https://maps.google.com/?q=${

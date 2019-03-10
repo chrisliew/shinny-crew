@@ -33,7 +33,12 @@ class Header extends Component {
       case null:
         return;
       case false:
-        return <a href='/auth/google'>Login</a>;
+        return (
+          <div>
+            <a href='/auth/google'>Login</a>
+            <a href='/auth/facebook'>Login Facebook</a>
+          </div>
+        );
       default:
         return [
           <div key='1' className='navbar-logged-in'>

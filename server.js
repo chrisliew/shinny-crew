@@ -43,6 +43,7 @@ app.use(function(req, res, next) {
 
 // Use Routes
 require('./routes/api/auth-routes-google')(app);
+require('./routes/api/auth-routes-facebook')(app);
 require('./routes/api/game-routes')(app);
 require('./routes/api/billing-routes')(app);
 require('./routes/api/user-routes')(app);

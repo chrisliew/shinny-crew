@@ -1,5 +1,5 @@
 const passport = require('passport');
-const FacebookStrategy = require('passport-facebook');
+const FacebookStrategy = require('passport-facebook').Strategy;
 const keys = require('./keys');
 
 passport.use(
@@ -9,8 +9,10 @@ passport.use(
       clientSecret: keys.facebookAppSecret,
       callbackURL: '/auth/facebook/callback'
     },
-    (accessToken, refreshToken, profile, done) => {
-      done(null, profile); // passes the profile data to serializeUser
+    function(accessToken, refreshToken, profile, cb) {
+      User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+        return cb(err, user);
+      });
     }
   )
 );

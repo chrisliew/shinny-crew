@@ -22,11 +22,26 @@ class Payments extends Component {
       address: '123 fake street'
     };
     this.props.sendEmailConfirm(userInfo);
-    alert('You have  registered for this game');
+    alert('You have registered for this game with payment');
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
   render() {
+    const game = this.props.selectedGame;
+    const auth = this.props.auth;
+
+    const emailData = {
+      email: auth.email,
+      startDate: game.startDate,
+      startTime: game.startTime,
+      address: game.address,
+      name: auth.displayName,
+      position: this.props.position,
+      arena: game.arena,
+      gameId: game._id
+    };
+
+    console.log('emaildata', emailData);
     return (
       <div>
         <StripeCheckout
@@ -45,7 +60,8 @@ class Payments extends Component {
                 position: this.props.position
               })
               .then(() => this.handleOnSubmitBookGame)
-              .then(alert('You have successfully registered for this game'))
+              .then(this.props.sendEmailConfirm(emailData))
+              .then(alert('You have successfully registered for this game now'))
               .then(
                 (window.location.href = `/confirm-game/${
                   this.props.selectedGame._id
