@@ -13,19 +13,40 @@ import {
   DropdownMenu,
   DropdownItem
 } from 'reactstrap';
+import Modal from 'react-responsive-modal';
+import LoginForm from './LoginForm';
 
 class Header extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isOpen: false
+      isOpen: false,
+      open: false,
+      gameId: '',
+      userId: '',
+      openGame: false,
+      position: '',
+      gameUsersId: [],
+      loading: true
     };
   }
   toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  };
+
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
+
+  handleOpenModal = () => {
+    this.onOpenModal();
   };
 
   loggedInStatus = () => {
@@ -35,6 +56,7 @@ class Header extends Component {
       case false:
         return (
           <div>
+            <button onClick={this.onOpenModal}>Login</button>
             <a href='/auth/google'>Login</a>
             <a href='/auth/facebook'>Login Facebook</a>
           </div>
@@ -73,6 +95,7 @@ class Header extends Component {
     }
   };
   render() {
+    const { open } = this.state;
     return (
       <div className='header'>
         <div>
@@ -89,6 +112,10 @@ class Header extends Component {
               </Nav>
             </Collapse>
           </Navbar>
+          {/* login modal */}
+          <Modal open={open} onClose={this.onCloseModal} center>
+            <LoginForm />
+          </Modal>
         </div>
       </div>
     );

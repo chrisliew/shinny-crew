@@ -34,7 +34,6 @@ module.exports = app => {
   });
 
   app.post('/api/email/refund', (req, res) => {
-    console.log('email refund route', req.body);
     sgMail.setApiKey(keys.sendGridKey);
     const msg = {
       to: req.body.email,

@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 require('./models/User');
 require('./models/Game');
 const passportSetup = require('./config/passport-setup-google');
+const passportFacebookSetup = require('./config/passport-setup-facebook');
 const passport = require('passport');
 
 const app = express();

@@ -45,6 +45,7 @@ class Payments extends Component {
     return (
       <div>
         <StripeCheckout
+          onSubmit={this.handleOnSubmitBookGame}
           name='Shinny Squad'
           description='Payment for this game @'
           image='/images/puck.png'
@@ -59,8 +60,6 @@ class Payments extends Component {
                 auth: this.props.auth,
                 position: this.props.position
               })
-              .then(() => this.handleOnSubmitBookGame)
-              .then(this.props.sendEmailConfirm(emailData))
               .then(alert('You have successfully registered for this game now'))
               .then(
                 (window.location.href = `/confirm-game/${
@@ -71,7 +70,12 @@ class Payments extends Component {
           allowRememberMe='true'
           stripeKey={process.env.REACT_APP_STRIPE_KEY}
         >
-          <button className='book-game-button'>Pay For Game</button>
+          <button
+            onSubmit={this.handleOnSubmitBookGame}
+            className='book-game-button'
+          >
+            Pay For Game
+          </button>
           <p className='payment-mandatory'>No cancellation 48 hours before </p>
         </StripeCheckout>
       </div>

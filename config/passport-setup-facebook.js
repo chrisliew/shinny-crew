@@ -1,18 +1,39 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
+const mongoose = require('mongoose');
 const keys = require('./keys');
+
+const User = mongoose.model('users');
 
 passport.use(
   new FacebookStrategy(
     {
       clientID: keys.facebookAppID,
       clientSecret: keys.facebookAppSecret,
-      callbackURL: '/auth/facebook/callback'
+      callbackURL: '/auth/facebook/callback',
+      profileFields: ['id', 'emails', 'name'], //This
+      proxy: true
     },
-    function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({ facebookId: profile.id }, function(err, user) {
-        return cb(err, user);
-      });
+    // function(accessToken, refreshToken, profile, cb) {
+    //   User.findOrCreate({ facebookId: profile.id }, function(err, user) {
+    //     return cb(err, user);
+    //   });
+    // },
+    async (accessToken, refreshToken, profile, done) => {
+      const existingUser = await User.findOne({ facebookId: profile.id });
+      console.log('profile', profile);
+      if (existingUser) {
+        // we already have a record with the given profile ID
+        done(null, existingUser);
+      } else {
+        // we don't have a user record with this ID, make a new record
+        const user = await new User({
+          facebookId: profile.id,
+          displayName: profile.displayName,
+          email: ''
+        }).save();
+        done(null, user);
+      }
     }
   )
 );

@@ -134,7 +134,7 @@ class UpcomingGamesList extends Component {
 
         <div className='games'>
           {games.map(game => {
-            if (new Date() < new Date(game.startDate)) {
+            if (new Date() <= moment(game.startDate + ' ' + game.startTime)) {
               return (
                 <div className='game-container' key={game._id}>
                   <div className='image-container'>
