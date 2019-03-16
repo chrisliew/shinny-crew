@@ -65,7 +65,7 @@ module.exports = app => {
     console.log('selectedGame', req.body.selectedGame);
     const price = req.body.selectedGame.price * 100;
     const startDate = req.body.selectedGame.startDate;
-    const startTime = req.body.selectedDate.startTime;
+    const startTime = req.body.selectedGame.startTime;
     const email = req.body.auth.email;
 
     const charge = await stripe.charges.create({

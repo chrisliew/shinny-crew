@@ -4,9 +4,10 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   googleId: String,
   facebookId: String,
-  displayName: String,
+  firstName: String,
+  lastName: String,
   email: String,
-  games: Array
+  photo: String
 });
 
 module.exports = User = mongoose.model('users', userSchema);

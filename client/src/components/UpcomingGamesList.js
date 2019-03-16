@@ -72,7 +72,7 @@ class UpcomingGamesList extends Component {
       startDate: selectedGame.startDate,
       address: selectedGame.address,
       gameId: gameId,
-      name: auth.displayName,
+      name: auth.firstName,
       startTime: selectedGame.startTime,
       arena: selectedGame.arena
     };
@@ -99,7 +99,7 @@ class UpcomingGamesList extends Component {
       startDate: selectedGame.startDate,
       address: selectedGame.address,
       gameId: gameId,
-      name: auth.displayName,
+      name: auth.firstName,
       startTime: selectedGame.startTime,
       arena: selectedGame.arena
     };

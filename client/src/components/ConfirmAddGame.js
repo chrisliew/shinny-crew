@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
@@ -11,28 +12,35 @@ class ConfirmAddGame extends Component {
     const { selectedGame } = this.props;
     return (
       <div className='confirm-add-game'>
-        <h1>Confirm Add Game</h1>
-        <div className='confirm-add-game-container'>
-          <p>
-            You have added this game! You can find more details{' '}
-            <a href={`/game/${gameId}`}>here</a>
-          </p>
-          <p>
-            {' '}
-            Date: {selectedGame.startDate}
-            <br />
-            Time: {selectedGame.startTime}
-            <br />
-            Arena: {selectedGame.arena}
-            <br />
-            Address: {selectedGame.address}
-            <br />
-          </p>
-          <p>
-            You will receive an email with details shortly. Have a fun and safe
-            time with Shinny Squad.{' '}
-          </p>
-        </div>
+        <Card
+          id='card-confirm'
+          body
+          inverse
+          style={{ backgroundColor: '#333', borderColor: '#333' }}
+        >
+          <CardTitle>Confirm Add Game</CardTitle>
+          <CardText>
+            <p>
+              You have added this game! You can find more details{' '}
+              <a href={`/game/${gameId}`}>here</a>
+            </p>
+            <p>
+              {' '}
+              Date: {selectedGame.startDate}
+              <br />
+              Time: {selectedGame.startTime}
+              <br />
+              Arena: {selectedGame.arena}
+              <br />
+              Address: {selectedGame.address}
+              <br />
+            </p>
+            <p>
+              You will receive an email with details shortly. Have a fun and
+              safe time with Shinny Squad.{' '}
+            </p>
+          </CardText>
+        </Card>
       </div>
     );
   }

@@ -11,7 +11,7 @@ passport.use(
       clientID: keys.facebookAppID,
       clientSecret: keys.facebookAppSecret,
       callbackURL: '/auth/facebook/callback',
-      profileFields: ['id', 'emails', 'name'], //This
+      profileFields: ['id', 'emails', 'name', 'photos'], //This
       proxy: true
     },
     // function(accessToken, refreshToken, profile, cb) {
@@ -21,7 +21,7 @@ passport.use(
     // },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({ facebookId: profile.id });
-      console.log('profile', profile);
+      console.log('Facebook profile', profile);
       if (existingUser) {
         // we already have a record with the given profile ID
         done(null, existingUser);
@@ -29,8 +29,10 @@ passport.use(
         // we don't have a user record with this ID, make a new record
         const user = await new User({
           facebookId: profile.id,
-          displayName: profile.displayName,
-          email: ''
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          email: profile.emails[0].value,
+          photo: profile.photos[0].value
         }).save();
         done(null, user);
       }

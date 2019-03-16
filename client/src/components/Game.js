@@ -46,7 +46,7 @@ class Game extends Component {
       startDate: selectedGame.startDate,
       address: selectedGame.address,
       gameId: selectedGame._id,
-      name: auth.displayName,
+      name: auth.firstName,
       startTime: selectedGame.startTime,
       arena: selectedGame.arena
     };

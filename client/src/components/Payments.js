@@ -5,7 +5,7 @@ import * as actions from '../actions';
 
 class Payments extends Component {
   handleOnSubmitBookGame = event => {
-    console.log('wtf', event);
+    // console.log('wtf', event);
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
 
@@ -35,7 +35,7 @@ class Payments extends Component {
       startDate: game.startDate,
       startTime: game.startTime,
       address: game.address,
-      name: auth.displayName,
+      name: auth.firstName,
       position: this.props.position,
       arena: game.arena,
       gameId: game._id

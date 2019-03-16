@@ -49,29 +49,43 @@ class Header extends Component {
     this.onOpenModal();
   };
 
+  photoIcon = () => {
+    switch (this.props.auth.photo) {
+      case null:
+        return;
+      case false:
+        return <i className='fas fa-cog' />;
+      default:
+        return (
+          <img className='profile-photo' src={this.props.auth.photo} alt='' />
+        );
+    }
+  };
+
   loggedInStatus = () => {
     switch (this.props.auth) {
       case null:
         return;
       case false:
         return (
-          <div>
-            <button onClick={this.onOpenModal}>Login</button>
-            <a href='/auth/google'>Login</a>
-            <a href='/auth/facebook'>Login Facebook</a>
-          </div>
+          <NavLink className='login-link' onClick={this.onOpenModal}>
+            Login
+          </NavLink>
         );
       default:
         return [
           <div key='1' className='navbar-logged-in'>
-            <div className='display-name'>
-              Hello {this.props.auth.displayName}
-            </div>
+            {/* <div className='display-name'>
+              {this.props.auth.photo ? null : (
+                <div>Hello {this.props.auth.firstName}</div>
+              )}
+            </div> */}
             <a href={`/games/${this.props.auth._id}`}>Your Games</a>
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                <i className='fas fa-cog' />
+                {this.photoIcon()}
+                {this.props.auth.firstName}
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
@@ -97,11 +111,14 @@ class Header extends Component {
   render() {
     const { open } = this.state;
     return (
-      <div className='header'>
-        <div>
-          <Navbar className='py-0' light expand='md'>
-            <NavbarBrand href='/'>Shinny Squad</NavbarBrand>
-            {this.props.auth._id === '5c7b0b253f0801dc2228f66a' ? (
+      <div>
+        <Navbar className='container-fluid p-0' light expand='md'>
+          <div className='header'>
+            <NavbarBrand className='navbar-brand' href='/'>
+              Shinny Squad
+            </NavbarBrand>
+
+            {this.props.auth.googleId === '116805417193712015830' ? (
               <NavLink href='/games/new'>Add Game</NavLink>
             ) : null}
             <NavLink href='/landing'>Upcoming Game</NavLink>
@@ -111,12 +128,12 @@ class Header extends Component {
                 {this.loggedInStatus()}
               </Nav>
             </Collapse>
-          </Navbar>
-          {/* login modal */}
-          <Modal open={open} onClose={this.onCloseModal} center>
-            <LoginForm />
-          </Modal>
-        </div>
+          </div>
+        </Navbar>
+        {/* login modal */}
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <LoginForm />
+        </Modal>
       </div>
     );
   }
