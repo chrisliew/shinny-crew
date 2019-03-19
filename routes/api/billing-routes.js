@@ -88,6 +88,8 @@ module.exports = app => {
       }
     );
 
+    console.log('Stripe Position', req.body.position);
+
     if (req.body.position === 'forward') {
       Game.findByIdAndUpdate(
         req.body.selectedGame._id,

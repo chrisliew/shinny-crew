@@ -74,7 +74,8 @@ class UpcomingGamesList extends Component {
       gameId: gameId,
       name: auth.firstName,
       startTime: selectedGame.startTime,
-      arena: selectedGame.arena
+      arena: selectedGame.arena,
+      position: this.state.position
     };
     this.props.sendEmailConfirm(userInfo);
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;

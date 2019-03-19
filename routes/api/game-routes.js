@@ -66,6 +66,7 @@ module.exports = app => {
 
   // PUT /api/games/ * Adds user to game  * PRIVATE
   app.put('/api/games/', (req, res) => {
+    console.log('POSITION!', req.body.position);
     Game.findByIdAndUpdate(
       req.body.gameId,
       {
