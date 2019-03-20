@@ -57,12 +57,16 @@ class UpcomingGamesList extends Component {
   handleOnSubmitBookGame = event => {
     const userId = this.props.auth._id;
     const gameId = this.props.selectedGame._id;
+    const firstName = this.props.auth.firstName;
+    const lastName = this.props.auth.lastName;
     const { selectedGame, auth } = this.props;
 
     const gameUserIdPosition = {
       userId: userId,
       gameId: gameId,
-      position: this.state.position
+      position: this.state.position,
+      firstName: firstName,
+      lastName: lastName
     };
 
     this.props.addGameUserRequest(gameUserIdPosition);

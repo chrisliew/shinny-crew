@@ -71,7 +71,12 @@ module.exports = app => {
       req.body.gameId,
       {
         $push: {
-          players: { userID: req.body.userId, position: req.body.position }
+          players: {
+            userID: req.body.userId,
+            position: req.body.position,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName
+          }
         }
       },
       { safe: true, upsert: true },
