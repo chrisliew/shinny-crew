@@ -31,3 +31,13 @@
   border-radius: 50px;
   margin-right: 0.5em;
 }
+
+@media only screen and (max-width: 600px) {
+  .games-link {
+    display: none;
+  }
+}
+.games-link {
+  align-self: center;
+  list-style: none;
+}

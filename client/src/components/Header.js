@@ -68,9 +68,11 @@ class Header extends Component {
         return;
       case false:
         return (
-          <NavLink className='login-link' onClick={this.onOpenModal}>
-            Login
-          </NavLink>
+          <NavItem>
+            <NavLink className='login-link' onClick={this.onOpenModal}>
+              Login
+            </NavLink>
+          </NavItem>
         );
       default:
         return [
@@ -80,8 +82,6 @@ class Header extends Component {
                 <div>Hello {this.props.auth.firstName}</div>
               )}
             </div> */}
-            <a href={`/games/${this.props.auth._id}`}>Your Games</a>
-
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 {this.photoIcon()}
@@ -97,10 +97,14 @@ class Header extends Component {
                 <DropdownItem>
                   <a href={`/games/${this.props.auth._id}`}>Your Games</a>
                 </DropdownItem>
-
                 <DropdownItem divider />
                 <DropdownItem>
                   <a href='/api/logout'>Logout</a>
+                </DropdownItem>
+                <DropdownItem>
+                  {this.props.auth.googleId === '116805417193712015830' ? (
+                    <NavLink href='/games/new'>Add Game</NavLink>
+                  ) : null}
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -112,23 +116,21 @@ class Header extends Component {
     const { open } = this.state;
     return (
       <div>
-        <Navbar className='container-fluid p-0' light expand='md'>
-          <div className='header'>
-            <NavbarBrand className='navbar-brand' href='/'>
-              Shinny Squad
-            </NavbarBrand>
+        <Navbar className='container-fluid p-0 header' light expand='md'>
+          <NavbarBrand className='navbar-brand' href='/'>
+            Shinny Squad
+          </NavbarBrand>
 
-            {this.props.auth.googleId === '116805417193712015830' ? (
-              <NavLink href='/games/new'>Add Game</NavLink>
-            ) : null}
-            <NavLink href='/landing'>Upcoming Game</NavLink>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
-              <Nav className='ml-auto' navbar>
-                {this.loggedInStatus()}
-              </Nav>
-            </Collapse>
-          </div>
+          {/* <NavbarToggler onClick={this.toggle} /> */}
+
+          {/* <Collapse isOpen={this.state.isOpen} navbar> */}
+          <Nav className='ml-auto' navbar>
+            <NavItem className='games-link'>
+              <NavLink href='/landing'>Games</NavLink>
+            </NavItem>
+            {this.loggedInStatus()}
+          </Nav>
+          {/* </Collapse> */}
         </Navbar>
         {/* login modal */}
         <Modal open={open} onClose={this.onCloseModal} center>

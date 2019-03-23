@@ -2,7 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import {
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Card,
+  CardTitle,
+  CardText
+} from 'reactstrap';
 
 class Game extends Component {
   constructor(props) {
@@ -67,44 +76,52 @@ class Game extends Component {
     const hoursBeforeStartOfGame = duration.asHours();
 
     return (
-      <div className='game'>
-        <h1>Game</h1>
-        <div className='game-details'>
-          <ul>
-            <li>Start Date: {game.startDate}</li>
-            <li>Arena: {game.arena}</li>
-            <li>Address: {game.address}</li>
-            <li>Start Time: {game.startTime}</li>
-            <li>End Time: {game.endTime}</li>
-            <li>Skill Level: {game.skill}</li>
-          </ul>
-          {hoursBeforeStartOfGame > 48 &&
-          game.players &&
-          game.players.filter(player => player.userID === authId).length > 0 ? (
-            <Button
-              color='danger'
-              onClick={this.handleDeleteGame(game.players)}
-            >
-              Delete Game
-            </Button>
-          ) : (
-            <div className='no-refund-warning'>
-              {game.players &&
-              game.players.filter(player => player.userID === authId).length ===
-                0 ? (
-                <Button
-                  color='danger'
-                  onClick={this.handleDeleteGame(game.players)}
-                >
-                  Register Game
-                </Button>
-              ) : null}
-              <div>
-                Within 48 hours of the game, no refund available, only
-                transfers. Click here to see why.
+      <div className='confirm-add-game'>
+        <Card
+          id='card-confirm'
+          body
+          inverse
+          style={{ backgroundColor: '#333', borderColor: '#333' }}
+        >
+          <CardTitle>Game</CardTitle>
+          <CardText>
+            <ul className='game-info-list'>
+              <li>Start Date: {game.startDate}</li>
+              <li>Arena: {game.arena}</li>
+              <li>Address: {game.address}</li>
+              <li>Start Time: {game.startTime}</li>
+              <li>End Time: {game.endTime}</li>
+              <li>Skill Level: {game.skill}</li>
+            </ul>
+            {hoursBeforeStartOfGame > 48 &&
+            game.players &&
+            game.players.filter(player => player.userID === authId).length >
+              0 ? (
+              <Button
+                color='danger'
+                onClick={this.handleDeleteGame(game.players)}
+              >
+                Delete Game
+              </Button>
+            ) : (
+              <div className='no-refund-warning'>
+                {game.players &&
+                game.players.filter(player => player.userID === authId)
+                  .length === 0 ? (
+                  <Button
+                    color='danger'
+                    onClick={this.handleDeleteGame(game.players)}
+                  >
+                    Register Game
+                  </Button>
+                ) : null}
+                <div>
+                  Within 48 hours of the game, no refund available, only
+                  transfers. Click here to see why.
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </CardText>
 
           {/* <Button color='success' onClick={this.toggle(game.players)}>
             Change Positions
@@ -125,7 +142,7 @@ class Game extends Component {
               </Button>
             </ModalFooter>
           </Modal>
-        </div>
+        </Card>
       </div>
     );
   }

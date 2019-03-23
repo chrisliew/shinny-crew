@@ -2,17 +2,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  // height: 100vh;
 }
 .login-container {
   display: flex;
   flex-direction: column;
   margin: auto;
   align-items: center;
-  border: 1px solid black;
-  width: 25em;
-  background-color: #343f4b;
-  color: white;
+  // border: 1px solid black;
+  // width: 25em;
+  // background-color: #343f4b;
+  // color: white;
   padding-bottom: 1em;
 }
 .login .logo {
@@ -47,5 +47,5 @@
   margin: 1em 0 0.5em 0;
   font-style: italic;
   font-size: 0.8em;
-  color: rgba(255, 255, 255, 0.858);
+  // color: rgba(255, 255, 255, 0.858);
 }
