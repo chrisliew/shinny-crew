@@ -18,7 +18,6 @@ passport.use(
       const existingUser = await User.findOne({
         facebookId: profile.id
       });
-      console.log('ExistingUser', existingUser);
       if (existingUser) {
         // we already have a record with the given profile ID
         done(null, existingUser);
@@ -26,8 +25,6 @@ passport.use(
       const existingEmail = await User.findOne({
         email: profile.emails[0].value
       });
-
-      console.log('existingEmail', existingEmail);
 
       if (existingEmail) {
         const user = await User.update(

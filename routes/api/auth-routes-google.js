@@ -20,6 +20,7 @@ module.exports = app => {
   app.get('/api/logout', function(req, res) {
     req.logout();
     req.session = null;
+    res.clearCookie('username');
     res.redirect('/');
   });
 

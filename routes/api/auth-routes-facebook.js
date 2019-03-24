@@ -35,6 +35,9 @@ module.exports = app => {
   // Logout route
   app.get('/api/logout', (req, res) => {
     req.logout();
+    req.session = null;
+    res.clearCookie('username');
+
     res.redirect('/');
   });
 };

@@ -63,7 +63,7 @@ class Header extends Component {
   };
 
   loggedInStatus = () => {
-    switch (this.props.auth) {
+    switch (this.props.auth || document.cookie !== '') {
       case null:
         return;
       case false:
@@ -77,15 +77,11 @@ class Header extends Component {
       default:
         return [
           <div key='1' className='navbar-logged-in'>
-            {/* <div className='display-name'>
-              {this.props.auth.photo ? null : (
-                <div>Hello {this.props.auth.firstName}</div>
-              )}
-            </div> */}
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 {this.photoIcon()}
                 {this.props.auth.firstName}
+                {document.cookie.slice(9)}
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
@@ -114,10 +110,12 @@ class Header extends Component {
   };
   render() {
     const { open } = this.state;
+    console.log('document cookide', document.cookie);
     return (
       <div>
         <Navbar className='container-fluid p-0 header' light expand='md'>
           <NavbarBrand className='navbar-brand' href='/'>
+            <img className='logo' src='./images/puck.png' alt='logo' />
             Shinny Squad
           </NavbarBrand>
 

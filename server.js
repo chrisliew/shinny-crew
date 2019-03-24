@@ -8,8 +8,11 @@ require('./models/Game');
 const passportSetup = require('./config/passport-setup-google');
 const passportFacebookSetup = require('./config/passport-setup-facebook');
 const passport = require('passport');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const app = express();
+app.use(cookieParser());
 
 app.use(
   cookieSession({
@@ -17,6 +20,13 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+
+app.use(function(req, res, next) {
+  req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
+  next();
+});
+
+app.use(cors());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -45,6 +55,7 @@ app.use(function(req, res, next) {
 // Use Routes
 require('./routes/api/auth-routes-google')(app);
 require('./routes/api/auth-routes-facebook')(app);
+require('./routes/api/auth-routes')(app);
 require('./routes/api/game-routes')(app);
 require('./routes/api/billing-routes')(app);
 require('./routes/api/user-routes')(app);

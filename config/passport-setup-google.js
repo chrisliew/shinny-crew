@@ -27,6 +27,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       const existingUser = await User.findOne({ googleId: profile.id });
+      console.log('existingusergoogle', existingUser);
       if (existingUser) {
         // we already have a record with the given profile ID
         done(null, existingUser);

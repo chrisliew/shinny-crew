@@ -15,6 +15,8 @@ import TermsAndConditions from './components/TermsAndConditions';
 import ConfirmAddGame from './components/ConfirmAddGame';
 import Footer from './components/Footer';
 import Settings from './components/Settings';
+import Login from './components/Login';
+import Register from './components/Register';
 
 import './App.scss';
 import 'react-dropdown/style.css';
@@ -43,6 +45,8 @@ class App extends Component {
           />
           <Route path='/game/:id' component={Game} />
           <Route exact path='/settings' component={Settings} />
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} />
           <Footer />
         </div>
       </Router>

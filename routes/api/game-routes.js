@@ -26,11 +26,11 @@ module.exports = app => {
 
   // GET /api/games/:id * Get User Games by UserID * PRIVATE
   app.get('/api/games/:id', (req, res) => {
-    if (req.session.passport.user === req.params.id) {
-      Game.find()
-        .elemMatch('players', { userID: req.params.id })
-        .then(games => res.json(games));
-    }
+    // if (req.session.passport.user === req.params.id) {
+    Game.find()
+      .elemMatch('players', { userID: req.params.id })
+      .then(games => res.json(games));
+    // }
   });
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
