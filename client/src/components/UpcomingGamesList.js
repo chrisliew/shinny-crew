@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Modal from 'react-responsive-modal';
+import Login from './Login';
 import LoginForm from './LoginForm';
 import Payments from './Payments';
 import { Button } from 'reactstrap';
 import moment from 'moment';
+import { cookieCompare } from 'tough-cookie';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -47,7 +49,7 @@ class UpcomingGamesList extends Component {
 
     this.props.fetchOneGame(gameId);
 
-    if (!this.props.auth) {
+    if (!this.props.auth && !document.cookie) {
       this.onOpenModal();
     } else {
       this.onOpenGameModal();
@@ -379,7 +381,12 @@ class UpcomingGamesList extends Component {
           })}
 
           {/* Login Modal  */}
-          <Modal open={open} onClose={this.onCloseModal} center>
+          <Modal
+            id='login-modal'
+            open={open}
+            onClose={this.onCloseModal}
+            center
+          >
             <LoginForm />
           </Modal>
           {/* Game details Modal */}

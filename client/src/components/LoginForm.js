@@ -22,17 +22,17 @@ class LoginForm extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    axios.post('http://localhost:3000/api/login', userLogin).then(res => {
-      const token = res.data.token;
-      const loginFailed = res.data.loginFailed;
+    axios.post('/api/login', userLogin).then(res => {
+      console.log('resdata', res.data);
 
-      if (token) {
-        localStorage.setItem('token', token);
+      if (res.data.loginFailed) {
+        alert('Email or Password incorrect');
+        return;
+      } else if (res.data.username) {
         window.location.replace('/');
-      } else if (loginFailed) {
-        alert('Username or password incorrect');
       }
     });
+
     this.setState({
       email: '',
       password: ''
@@ -42,10 +42,13 @@ class LoginForm extends Component {
   render() {
     return (
       <div className='login'>
-        <div className='login-container'>
-          <img className='logo' src='/images/puck.png' />
-          <h3 className='title'>Sign In</h3>
-          {/* <form onSubmit={this.handleOnSubmit} className='login-form'>
+        <div className='login-form-container'>
+          <img className='logo' src='/images/puck.png' alt='puck' />
+          <h4 className='title'>
+            Shinny Squad <br />
+            Sign In
+          </h4>
+          <form onSubmit={this.handleOnSubmit} className='login-form'>
             <input
               onChange={this.handleOnChange}
               value={this.state.email}
@@ -61,12 +64,12 @@ class LoginForm extends Component {
               placeholder='Password'
             />
             <button className='login-button'>Sign In</button>
-          </form> */}
+          </form>
           <div>
             <a href='/auth/google'>
               <img
                 className='google-login-button'
-                src='/images/google-login-button.png'
+                src='/images/google-login-2.png'
                 alt='login with google'
               />
             </a>

@@ -30,9 +30,24 @@ class Register extends Component {
       password: this.state.password
     };
 
-    axios.post('http://localhost:3000/api/register', registerInfo).then(res => {
+    axios.post('/api/register', registerInfo).then(res => {
       console.log('res!!!!', res);
+      const emailAlreadyExists = res.data.email;
+      console.log('res.data.email', res.data.email);
 
+      if (emailAlreadyExists === 'Email already exists') {
+        alert('Email or Username already exists');
+        return;
+      } else {
+        alert('Register successful');
+        // window.location.replace('/');
+        axios.post('/api/login', registerInfo).then(res => {
+          console.log('res.data', res);
+          if (res.data) {
+            window.location.replace('/');
+          }
+        });
+      }
       //   if (res) {
       //     localStorage.setItem('token', token);
       //     window.location.replace('/');
@@ -53,12 +68,15 @@ class Register extends Component {
   render() {
     return (
       <div>
-        <div className='login'>
-          <div className='login-container'>
+        <div className='register'>
+          <div className='register-container'>
             <img className='logo' src='/images/puck.png' alt='puck' />
 
-            <h3 className='title'>Register</h3>
-            <form onSubmit={this.handleOnSubmit} className='login-form'>
+            <h3 className='title'>
+              Shinny Squad <br />
+              Register
+            </h3>
+            <form onSubmit={this.handleOnSubmit} className='register-form'>
               <input
                 onChange={this.handleOnChange}
                 value={this.state.email}
@@ -87,7 +105,7 @@ class Register extends Component {
                 name='password2'
                 placeholder='Matching password'
               />
-              <button className='login-button'>Register</button>
+              <button className='register-button'>Register</button>
             </form>
             <a href='/login'>Login here</a>
           </div>

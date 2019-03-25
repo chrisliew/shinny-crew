@@ -42,7 +42,6 @@ export const addGameUserRequest = gameUserId => {
 
 export const fetchUserGames = userID => {
   return dispatch => {
-    console.log('userID', userID);
     return axios.get(`/api/games/${userID}`).then(res => {
       dispatch({ type: FETCH_USER_GAMES, payload: res.data });
     });
@@ -81,7 +80,6 @@ export const handleToken = token => async dispatch => {
 };
 
 export const changeEmail = emailUserId => async dispatch => {
-  console.log('email', emailUserId);
   const res = await axios.put(`/api/email`, emailUserId);
   dispatch({ type: CHANGE_EMAIL, payload: res.data });
 };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class LoginForm extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,14 +23,9 @@ class LoginForm extends Component {
       password: this.state.password
     };
     axios.post('/api/login', userLogin).then(res => {
-      console.log('res.data', res);
-
-      // if (token) {
-      //   localStorage.setItem('token', token);
-      //   window.location.replace('/');
-      // } else if (loginFailed) {
-      //   alert('Username or password incorrect');
-      // }
+      if (res.data) {
+        window.location.replace('/');
+      }
     });
     this.setState({
       email: '',
@@ -43,7 +38,10 @@ class LoginForm extends Component {
       <div className='login'>
         <div className='login-container'>
           <img className='logo' src='/images/puck.png' alt='puck' />
-          <h3 className='title'>Sign In</h3>
+          <h4 className='title'>
+            Shinny Squad <br />
+            Sign In
+          </h4>
           <form onSubmit={this.handleOnSubmit} className='login-form'>
             <input
               onChange={this.handleOnChange}
@@ -65,7 +63,7 @@ class LoginForm extends Component {
             <a href='/auth/google'>
               <img
                 className='google-login-button'
-                src='/images/google-login-button.png'
+                src='/images/google-login-2.png'
                 alt='login with google'
               />
             </a>
@@ -90,4 +88,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default Login;

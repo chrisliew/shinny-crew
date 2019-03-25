@@ -1,10 +1,9 @@
 @import './styles/_colors.scss';
-@import './styles/buttons.scss';
+@import './styles/_buttons.scss';
 
 @import './styles/home.scss';
 @import './styles/addGame.scss';
 @import './styles/header.scss';
-@import './styles/loginForm.scss';
 @import './styles/userGames.scss';
 @import './styles/game.scss';
 @import './styles/howItWorks.scss';
@@ -14,6 +13,7 @@
 @import './styles/settings.scss';
 @import './styles/contact-us.scss';
 @import './styles/login.scss';
+@import './styles/register.scss';
 
 * {
   box-sizing: border-box;

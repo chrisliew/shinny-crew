@@ -14,7 +14,9 @@ import {
   DropdownItem
 } from 'reactstrap';
 import Modal from 'react-responsive-modal';
+import Login from './Login';
 import LoginForm from './LoginForm';
+import { capitalizeFirstLetter } from './GlobalFunctions';
 
 class Header extends Component {
   constructor(props) {
@@ -81,7 +83,7 @@ class Header extends Component {
               <DropdownToggle nav caret>
                 {this.photoIcon()}
                 {this.props.auth.firstName}
-                {document.cookie.slice(9)}
+                {capitalizeFirstLetter(document.cookie.slice(9))}
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
@@ -110,7 +112,6 @@ class Header extends Component {
   };
   render() {
     const { open } = this.state;
-    console.log('document cookide', document.cookie);
     return (
       <div>
         <Navbar className='container-fluid p-0 header' light expand='md'>
