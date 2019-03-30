@@ -35,6 +35,7 @@ module.exports = app => {
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
   app.post('/api/games/', (req, res) => {
+    console.log('req.session.passport', req.session.passport.user);
     // if (req.session.passport.user === '5c7b0b253f0801dc2228f66a') {
     const newGame = new Game({
       arena: req.body.arena,
@@ -64,7 +65,7 @@ module.exports = app => {
     // }
   });
 
-  // PUT /api/games/ * Adds user to game  * PRIVATE
+  // PUT /api/games/ * Adds user to game/ Add Game to User * PRIVATE
   app.put('/api/games/', (req, res) => {
     console.log('POSITION!', req.body.position);
     Game.findByIdAndUpdate(

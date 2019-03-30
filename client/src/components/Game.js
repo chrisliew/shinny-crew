@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Modal,
@@ -61,9 +62,8 @@ class Game extends Component {
     };
 
     this.props.sendEmailRefund(userInfoEmail);
-    alert('You have successfully deleted this game')(
-      (window.location.href = '/landing')
-    );
+    alert('You have successfully deleted this game');
+    window.location.href = `/cancelled-game/${selectedGame._id}`;
   };
 
   render() {
@@ -83,7 +83,7 @@ class Game extends Component {
           inverse
           style={{ backgroundColor: '#333', borderColor: '#333' }}
         >
-          <CardTitle>Game</CardTitle>
+          <CardTitle>Game Details</CardTitle>
           <CardText>
             <ul className='game-info-list'>
               <li>Start Date: {game.startDate}</li>
@@ -97,23 +97,37 @@ class Game extends Component {
             game.players &&
             game.players.filter(player => player.userID === authId).length >
               0 ? (
-              <Button
-                color='danger'
-                onClick={this.handleDeleteGame(game.players)}
-              >
-                Delete Game
-              </Button>
+              <div>
+                <div className='registration-status'>
+                  You Are Registered as a{' '}
+                  <span className='position'>
+                    {
+                      game.players[game.players.findIndex(x => x.userID)]
+                        .position
+                    }
+                  </span>
+                </div>
+                <br />
+                <Button
+                  color='danger'
+                  onClick={this.handleDeleteGame(game.players)}
+                >
+                  Delete Game
+                </Button>
+              </div>
             ) : (
               <div className='no-refund-warning'>
                 {game.players &&
                 game.players.filter(player => player.userID === authId)
                   .length === 0 ? (
-                  <Button
-                    color='danger'
-                    onClick={this.handleDeleteGame(game.players)}
-                  >
-                    Register Game
-                  </Button>
+                  <Link to='/landing'>
+                    <Button
+                      color='danger'
+                      onClick={this.handleDeleteGame(game.players)}
+                    >
+                      View Games
+                    </Button>
+                  </Link>
                 ) : null}
                 <div>
                   Within 48 hours of the game, no refund available, only

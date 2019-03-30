@@ -13,18 +13,22 @@ module.exports = app => {
 
     (async login => {
       const existingUser = await User.findOne({ email: email });
+      console.log('existinguser', existingUser);
       if (!existingUser) {
         return res.status(400).json({ email: "Email doesn't exist" });
       }
-      console.log('existinguser', existingUser);
       const comparePassword = await bcrypt.compare(
         password,
         existingUser.password,
         (err, response) => {
           if (response) {
-            res.cookie('username', existingUser.username);
+            res.cookie('userProfile', {
+              firstName: existingUser.username,
+              email: email,
+              _id: existingUser._id
+            });
             // res.send('');
-            res.json({ username: existingUser.username });
+            res.json({ username: existingUser.username, email: email });
             // res.redirect('/');
             return;
             // return console.log('req', res.cookie);
@@ -38,6 +42,9 @@ module.exports = app => {
   });
 
   app.post('/api/register', (req, res) => {
+    if (req.body.password.length < 8) {
+      return;
+    }
     User.findOne({ email: req.body.email }).then(user => {
       if (user) {
         return res.json({ email: 'Email already exists' });
@@ -59,4 +66,9 @@ module.exports = app => {
       });
     });
   });
+  // app.post('/api/current_user_normal', (req, res) => {
+  // Find user based on parameter passed in here
+  // send back stuff here
+  // res.send({ email: 'dude@dude.com', username: '2pac' });
+  // });
 };

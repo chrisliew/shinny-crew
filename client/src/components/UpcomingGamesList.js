@@ -193,24 +193,27 @@ class UpcomingGamesList extends Component {
                         .map(player => player.userID)
                         .includes(this.props.auth._id) ? (
                         <div key={game._id}>
-                          You Are Registered as a{' '}
-                          <span className='position'>
-                            {
-                              game.players[
-                                game.players.findIndex(x => x.userID)
-                              ].position
-                            }
-                          </span>
+                          <div className='registration-status'>
+                            You Are Registered as a{' '}
+                            <span className='position'>
+                              {
+                                game.players[
+                                  game.players.findIndex(x => x.userID)
+                                ].position
+                              }
+                            </span>
+                          </div>
                           <br />
                           <br />
                           <a href={`/game/${game._id}`}>
-                            <button
-                              className='delete-game-button'
-                              onClick={this.handleSelectOneGame(game)}
-                              value={game._id}
+                            <Button
+                              color='info'
+                              // className='delete-game-button'
+                              // onClick={this.handleSelectOneGame(game)}
+                              // value={game._id}
                             >
-                              Quit Game
-                            </button>
+                              Game Details
+                            </Button>
                           </a>
                         </div>
                       ) : (
@@ -311,7 +314,7 @@ class UpcomingGamesList extends Component {
                               disabled
                             />
                           )}
-                          {`Forward - ${
+                          {` Forward - ${
                             selectedGame.forwardSlots
                           } spots remaining`}
                           <br />
@@ -331,7 +334,7 @@ class UpcomingGamesList extends Component {
                               disabled
                             />
                           )}
-                          {`Defense - ${
+                          {` Defense - ${
                             selectedGame.defenseSlots
                           } spots remaining`}
                           <br />
@@ -351,7 +354,7 @@ class UpcomingGamesList extends Component {
                               disabled
                             />
                           )}
-                          {`Goalie - ${
+                          {` Goalie - ${
                             selectedGame.goalieSlots
                           } spots remaining`}
                           <div>

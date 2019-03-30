@@ -23,12 +23,12 @@ class LoginForm extends Component {
       password: this.state.password
     };
     axios.post('/api/login', userLogin).then(res => {
-      console.log('resdata', res.data);
-
+      console.log('res.data', res.data);
       if (res.data.loginFailed) {
         alert('Email or Password incorrect');
         return;
-      } else if (res.data.username) {
+      } else if (res.data) {
+        alert('Login Success!');
         window.location.replace('/');
       }
     });

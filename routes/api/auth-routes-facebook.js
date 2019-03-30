@@ -28,16 +28,18 @@ module.exports = app => {
   //   res.send('You have reached the secret route');
   // });
 
-  app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
-  });
+  // app.get('/api/current_user', (req, res) => {
+  //   console.log('fb auth route', req.user);
+
+  //   res.send(req.user);
+  // });
 
   // Logout route
-  app.get('/api/logout', (req, res) => {
-    req.logout();
-    req.session = null;
-    res.clearCookie('username');
+  // app.get('/api/logout', (req, res) => {
+  //   req.logout();
+  //   req.session = null;
+  //   res.clearCookie('userProfile');
 
-    res.redirect('/');
-  });
+  //   res.redirect('/');
+  // });
 };

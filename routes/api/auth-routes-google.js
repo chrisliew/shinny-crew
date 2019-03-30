@@ -20,11 +20,15 @@ module.exports = app => {
   app.get('/api/logout', function(req, res) {
     req.logout();
     req.session = null;
-    res.clearCookie('username');
+    res.clearCookie('userProfile');
     res.redirect('/');
   });
 
-  app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
+  app.post('/api/current_user', (req, res) => {
+    if (req.user) {
+      res.send(req.user);
+    } else if (req.cookies) {
+      res.send(req.cookies.userProfile);
+    }
   });
 };

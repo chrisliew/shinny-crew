@@ -6,7 +6,6 @@ const sgMail = require('@sendgrid/mail');
 
 module.exports = app => {
   app.post('/api/stripe', async (req, res) => {
-    console.log('auth', req.body.auth);
     const price = req.body.selectedGame.price * 100;
     const startDate = req.body.selectedGame.startDate;
     const startTime = req.body.selectedGame.startTime;

@@ -11,7 +11,8 @@ import {
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Button
 } from 'reactstrap';
 import Modal from 'react-responsive-modal';
 import Login from './Login';
@@ -65,12 +66,12 @@ class Header extends Component {
   };
 
   loggedInStatus = () => {
-    switch (this.props.auth || document.cookie !== '') {
+    switch (this.props.auth) {
       case null:
         return;
-      case false:
+      case '' || false:
         return (
-          <NavItem>
+          <NavItem className='align-self-center'>
             <NavLink className='login-link' onClick={this.onOpenModal}>
               Login
             </NavLink>
@@ -82,8 +83,10 @@ class Header extends Component {
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 {this.photoIcon()}
-                {this.props.auth.firstName}
-                {capitalizeFirstLetter(document.cookie.slice(9))}
+                {/* capitalizes first letter */}
+                {this.props.auth &&
+                  this.props.auth.firstName.charAt(0).toUpperCase() +
+                    this.props.auth.firstName.slice(1)}
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
@@ -116,7 +119,7 @@ class Header extends Component {
       <div>
         <Navbar className='container-fluid p-0 header' light expand='md'>
           <NavbarBrand className='navbar-brand' href='/'>
-            <img className='logo' src='./images/puck.png' alt='logo' />
+            <img className='logo' src='/images/puck.png' alt='logo' />
             Shinny Squad
           </NavbarBrand>
 
@@ -125,7 +128,9 @@ class Header extends Component {
           {/* <Collapse isOpen={this.state.isOpen} navbar> */}
           <Nav className='ml-auto' navbar>
             <NavItem className='games-link'>
-              <NavLink href='/landing'>Games</NavLink>
+              <NavLink href='/landing'>
+                <Button color='success'>View Games</Button>
+              </NavLink>
             </NavItem>
             {this.loggedInStatus()}
           </Nav>

@@ -24,6 +24,10 @@ class Register extends Component {
     if (this.state.password !== this.state.password2) {
       return alert('passwords dont match!');
     }
+    if (this.state.password.length < 8) {
+      alert('Password must be at least 8 characters');
+      return;
+    }
     const registerInfo = {
       email: this.state.email,
       username: this.state.username,
@@ -31,16 +35,13 @@ class Register extends Component {
     };
 
     axios.post('/api/register', registerInfo).then(res => {
-      console.log('res!!!!', res);
       const emailAlreadyExists = res.data.email;
-      console.log('res.data.email', res.data.email);
 
       if (emailAlreadyExists === 'Email already exists') {
         alert('Email or Username already exists');
         return;
       } else {
         alert('Register successful');
-        // window.location.replace('/');
         axios.post('/api/login', registerInfo).then(res => {
           console.log('res.data', res);
           if (res.data) {
@@ -48,14 +49,6 @@ class Register extends Component {
           }
         });
       }
-      //   if (res) {
-      //     localStorage.setItem('token', token);
-      //     window.location.replace('/');
-      //   } else if (registerFailed) {
-      //     alert('Email Or Username already exists');
-      //   }
-      // });
-
       this.setState({
         email: '',
         username: '',

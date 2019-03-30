@@ -25,6 +25,8 @@
 
 .login-link {
   margin-right: 1em;
+  align-self: center;
+  align-items: center;
 }
 
 .navbar-logged-in .profile-photo {
@@ -46,4 +48,8 @@
   width: 40px;
   height: 40px;
   margin-right: 10px;
+}
+
+.align-self-center {
+  align-self: center;
 }

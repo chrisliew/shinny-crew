@@ -17,6 +17,7 @@ import Footer from './components/Footer';
 import Settings from './components/Settings';
 import Login from './components/Login';
 import Register from './components/Register';
+import ConfirmDeleteGame from './components/ConfirmDeleteGame';
 
 import './App.scss';
 import 'react-dropdown/style.css';
@@ -25,6 +26,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
+    // console.log('props!!', this.prop s);
+    // this.props.fetchUserNormal();
   }
   render() {
     return (
@@ -38,6 +41,7 @@ class App extends Component {
           <Route exact path='/how-it-works' component={HowItWorks} />
           <Route exact path='/contact-us' component={ContactUs} />
           <Route path='/confirm-game/:id' component={ConfirmAddGame} />
+          <Route path='/cancelled-game/:id' component={ConfirmDeleteGame} />
           <Route
             exact
             path='/terms-and-conditions'
@@ -54,7 +58,11 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return state;
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   actions
 )(App);

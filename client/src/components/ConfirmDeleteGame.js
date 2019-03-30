@@ -3,7 +3,7 @@ import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
-class ConfirmAddGame extends Component {
+class ConfirmDeleteGame extends Component {
   componentDidMount() {
     this.props.fetchOneGame(this.props.match.params.id);
   }
@@ -18,10 +18,10 @@ class ConfirmAddGame extends Component {
           inverse
           style={{ backgroundColor: '#333', borderColor: '#333' }}
         >
-          <CardTitle>Game Confirmation</CardTitle>
+          <CardTitle>Cancelled Game Confirmation</CardTitle>
           <CardText>
             <p>
-              You have added this game! You can find more details{' '}
+              You have cancelled this game. You can find more details{' '}
               <a href={`/game/${gameId}`}>here</a>
             </p>
             <p>
@@ -53,4 +53,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   actions
-)(ConfirmAddGame);
+)(ConfirmDeleteGame);

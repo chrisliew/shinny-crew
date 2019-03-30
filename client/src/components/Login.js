@@ -27,6 +27,7 @@ class Login extends Component {
         window.location.replace('/');
       }
     });
+    // axios.post('/api/current_user', userLogin).then(res => console.log(res));
     this.setState({
       email: '',
       password: ''

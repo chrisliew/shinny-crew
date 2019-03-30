@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   FETCH_USER,
+  FETCH_USER_NORMAL,
   ADD_GAME_REQUEST,
   ADD_GAME_USER_REQUEST,
   FETCH_GAMES,
@@ -13,10 +14,18 @@ import {
   SEND_EMAIL_REFUND
 } from './types';
 
-export const fetchUser = () => {
+export const fetchUser = userInfo => {
   return function(dispatch) {
-    axios.get('/api/current_user').then(res => {
+    axios.post('/api/current_user', userInfo).then(res => {
       dispatch({ type: FETCH_USER, payload: res.data });
+    });
+  };
+};
+
+export const fetchUserNormal = () => {
+  return function(dispatch) {
+    axios.post('/api/current_user_normal').then(res => {
+      dispatch({ type: FETCH_USER_NORMAL, payload: res.data });
     });
   };
 };
