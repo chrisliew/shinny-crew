@@ -84,7 +84,7 @@ class Header extends Component {
               <DropdownToggle nav caret>
                 {this.photoIcon()}
                 {/* capitalizes first letter */}
-                {this.props.auth &&
+                {this.props.auth.firstName &&
                   this.props.auth.firstName.charAt(0).toUpperCase() +
                     this.props.auth.firstName.slice(1)}
               </DropdownToggle>
