@@ -47,6 +47,7 @@ passport.use(
             console.log(err);
           }
         );
+        done(null, existingEmail);
       } else if (!existingUser && !existingEmail) {
         // we don't have a user record with this ID, make a new record
         const user = await new User({

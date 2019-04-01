@@ -26,6 +26,8 @@ passport.use(
         email: profile.emails[0].value
       });
 
+      console.log('existingEmailFacebook', existingEmail);
+
       if (existingEmail) {
         const user = await User.update(
           { email: existingEmail.email },
@@ -36,6 +38,7 @@ passport.use(
             console.log(err);
           }
         );
+        done(null, existingEmail);
       } else if (!existingUser && !existingEmail) {
         // we don't have a user record with this ID, make a new record
         const user = await new User({

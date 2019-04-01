@@ -38,7 +38,9 @@ class Register extends Component {
       const emailAlreadyExists = res.data.email;
 
       if (emailAlreadyExists === 'Email already exists') {
-        alert('Email or Username already exists');
+        alert(
+          'Email or Username already exists.  Try Facebook or Google Login'
+        );
         return;
       } else {
         alert('Register successful');
@@ -69,6 +71,24 @@ class Register extends Component {
               Shinny Squad <br />
               Register
             </h3>
+            <div>
+              <a href='/auth/google'>
+                <img
+                  className='google-login-button'
+                  src='/images/google-login-2.png'
+                  alt='login with google'
+                />
+              </a>
+            </div>
+            <div>
+              <a href='/auth/facebook'>
+                <img
+                  className='facebook-login-button'
+                  src='/images/facebook-login.png'
+                  alt='login with facebook'
+                />
+              </a>
+            </div>
             <form onSubmit={this.handleOnSubmit} className='register-form'>
               <input
                 onChange={this.handleOnChange}

@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Link } from 'react-router-dom';
 import {
   Button,
-  Modal,
+  // Modal,
   ModalHeader,
   ModalBody,
   ModalFooter,
@@ -13,6 +13,8 @@ import {
   CardTitle,
   CardText
 } from 'reactstrap';
+import Modal from 'react-responsive-modal';
+import Payments from './Payments';
 
 class Game extends Component {
   constructor(props) {
@@ -22,9 +24,19 @@ class Game extends Component {
       player: [],
       gameTime: '',
       currentTime: new Date(),
-      modal: false
+      modal: false,
+      openGame: false,
+      position: ''
     };
   }
+
+  onOpenGameModal = () => {
+    this.setState({ openGame: true });
+  };
+
+  onCloseGameModal = () => {
+    this.setState({ openGame: false });
+  };
 
   toggle = userInfo => event => {
     event.preventDefault();
@@ -66,6 +78,54 @@ class Game extends Component {
     window.location.href = `/cancelled-game/${selectedGame._id}`;
   };
 
+  handleSelectOneGame = game => event => {
+    event.preventDefault();
+    const gameId = event.target.value;
+
+    if (!this.props.auth && !document.cookie) {
+      window.location.href = '/login';
+    } else {
+      this.onOpenGameModal();
+    }
+  };
+
+  handleOnChangePosition = event => {
+    this.setState({
+      position: event.target.value
+    });
+  };
+
+  handleOnSubmitBookGame = event => {
+    const userId = this.props.auth._id;
+    const gameId = this.props.selectedGame._id;
+    const firstName = this.props.auth.firstName;
+    const lastName = this.props.auth.lastName;
+    const { selectedGame, auth } = this.props;
+
+    const gameUserIdPosition = {
+      userId: userId,
+      gameId: gameId,
+      position: this.state.position,
+      firstName: firstName,
+      lastName: lastName
+    };
+
+    this.props.addGameUserRequest(gameUserIdPosition);
+
+    const userInfo = {
+      email: auth.email,
+      startDate: selectedGame.startDate,
+      address: selectedGame.address,
+      gameId: gameId,
+      name: auth.firstName,
+      startTime: selectedGame.startTime,
+      arena: selectedGame.arena,
+      position: this.state.position
+    };
+    this.props.sendEmailConfirm(userInfo);
+    window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
+  };
+
   render() {
     const game = this.props.selectedGame;
     const gameStartTime = moment(`${game.startDate} ${game.startTime}`);
@@ -74,6 +134,7 @@ class Game extends Component {
     const now = moment(new Date());
     const duration = moment.duration(gameStartTime.diff(now));
     const hoursBeforeStartOfGame = duration.asHours();
+    const { openGame } = this.state;
 
     return (
       <div className='confirm-add-game'>
@@ -123,9 +184,9 @@ class Game extends Component {
                   <Link to='/landing'>
                     <Button
                       color='danger'
-                      onClick={this.handleDeleteGame(game.players)}
+                      onClick={this.handleSelectOneGame(game._id)}
                     >
-                      View Games
+                      Join Game
                     </Button>
                   </Link>
                 ) : null}
@@ -141,22 +202,133 @@ class Game extends Component {
             Change Positions
           </Button> */}
           <Modal
-            isOpen={this.state.modal}
-            toggle={this.toggle}
-            className={this.props.className}
+            className='choose-game-modal'
+            open={openGame}
+            onClose={this.onCloseGameModal}
+            center
           >
-            <ModalHeader toggle={this.toggle}>Change Positions</ModalHeader>
-            <ModalBody>Current Position: </ModalBody>
-            <ModalFooter>
-              <Button color='primary' onClick={this.toggle}>
-                Do Something
-              </Button>{' '}
-              <Button color='secondary' onClick={this.toggle}>
-                Cancel
-              </Button>
-            </ModalFooter>
+            <div className='game-details-modal'>
+              <h1>Game Details</h1>
+              Instructions: Bring gear, and go to changeroom #1 <br />
+              <br />
+              <p>
+                Skill: {game.skill} <br />
+                Arena: {game.arena} <br />
+                Address: {game.address} <br />
+                Date: {game.startDate} <br />
+                Start Time: {game.startTime} <br />
+                End Time: {game.endTime} <br />
+                <br />
+              </p>
+              {game.players &&
+              game.players
+                .map(player => player.userID)
+                .includes(this.props.auth._id) ? (
+                <div>
+                  Registered as{' '}
+                  <span className='position'>
+                    {
+                      game.players[game.players.findIndex(x => x.userID)]
+                        .position
+                    }
+                  </span>
+                  <br />
+                  <br />
+                  <div>
+                    <button
+                      className='delete-game-button'
+                      onClick={this.handleDeleteGame(
+                        game.players[game.players.findIndex(x => x.userID)]
+                      )}
+                    >
+                      Quit Game
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  Choose Your Position:
+                  <br />
+                  {game.forwardSlots > 0 ? (
+                    <input
+                      type='radio'
+                      name='position'
+                      value='forward'
+                      onChange={this.handleOnChangePosition}
+                    />
+                  ) : (
+                    <input
+                      type='radio'
+                      name='position'
+                      value='forward'
+                      onChange={this.handleOnChangePosition}
+                      disabled
+                    />
+                  )}
+                  {` Forward - ${game.forwardSlots} spots remaining`}
+                  <br />
+                  {game.defenseSlots > 0 ? (
+                    <input
+                      type='radio'
+                      name='position'
+                      value='defense'
+                      onChange={this.handleOnChangePosition}
+                    />
+                  ) : (
+                    <input
+                      type='radio'
+                      name='position'
+                      value='defense'
+                      onChange={this.handleOnChangePosition}
+                      disabled
+                    />
+                  )}
+                  {` Defense - ${game.defenseSlots} spots remaining`}
+                  <br />
+                  {game.goalieSlots > 0 ? (
+                    <input
+                      type='radio'
+                      name='position'
+                      value='goalie'
+                      onChange={this.handleOnChangePosition}
+                    />
+                  ) : (
+                    <input
+                      type='radio'
+                      name='position'
+                      value='goalie'
+                      onChange={this.handleOnChangePosition}
+                      disabled
+                    />
+                  )}
+                  {` Goalie - ${game.goalieSlots} spots remaining`}
+                  <div>
+                    {this.state.position === 'goalie' ? (
+                      <Button
+                        onClick={this.handleOnSubmitBookGame}
+                        color='success'
+                      >
+                        Goalies Play Free!
+                      </Button>
+                    ) : null}
+                    {this.state.position === 'forward' ||
+                    this.state.position === 'defense' ? (
+                      <Payments position={this.state.position}>
+                        Pay Now
+                      </Payments>
+                    ) : null}
+                  </div>
+                </div>
+              )}
+            </div>
           </Modal>
         </Card>
+        <div>
+          <br />
+          <Link to='/landing'>
+            <Button color='success'>View Upcoming Games</Button>
+          </Link>
+        </div>
       </div>
     );
   }

@@ -48,23 +48,6 @@ class LoginForm extends Component {
             Shinny Squad <br />
             Sign In
           </h4>
-          <form onSubmit={this.handleOnSubmit} className='login-form'>
-            <input
-              onChange={this.handleOnChange}
-              value={this.state.email}
-              type='email'
-              name='email'
-              placeholder='Email'
-            />
-            <input
-              onChange={this.handleOnChange}
-              value={this.state.password}
-              type='password'
-              name='password'
-              placeholder='Password'
-            />
-            <button className='login-button'>Sign In</button>
-          </form>
           <div>
             <a href='/auth/google'>
               <img
@@ -83,6 +66,23 @@ class LoginForm extends Component {
               />
             </a>
           </div>
+          <form onSubmit={this.handleOnSubmit} className='login-form'>
+            <input
+              onChange={this.handleOnChange}
+              value={this.state.email}
+              type='email'
+              name='email'
+              placeholder='Email'
+            />
+            <input
+              onChange={this.handleOnChange}
+              value={this.state.password}
+              type='password'
+              name='password'
+              placeholder='Password'
+            />
+            <button className='login-button'>Sign In</button>
+          </form>
 
           <div className='forgot-password'>Forgot Your Password?</div>
           <a href='/register' className='register'>

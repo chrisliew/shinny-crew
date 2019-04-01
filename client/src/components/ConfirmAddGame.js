@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Button, CardTitle, CardText } from 'reactstrap';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { Link } from 'react-router-dom';
 
 class ConfirmAddGame extends Component {
   componentDidMount() {
@@ -41,6 +42,12 @@ class ConfirmAddGame extends Component {
             </p>
           </CardText>
         </Card>
+        <div>
+          <br />
+          <Link to='/landing'>
+            <Button color='success'>View Games</Button>
+          </Link>
+        </div>
       </div>
     );
   }
