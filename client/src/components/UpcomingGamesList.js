@@ -6,6 +6,7 @@ import LoginForm from './LoginForm';
 import Payments from './Payments';
 import { Button } from 'reactstrap';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -135,9 +136,11 @@ class UpcomingGamesList extends Component {
     const { openGame } = this.state;
     const selectedGame = this.props.selectedGame;
 
+    console.log('this.props.upcominggames', this.props);
+
     return (
       <div id='upcoming-games' className='upcoming-games'>
-        <h2>Upcoming Games</h2>
+        {this.props.location.pathname === '/' ? <h2>Upcoming Games</h2> : null}
 
         <div className='games'>
           {games.map(game => {
@@ -411,4 +414,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   actions
-)(UpcomingGamesList);
+)(withRouter(UpcomingGamesList));

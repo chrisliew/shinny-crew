@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 class ContactForm extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class ContactForm extends Component {
       message: ''
     });
 
-    alert(
+    toast.success(
       'Thank you for contacting us.  Shinny Squad will contact you shortly.'
     );
   };

@@ -85,9 +85,9 @@ class Header extends Component {
                     this.props.auth.firstName.slice(1)}
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem>
+                {/* <DropdownItem>
                   <a href='/settings'>Settings</a>
-                </DropdownItem>
+                </DropdownItem> */}
                 <DropdownItem>
                   <a href='/contact-us'>Contact Us</a>
                 </DropdownItem>
@@ -118,7 +118,7 @@ class Header extends Component {
       <div>
         <Navbar className='container-fluid p-0 header' light expand='md'>
           <NavbarBrand className='navbar-brand' href='/'>
-            <img className='logo' src='/images/puck.png' alt='logo' />
+            <img className='logo' src='/images/hockey.png' alt='logo' />
             Shinny Squad
           </NavbarBrand>
 

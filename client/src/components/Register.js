@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 class Register extends Component {
   constructor(props) {
@@ -22,22 +23,22 @@ class Register extends Component {
     event.preventDefault();
     // Add check here
     if (this.state.password !== this.state.password2) {
-      return alert('passwords dont match!');
+      return toast.error('passwords dont match!');
     }
     if (this.state.password.length < 8) {
-      alert('Password must be at least 8 characters');
+      toast.error('Password must be at least 8 characters');
       return;
     }
     if (this.state.email.length > 30) {
-      alert('Email must be less than 30 characters');
+      toast.error('Email must be less than 30 characters');
       return;
     }
     if (this.state.username.length > 30) {
-      alert('Username must be less than 30 characters');
+      toast.error('Username must be less than 30 characters');
       return;
     }
     if (this.state.password.length > 30) {
-      alert('Password must be less than 30 characters');
+      toast.error('Password must be less than 30 characters');
       return;
     }
     const registerInfo = {
@@ -50,12 +51,12 @@ class Register extends Component {
       const emailAlreadyExists = res.data.email;
 
       if (emailAlreadyExists === 'Email already exists') {
-        alert(
+        toast.error(
           'Email or Username already exists.  Try Facebook or Google Login'
         );
         return;
       } else {
-        alert('Register successful');
+        toast.success('Register successful');
         axios.post('/api/login', registerInfo).then(res => {
           console.log('res.data', res);
           if (res.data) {

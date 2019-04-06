@@ -5,7 +5,8 @@
   background: $primary-color;
   color: $text-color-secondary;
   height: 80vh;
-  background-image: url('/images/hockey-player-at-rink.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    /* bottom, image */ url('/images/shutterstock_456764026.jpg');
   background-position: center;
   background-size: cover;
   -webkit-clip-path: polygon(
@@ -17,7 +18,7 @@
     0% 80%,
     0% 20%
   );
-  clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 91%, 0 100%, 0% 80%, 0% 20%);
+  clip-path: polygon(0 0, 100% 0, 100% 20%, 100% 93%, 0 100%, 0% 80%, 0% 20%);
 }
 
 .business-description {
@@ -25,7 +26,8 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-size: 2em;
+  font-size: 2.1em;
+  font-weight: 900;
   max-width: 60%;
   margin: auto;
   & .goalies-free {
@@ -43,7 +45,7 @@
 }
 
 .upcoming-games h2 {
-  padding: 2em 0 2em 0;
+  padding: 0em 0 0em 0;
 }
 
 .games {

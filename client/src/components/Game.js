@@ -12,6 +12,7 @@ import {
 } from 'reactstrap';
 import Modal from 'react-responsive-modal';
 import Payments from './Payments';
+import { toast } from 'react-toastify';
 
 class Game extends Component {
   constructor(props) {
@@ -57,7 +58,6 @@ class Game extends Component {
     );
     playerInfo[0]['gameId'] = this.props.selectedGame._id;
     this.props.deleteUserFromGame(playerInfo[0]);
-    const { position } = playerInfo[0];
 
     const { selectedGame, auth } = this.props;
 
@@ -70,11 +70,8 @@ class Game extends Component {
       startTime: selectedGame.startTime,
       arena: selectedGame.arena
     };
-    // console.log('this.state.position', this.state.position);
-    // if (position === 'goalie') {
     this.props.sendEmailRefund(userInfoEmail);
-    // }
-    alert('You have successfully deleted this game');
+    toast.success('You have successfully deleted this game');
     window.location.href = `/cancelled-game/${selectedGame._id}`;
   };
 

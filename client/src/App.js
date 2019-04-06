@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './components/Home';
 import AddGame from './components/AddGame';
@@ -22,6 +24,8 @@ import ConfirmDeleteGame from './components/ConfirmDeleteGame';
 import './App.scss';
 import 'react-dropdown/style.css';
 import 'react-datepicker/dist/react-datepicker.css';
+
+toast.configure({ position: toast.POSITION.TOP_CENTER, autoClose: false });
 
 class App extends Component {
   componentDidMount() {

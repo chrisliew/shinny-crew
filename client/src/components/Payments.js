@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { toast } from 'react-toastify';
 
 class Payments extends Component {
   handleOnSubmitBookGame = event => {
     this.props.sendEmailConfirm(event);
-    alert('You have registered for this game and payment was successful');
+    toast.success(
+      'You have registered for this game and payment was successful'
+    );
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
@@ -46,7 +49,7 @@ class Payments extends Component {
               .then(
                 document.cookie
                   ? this.handleOnSubmitBookGame(emailData)
-                  : alert(
+                  : toast.error(
                       'Rejected Payment, You were logged out.  Please login again'
                     )((document.location.href = '/login'))
               )

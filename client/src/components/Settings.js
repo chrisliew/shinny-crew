@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Form,
-  Input
-} from 'reactstrap';
+// import {
+//   Button,
+//   Modal,
+//   ModalHeader,
+//   ModalBody,
+//   ModalFooter,
+//   Form,
+//   Input
+// } from 'reactstrap';
 import * as actions from '../actions';
 import { validateEmail } from './Validators';
+import { toast } from 'react-toastify';
 
 class Settings extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Settings extends Component {
   handleOnSubmit = event => {
     event.preventDefault();
     if (!validateEmail(this.state.email)) {
-      alert('Not a valid email');
+      toast.error('Not a valid email');
     } else {
       const emailUserId = {
         email: this.state.email,
@@ -51,7 +52,7 @@ class Settings extends Component {
   render() {
     return (
       <div className='settings'>
-        <h1>Settings</h1>
+        {/* <h1>Settings</h1>
         <div className='container'>
           <div className='email'>Email: {this.props.auth.email}</div>
           <div>
@@ -83,7 +84,7 @@ class Settings extends Component {
               </ModalFooter>
             </Form>
           </ModalBody>
-        </Modal>
+        </Modal> */}
       </div>
     );
   }

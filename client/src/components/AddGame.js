@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import Dropdown from 'react-dropdown';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
+import { toast } from 'react-toastify';
 
 class AddGame extends React.Component {
   constructor(props) {
@@ -100,7 +101,7 @@ class AddGame extends React.Component {
   handleOnSubmit = event => {
     event.preventDefault();
     this.props.addGameRequest(this.state);
-    alert('You have added this game');
+    toast.info('You have added this game');
   };
 
   render() {

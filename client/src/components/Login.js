@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 class Login extends Component {
   constructor(props) {
@@ -25,13 +26,13 @@ class Login extends Component {
     axios.post('/api/login', userLogin).then(res => {
       console.log('res.data', res.data);
       if (res.data.loginFailed) {
-        alert('Email or Password incorrect');
+        toast.warn('Email or Password incorrect');
         return;
       } else if (res.data.email === 'Email does not exist') {
-        alert('Email does not exist');
+        toast.warn('Email does not exist');
         return;
       } else if (res.data) {
-        alert('Login Success!');
+        toast.success('Login Success!');
         window.location.replace('/');
       }
     });
