@@ -6,9 +6,6 @@ import { Link } from 'react-router-dom';
 import {
   Button,
   // Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Card,
   CardTitle,
   CardText
@@ -60,6 +57,7 @@ class Game extends Component {
     );
     playerInfo[0]['gameId'] = this.props.selectedGame._id;
     this.props.deleteUserFromGame(playerInfo[0]);
+    const { position } = playerInfo[0];
 
     const { selectedGame, auth } = this.props;
 
@@ -72,15 +70,16 @@ class Game extends Component {
       startTime: selectedGame.startTime,
       arena: selectedGame.arena
     };
-
+    // console.log('this.state.position', this.state.position);
+    // if (position === 'goalie') {
     this.props.sendEmailRefund(userInfoEmail);
+    // }
     alert('You have successfully deleted this game');
     window.location.href = `/cancelled-game/${selectedGame._id}`;
   };
 
   handleSelectOneGame = game => event => {
     event.preventDefault();
-    const gameId = event.target.value;
 
     if (!this.props.auth && !document.cookie) {
       window.location.href = '/login';
@@ -267,23 +266,23 @@ class Game extends Component {
                   )}
                   {` Forward - ${game.forwardSlots} spots remaining`}
                   <br />
-                  {game.defenseSlots > 0 ? (
+                  {game.defensemanSlots > 0 ? (
                     <input
                       type='radio'
                       name='position'
-                      value='defense'
+                      value='defenseman'
                       onChange={this.handleOnChangePosition}
                     />
                   ) : (
                     <input
                       type='radio'
                       name='position'
-                      value='defense'
+                      value='defenseman'
                       onChange={this.handleOnChangePosition}
                       disabled
                     />
                   )}
-                  {` Defense - ${game.defenseSlots} spots remaining`}
+                  {` Defenseman - ${game.defensemanSlots} spots remaining`}
                   <br />
                   {game.goalieSlots > 0 ? (
                     <input
@@ -312,7 +311,7 @@ class Game extends Component {
                       </Button>
                     ) : null}
                     {this.state.position === 'forward' ||
-                    this.state.position === 'defense' ? (
+                    this.state.position === 'defenseman' ? (
                       <Payments position={this.state.position}>
                         Pay Now
                       </Payments>

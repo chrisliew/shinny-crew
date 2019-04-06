@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Modal from 'react-responsive-modal';
-import Login from './Login';
 import LoginForm from './LoginForm';
 import Payments from './Payments';
 import { Button } from 'reactstrap';
 import moment from 'moment';
-import { cookieCompare } from 'tough-cookie';
 
 class UpcomingGamesList extends Component {
   constructor(props) {
@@ -110,7 +108,9 @@ class UpcomingGamesList extends Component {
       startTime: selectedGame.startTime,
       arena: selectedGame.arena
     };
-    this.props.sendEmailRefund(userInfoEmail);
+    if (userInfo.position === 'goalie') {
+      this.props.sendEmailRefund(userInfoEmail);
+    }
 
     window.location.reload();
   };
@@ -222,9 +222,9 @@ class UpcomingGamesList extends Component {
                             Forward Spots Remaining:{' '}
                             <span className='slots'>{game.forwardSlots}</span>{' '}
                             <br />
-                            Defense Spots Remaining:{' '}
+                            Defenseman Spots Remaining:{' '}
                             <span className='slots'>
-                              {game.defenseSlots}
+                              {game.defensemanSlots}
                             </span>{' '}
                             <br />
                             Goalie Spots Remaining:{' '}
@@ -318,24 +318,24 @@ class UpcomingGamesList extends Component {
                             selectedGame.forwardSlots
                           } spots remaining`}
                           <br />
-                          {selectedGame.defenseSlots > 0 ? (
+                          {selectedGame.defensemanSlots > 0 ? (
                             <input
                               type='radio'
                               name='position'
-                              value='defense'
+                              value='defenseman'
                               onChange={this.handleOnChangePosition}
                             />
                           ) : (
                             <input
                               type='radio'
                               name='position'
-                              value='defense'
+                              value='defenseman'
                               onChange={this.handleOnChangePosition}
                               disabled
                             />
                           )}
-                          {` Defense - ${
-                            selectedGame.defenseSlots
+                          {` Defenseman - ${
+                            selectedGame.defensemanSlots
                           } spots remaining`}
                           <br />
                           {selectedGame.goalieSlots > 0 ? (
@@ -367,7 +367,7 @@ class UpcomingGamesList extends Component {
                               </Button>
                             ) : null}
                             {this.state.position === 'forward' ||
-                            this.state.position === 'defense' ? (
+                            this.state.position === 'defenseman' ? (
                               <Payments position={this.state.position}>
                                 Pay Now
                               </Payments>

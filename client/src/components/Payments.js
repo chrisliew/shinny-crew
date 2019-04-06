@@ -5,24 +5,8 @@ import * as actions from '../actions';
 
 class Payments extends Component {
   handleOnSubmitBookGame = event => {
-    // console.log('wtf', event);
-    const userId = this.props.auth._id;
-    const gameId = this.props.selectedGame._id;
-
-    const gameUserIdPosition = {
-      userId: userId,
-      gameId: gameId,
-      position: this.props.position
-    };
-
-    this.props.addGameUserRequest(gameUserIdPosition);
-    const userInfo = {
-      email: this.props.auth.email,
-      startDate: this.props.selectedGame.startDate,
-      address: '123 fake street'
-    };
-    this.props.sendEmailConfirm(userInfo);
-    alert('You have registered for this game with payment');
+    this.props.sendEmailConfirm(event);
+    alert('You have registered for this game and payment was successful');
     window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
@@ -45,7 +29,6 @@ class Payments extends Component {
     return (
       <div>
         <StripeCheckout
-          onSubmit={this.handleOnSubmitBookGame}
           name='Shinny Squad'
           description='Payment for this game @'
           image='/images/puck.png'
@@ -60,22 +43,12 @@ class Payments extends Component {
                 auth: this.props.auth,
                 position: this.props.position
               })
-              .then(alert('You have successfully registered for this game now'))
-              .then(
-                (window.location.href = `/confirm-game/${
-                  this.props.selectedGame._id
-                }`)
-              )
+              .then(this.handleOnSubmitBookGame(emailData))
           }
           allowRememberMe='true'
           stripeKey={process.env.REACT_APP_STRIPE_KEY}
         >
-          <button
-            onSubmit={this.handleOnSubmitBookGame}
-            className='book-game-button'
-          >
-            Pay For Game
-          </button>
+          <button className='book-game-button'>Pay For Game</button>
           <p className='payment-mandatory'>No cancellation 48 hours before </p>
         </StripeCheckout>
       </div>

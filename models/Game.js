@@ -10,7 +10,7 @@ const gameSchema = new Schema({
   startTime: String,
   endTime: String,
   forwardSlots: Number,
-  defenseSlots: Number,
+  defensemanSlots: Number,
   goalieSlots: Number,
   skill: String,
   players: Array

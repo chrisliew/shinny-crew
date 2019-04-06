@@ -28,6 +28,14 @@ class Register extends Component {
       alert('Password must be at least 8 characters');
       return;
     }
+    if (this.state.email.length > 30) {
+      alert('Email must be less than 30 characters');
+      return;
+    }
+    if (this.state.password.length > 30) {
+      alert('Password must be less than 30 characters');
+      return;
+    }
     const registerInfo = {
       email: this.state.email,
       username: this.state.username,
@@ -102,7 +110,7 @@ class Register extends Component {
                 value={this.state.username}
                 type='text'
                 name='username'
-                placeholder='username'
+                placeholder='Username'
               />
               <input
                 onChange={this.handleOnChange}

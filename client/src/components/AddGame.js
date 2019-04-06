@@ -16,7 +16,7 @@ class AddGame extends React.Component {
       endTime: new Date(),
       endDate: new Date(),
       forwardSlots: 18,
-      defenseSlots: 8,
+      defensemanSlots: 8,
       goalieSlots: 2,
       skill: 'Beginner',
       password: ''
@@ -73,9 +73,9 @@ class AddGame extends React.Component {
     });
   };
 
-  handleOnChangeDefenseSlots = defenseSlots => {
+  handleOnChangeDefensemanSlots = defensemanSlots => {
     this.setState({
-      defenseSlots: defenseSlots.value
+      defensemanSlots: defensemanSlots.value
     });
   };
 
@@ -143,7 +143,7 @@ class AddGame extends React.Component {
       23,
       24
     ];
-    const defenseSlotsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const defensemanSlotsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10];
     const goalieSlotsOptions = [1, 2, 3, 4];
     const skillOptions = ['Beginner', 'Intermediate', 'Advanced'];
 
@@ -228,11 +228,11 @@ class AddGame extends React.Component {
         </div>
 
         <div className='add-game-child'>
-          <h3>Defense Slots</h3>
+          <h3>Defenseman Slots</h3>
           <Dropdown
-            options={defenseSlotsOptions}
-            onChange={this.handleOnChangeDefenseSlots}
-            placeholder={this.state.defenseSlots}
+            options={defensemanSlotsOptions}
+            onChange={this.handleOnChangeDefensemanSlots}
+            placeholder={this.state.defensemanSlots}
           />
         </div>
 

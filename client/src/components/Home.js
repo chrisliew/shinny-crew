@@ -24,7 +24,7 @@ class Home extends Component {
                 size='lg'
                 color='success'
               >
-                View Games Now
+                Join Games
               </Button>
             </div>
           </div>

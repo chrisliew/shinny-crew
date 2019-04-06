@@ -45,7 +45,7 @@ class ConfirmAddGame extends Component {
         <div>
           <br />
           <Link to='/landing'>
-            <Button color='success'>View Games</Button>
+            <Button color='success'>Join Games</Button>
           </Link>
         </div>
       </div>

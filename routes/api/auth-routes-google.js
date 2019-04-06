@@ -18,10 +18,19 @@ module.exports = app => {
   );
 
   app.get('/api/logout', function(req, res) {
-    req.logout();
-    req.session = null;
-    res.clearCookie('userProfile');
-    res.redirect('/');
+    console.log('logout', req.session);
+    console.log('cookie', req.cookies);
+    if (req.session) {
+      req.session = null;
+      console.log('logged out now', req.session);
+      res.clearCookie('userProfile');
+      console.log('clearcookie', req.cookies);
+      // req.logout();
+      res.redirect('/');
+    }
+    // req.session = null;
+    // req.logout();
+    // res.redirect('/');
   });
 
   app.post('/api/current_user', (req, res) => {

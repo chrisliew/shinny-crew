@@ -7,8 +7,6 @@ const keys = require('../../config/keys');
 const stripe = require('stripe')(keys.stripeSecretKey);
 const db = keys.mongoURL;
 
-// GET /api/games *  Returns list of games for current user. * PRIVATE
-
 // POST (or post and delete?) /api/games *  Allows current user to add or delete self from games * PRIVATE
 
 module.exports = app => {
@@ -26,11 +24,14 @@ module.exports = app => {
 
   // GET /api/games/:id * Get User Games by UserID * PRIVATE
   app.get('/api/games/:id', (req, res) => {
-    // if (req.session.passport.user === req.params.id) {
-    Game.find()
-      .elemMatch('players', { userID: req.params.id })
-      .then(games => res.json(games));
-    // }
+    if (
+      (req.session.passport && req.session.passport.user === req.params.id) ||
+      (req.cookies.userProfile && req.cookies.userProfile._id === req.params.id)
+    ) {
+      Game.find()
+        .elemMatch('players', { userID: req.params.id })
+        .then(games => res.json(games));
+    }
   });
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
@@ -54,7 +55,7 @@ module.exports = app => {
         .tz('America/Los_Angeles')
         .format('LT'),
       forwardSlots: req.body.forwardSlots,
-      defenseSlots: req.body.defenseSlots,
+      defensemanSlots: req.body.defensemanSlots,
       goalieSlots: req.body.goalieSlots,
       skill: req.body.skill,
       players: []
@@ -67,7 +68,9 @@ module.exports = app => {
 
   // PUT /api/games/ * Adds user to game/ Add Game to User * PRIVATE
   app.put('/api/games/', (req, res) => {
-    console.log('POSITION!', req.body.position);
+    console.log('req.body games', req.body);
+    console.log('req.session games', req.session);
+    console.log('req.cookies games', req.cookies);
     Game.findByIdAndUpdate(
       req.body.gameId,
       {
@@ -93,10 +96,10 @@ module.exports = app => {
           console.log(err);
         }
       );
-    } else if (req.body.position === 'defense') {
+    } else if (req.body.position === 'defenseman') {
       Game.findByIdAndUpdate(
         req.body.gameId,
-        { $inc: { defenseSlots: -1 } },
+        { $inc: { defensemanSlots: -1 } },
         function(err, model) {
           console.log(err);
         }
@@ -123,10 +126,10 @@ module.exports = app => {
             console.log(err);
           }
         );
-      } else if (req.body.position === 'defense') {
+      } else if (req.body.position === 'defenseman') {
         Game.findByIdAndUpdate(
           req.body.gameId,
-          { $inc: { defenseSlots: +1 } },
+          { $inc: { defensemanSlots: +1 } },
           function(err, model) {
             console.log(err);
           }

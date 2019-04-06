@@ -5,10 +5,6 @@ import { Table, Button } from 'reactstrap';
 import moment from 'moment';
 
 class UserGames extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     this.props.fetchUserGames(this.props.match.url.slice(7));
   }

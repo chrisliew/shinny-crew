@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
   Nav,
   NavItem,
@@ -15,9 +13,7 @@ import {
   Button
 } from 'reactstrap';
 import Modal from 'react-responsive-modal';
-import Login from './Login';
 import LoginForm from './LoginForm';
-import { capitalizeFirstLetter } from './GlobalFunctions';
 
 class Header extends Component {
   constructor(props) {
@@ -129,7 +125,7 @@ class Header extends Component {
           <Nav className='ml-auto' navbar>
             <NavItem className='games-link'>
               <NavLink href='/landing'>
-                <Button color='success'>View Games</Button>
+                <Button color='success'>Join Games</Button>
               </NavLink>
             </NavItem>
             {this.loggedInStatus()}
