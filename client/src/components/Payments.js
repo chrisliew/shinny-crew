@@ -43,7 +43,13 @@ class Payments extends Component {
                 auth: this.props.auth,
                 position: this.props.position
               })
-              .then(this.handleOnSubmitBookGame(emailData))
+              .then(
+                document.cookie
+                  ? this.handleOnSubmitBookGame(emailData)
+                  : alert(
+                      'Rejected Payment, You were logged out.  Please login again'
+                    )((document.location.href = '/login'))
+              )
           }
           allowRememberMe='true'
           stripeKey={process.env.REACT_APP_STRIPE_KEY}

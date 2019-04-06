@@ -20,6 +20,11 @@ class UserGames extends Component {
 
     const gamesList = games.map(game => {
       //loop through list, then return game.
+      console.log('game', game);
+      // const position = game.players.filter(
+      //   player => player.userID === this.props.auth._id
+      // ).position;
+      // console.log('position', position);
       return (
         <tr key={game._id}>
           <td>{game.startDate}</td>
@@ -28,7 +33,13 @@ class UserGames extends Component {
           <td>{game.startTime}</td>
           <td>{game.endTime}</td>
           <td>{game.skill}</td>
-          <td>{game.players[0].position}</td>
+          <td>
+            {
+              game.players.filter(
+                player => player.userID === this.props.auth._id
+              )[0].position
+            }
+          </td>
           <td>
             {new Date() <= moment(game.startDate + ' ' + game.startTime) ? (
               <a href={`/game/${game._id}`}>

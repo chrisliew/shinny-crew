@@ -32,6 +32,10 @@ class Register extends Component {
       alert('Email must be less than 30 characters');
       return;
     }
+    if (this.state.username.length > 30) {
+      alert('Username must be less than 30 characters');
+      return;
+    }
     if (this.state.password.length > 30) {
       alert('Password must be less than 30 characters');
       return;

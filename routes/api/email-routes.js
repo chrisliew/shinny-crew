@@ -27,6 +27,9 @@ module.exports = app => {
       }'>Details</a>
       <br/>
       <br/>
+      Please bring a dark and light jersey and equipment to the game. 
+      <br/>
+      <br/>
       ShinnySquad.com
         </p>
 

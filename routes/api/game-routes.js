@@ -66,52 +66,70 @@ module.exports = app => {
     // }
   });
 
+  function loggedIn(req, res, next) {
+    if (req.user) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  }
+
   // PUT /api/games/ * Adds user to game/ Add Game to User * PRIVATE
-  app.put('/api/games/', (req, res) => {
+  app.put('/api/games/', loggedIn, (req, res) => {
     console.log('req.body games', req.body);
     console.log('req.session games', req.session);
     console.log('req.cookies games', req.cookies);
-    Game.findByIdAndUpdate(
-      req.body.gameId,
-      {
-        $push: {
-          players: {
-            userID: req.body.userId,
-            position: req.body.position,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
+
+    const authId = req.body.userId;
+
+    if (
+      (req.session.passport && req.session.passport.user === authId) ||
+      (req.cookies.userProfile && req.cookies.userProfile._id === authId)
+    ) {
+      Game.findByIdAndUpdate(
+        req.body.gameId,
+        {
+          $push: {
+            players: {
+              userID: req.body.userId,
+              position: req.body.position,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName
+            }
           }
+        },
+        { safe: true, upsert: true },
+        function(err, model) {
+          console.log(err);
         }
-      },
-      { safe: true, upsert: true },
-      function(err, model) {
-        console.log(err);
+      );
+      if (req.body.position === 'forward') {
+        Game.findByIdAndUpdate(
+          req.body.gameId,
+          { $inc: { forwardSlots: -1 } },
+          function(err, model) {
+            console.log(err);
+          }
+        );
+      } else if (req.body.position === 'defenseman') {
+        Game.findByIdAndUpdate(
+          req.body.gameId,
+          { $inc: { defensemanSlots: -1 } },
+          function(err, model) {
+            console.log(err);
+          }
+        );
+      } else if (req.body.position === 'goalie') {
+        Game.findByIdAndUpdate(
+          req.body.gameId,
+          { $inc: { goalieSlots: -1 } },
+          function(err, model) {
+            console.log(err);
+          }
+        );
       }
-    );
-    if (req.body.position === 'forward') {
-      Game.findByIdAndUpdate(
-        req.body.gameId,
-        { $inc: { forwardSlots: -1 } },
-        function(err, model) {
-          console.log(err);
-        }
-      );
-    } else if (req.body.position === 'defenseman') {
-      Game.findByIdAndUpdate(
-        req.body.gameId,
-        { $inc: { defensemanSlots: -1 } },
-        function(err, model) {
-          console.log(err);
-        }
-      );
-    } else if (req.body.position === 'goalie') {
-      Game.findByIdAndUpdate(
-        req.body.gameId,
-        { $inc: { goalieSlots: -1 } },
-        function(err, model) {
-          console.log(err);
-        }
-      );
+    } else {
+      res.redirect('/');
     }
   });
 

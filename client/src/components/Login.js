@@ -23,7 +23,15 @@ class Login extends Component {
       password: this.state.password
     };
     axios.post('/api/login', userLogin).then(res => {
-      if (res.data) {
+      console.log('res.data', res.data);
+      if (res.data.loginFailed) {
+        alert('Email or Password incorrect');
+        return;
+      } else if (res.data.email === 'Email does not exist') {
+        alert('Email does not exist');
+        return;
+      } else if (res.data) {
+        alert('Login Success!');
         window.location.replace('/');
       }
     });

@@ -15,7 +15,7 @@ module.exports = app => {
       const existingUser = await User.findOne({ email: email });
       console.log('existinguser', existingUser);
       if (!existingUser) {
-        return res.status(400).json({ email: "Email doesn't exist" });
+        return res.json({ email: 'Email does not exist' });
       }
       const comparePassword = await bcrypt.compare(
         password,

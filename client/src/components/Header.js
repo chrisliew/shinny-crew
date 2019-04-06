@@ -111,6 +111,9 @@ class Header extends Component {
   };
   render() {
     const { open } = this.state;
+
+    console.log('cookie!', document.cookie);
+
     return (
       <div>
         <Navbar className='container-fluid p-0 header' light expand='md'>

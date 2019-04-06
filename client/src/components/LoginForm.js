@@ -27,6 +27,9 @@ class LoginForm extends Component {
       if (res.data.loginFailed) {
         alert('Email or Password incorrect');
         return;
+      } else if (res.data.email === 'Email does not exist') {
+        alert('Email does not exist');
+        return;
       } else if (res.data) {
         alert('Login Success!');
         window.location.replace('/');

@@ -22,7 +22,8 @@ class ConfirmAddGame extends Component {
           <CardTitle>Game Confirmation</CardTitle>
           <CardText>
             <p>
-              You have added this game! You can find more details{' '}
+              You have added this game! Please bring a dark and light jersey and
+              equipment to the game. You can find more details{' '}
               <a href={`/game/${gameId}`}>here</a>
             </p>
             <p>

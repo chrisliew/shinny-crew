@@ -47,7 +47,7 @@ class UpcomingGamesList extends Component {
 
     this.props.fetchOneGame(gameId);
 
-    if (!this.props.auth && !document.cookie) {
+    if (!document.cookie) {
       this.onOpenModal();
     } else {
       this.onOpenGameModal();
@@ -197,9 +197,10 @@ class UpcomingGamesList extends Component {
                             You Are Registered as a{' '}
                             <span className='position'>
                               {
-                                game.players[
-                                  game.players.findIndex(x => x.userID)
-                                ].position
+                                game.players.filter(
+                                  player =>
+                                    player.userID === this.props.auth._id
+                                )[0].position
                               }
                             </span>
                           </div>
@@ -274,9 +275,9 @@ class UpcomingGamesList extends Component {
                           Registered as{' '}
                           <span className='position'>
                             {
-                              selectedGame.players[
-                                selectedGame.players.findIndex(x => x.userID)
-                              ].position
+                              selectedGame.players.filter(
+                                player => player.userID === this.props.auth._id
+                              )[0].position
                             }
                           </span>
                           <br />
@@ -285,9 +286,10 @@ class UpcomingGamesList extends Component {
                             <button
                               className='delete-game-button'
                               onClick={this.handleOnDeleteGame(
-                                selectedGame.players[
-                                  selectedGame.players.findIndex(x => x.userID)
-                                ]
+                                selectedGame.players.filter(
+                                  player =>
+                                    player.userID === this.props.auth._id
+                                )[0].position
                               )}
                             >
                               Quit Game

@@ -7,6 +7,7 @@ const User = mongoose.model('users');
 
 passport.serializeUser((user, done) => {
   // this is not the same as profile id.
+
   done(null, user.id);
 });
 

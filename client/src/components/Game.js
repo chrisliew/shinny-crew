@@ -162,7 +162,7 @@ class Game extends Component {
                   You Are Registered as a{' '}
                   <span className='position'>
                     {
-                      game.players[game.players.findIndex(x => x.userID)]
+                      game.players.filter(player => player.userID === authId)[0]
                         .position
                     }
                   </span>
@@ -170,7 +170,11 @@ class Game extends Component {
                 <br />
                 <Button
                   color='danger'
-                  onClick={this.handleDeleteGame(game.players)}
+                  onClick={
+                    document.cookie
+                      ? this.handleDeleteGame(game.players)
+                      : (window.location.href = '/login')
+                  }
                 >
                   Delete Game
                 </Button>
@@ -227,7 +231,7 @@ class Game extends Component {
                   Registered as{' '}
                   <span className='position'>
                     {
-                      game.players[game.players.findIndex(x => x.userID)]
+                      game.players.filter(player => player.userID === authId)[0]
                         .position
                     }
                   </span>
@@ -237,7 +241,9 @@ class Game extends Component {
                     <button
                       className='delete-game-button'
                       onClick={this.handleDeleteGame(
-                        game.players[game.players.findIndex(x => x.userID)]
+                        game.players.filter(
+                          player => player.userID === authId
+                        )[0].position
                       )}
                     >
                       Quit Game
