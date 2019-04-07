@@ -112,6 +112,7 @@ class AddGame extends React.Component {
       '3360 Victoria Dr, Vancouver, BC'
     ];
     const prices = [
+      0,
       10,
       11,
       12,
@@ -130,6 +131,7 @@ class AddGame extends React.Component {
       25
     ];
     const forwardSlotsOptions = [
+      1,
       12,
       13,
       14,
@@ -144,7 +146,7 @@ class AddGame extends React.Component {
       23,
       24
     ];
-    const defensemanSlotsOptions = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const defensemanSlotsOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const goalieSlotsOptions = [1, 2, 3, 4];
     const skillOptions = ['Beginner', 'Intermediate', 'Advanced'];
 

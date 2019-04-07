@@ -59,6 +59,8 @@ module.exports = app => {
       }.</b> For more details, please click here: <a href='https://shinnysquad.com/game/${
         req.body.gameId
       }'>Details</a>
+      <br />
+      <br />
       ShinnySquad.com
         </p>
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class Footer extends Component {
   render() {
@@ -8,8 +9,9 @@ class Footer extends Component {
           <div className='footer-left'>
             <h3>Shinny Squad</h3>
             <p className='footer-links'>
-              <a href='/'>Home</a>·<a href='/terms-and-conditions'>Terms</a>·
-              <a href='/'>Faq</a>·<a href='/'>Contact</a>
+              <Link to='/'>Home</Link>·{/* <Link to='/'>Terms</Link>· */}
+              {/* <Link to='/'>Faq</Link>· */}
+              <Link to='/contact'>Contact</Link>
             </p>
             <p className='footer-company-name'>Shinny Squad &copy; 2019</p>
           </div>
@@ -17,39 +19,39 @@ class Footer extends Component {
             <div>
               <i className='fa fa-map-marker' />
               <p>
-                <span>123 Fake Street</span> Vancouver, BC
+                <span>388 Drake Street</span> Vancouver, BC
               </p>
             </div>
-            <div>
+            {/* <div>
               <i className='fa fa-phone' />
               <p>604-358-0775</p>
-            </div>
-            <div>
+            </div> */}
+            {/* <div>
               <i className='fa fa-envelope' />
               <p>
-                <a href='mailto:support@company.com'>support@washroyal.com</a>
+                <Link to='mailto:support@company.com'>support@washroyal.com</Link>
               </p>
-            </div>
+            </div> */}
           </div>
           <div className='footer-right'>
             <p className='footer-company-about'>
               <span>About the company</span>
-              Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce
-              euismod convallis velit, eu auctor lacus vehicula sit amet.
+              Shinny Squad was created by hockey players, for hockey players. We
+              are dedicated to making drop in hockeys easy and quick to join.
             </p>
             <div className='footer-icons'>
-              <a href='/'>
+              <Link to='/'>
                 <i className='fab fa-facebook' />
-              </a>
-              <a href='/'>
+              </Link>
+              <Link to='/'>
                 <i className='fab fa-twitter' />
-              </a>
-              <a href='/'>
-                <i className='fab fa-linkedin' />
-              </a>
-              <a href='/'>
+              </Link>
+              <Link to='/'>
+                <i className='fab fa-instagram' />
+              </Link>
+              {/* <Link to='/'>
                 <i className='fab fa-github' />
-              </a>
+              </Link> */}
             </div>
           </div>
         </footer>

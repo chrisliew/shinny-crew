@@ -192,7 +192,7 @@ class Game extends Component {
                 ) : null}
                 <div>
                   Within 48 hours of the game, no refund available, only
-                  transfers. Click here to see why.
+                  transfers.
                 </div>
               </div>
             )}
