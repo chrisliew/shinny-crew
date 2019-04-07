@@ -6,5 +6,6 @@ module.exports = {
   stripeSecretKey: process.env.STRIPE_SECRET_KEY,
   facebookAppID: process.env.FACEBOOK_APP_ID,
   facebookAppSecret: process.env.FACEBOOK_APP_SECRET,
-  mongoURL: process.env.MONGO_URL
+  mongoURL: process.env.MONGO_URL,
+  sendGridKey: process.env.SENDGRID_KEY
 };
