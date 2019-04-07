@@ -21,6 +21,10 @@ app.use(
   })
 );
 
+app.get('*', (req, res) => {
+  res.redirect('https://' + req.headers.host + req.url);
+});
+
 app.use(function(req, res, next) {
   req.session.nowInMinutes = Math.floor(Date.now() / 60e3);
   next();
