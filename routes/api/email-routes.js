@@ -22,7 +22,7 @@ module.exports = app => {
         req.body.address
       }.</b>    You will be playing the <b>${
         req.body.position
-      }</b> position. For more details, please click here: <a href='https://shinnysquad.com/game/${
+      }</b> position. For more details, please click here: <a href='https://www.shinnysquad.com/game/${
         req.body.gameId
       }'>Details</a>
       <br/>
@@ -56,7 +56,7 @@ module.exports = app => {
         req.body.arena
       }</b> located at <b>${
         req.body.address
-      }.</b> For more details, please click here: <a href='https://shinnysquad.com/game/${
+      }.</b> For more details, please click here: <a href='https://www.shinnysquad.com/game/${
         req.body.gameId
       }'>Details</a>
       <br />

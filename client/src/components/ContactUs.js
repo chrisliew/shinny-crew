@@ -12,11 +12,11 @@ class ContactUs extends Component {
           <div className='description'>
             <div className='text'>
               <p>
-                If you have any questions, email the relevant department below
-                or complete the form and we will get back to you.
+                If you have any questions, complete the form and we will get
+                back to you.
               </p>
               <br />
-              <div>
+              {/* <div>
                 <b>
                   <u>SALES:</u>
                 </b>
@@ -35,7 +35,7 @@ class ContactUs extends Component {
                   <u>GENERAL:</u>
                 </b>
               </div>
-              <div>general@shinnysquad.com</div>
+              {/* <div>general@shinnysquad.com</div> */}
             </div>
           </div>
           <div className='form'>

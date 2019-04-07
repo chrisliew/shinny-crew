@@ -6,7 +6,6 @@ const sgMail = require('@sendgrid/mail');
 
 module.exports = app => {
   app.post('/api/stripe', async (req, res) => {
-
     const price = req.body.selectedGame.price * 100;
     const startDate = req.body.selectedGame.startDate;
     const startTime = req.body.selectedGame.startTime;
@@ -22,7 +21,7 @@ module.exports = app => {
       const charge = await stripe.charges.create({
         amount: price,
         currency: 'cad',
-        description: `For this hockey game on ${startDate} @ ${startTime}`,
+        description: `Shinny Squad hockey game on ${startDate} @ ${startTime}`,
         source: req.body.token.id,
         receipt_email: email
       });
