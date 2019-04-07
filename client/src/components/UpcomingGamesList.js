@@ -85,7 +85,7 @@ class UpcomingGamesList extends Component {
       position: this.state.position
     };
     this.props.sendEmailConfirm(userInfo);
-    // window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
+    window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
   handleOnDeleteGame = userInfo => event => {
