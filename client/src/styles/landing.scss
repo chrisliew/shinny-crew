@@ -41,6 +41,12 @@
   margin-top: 1em;
 }
 
+@media only screen and (max-width: 350px) {
+  .business-description button {
+    display: none;
+  }
+}
+
 #landing-upcoming-games {
   text-align: center;
   background-color: white;

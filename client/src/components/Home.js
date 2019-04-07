@@ -17,9 +17,9 @@ class Home extends Component {
           <div className='box business-description'>
             <div>The Easiest Way To Join A </div>
             <div>Drop In Hockey Game In Vancouver</div>
-            <div className='goalies-free'>Goalies Play For Free</div>
+            {/* <div className='goalies-free'>Goalies Play For Free</div> */}
             <br />
-            <div>
+            <div style={{ 'margin-bottom': '2em' }}>
               <Button
                 onClick={this.handleOnClickViewGames}
                 size='lg'
