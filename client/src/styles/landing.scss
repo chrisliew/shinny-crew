@@ -23,35 +23,35 @@
   padding-top: 1em;
 }
 
-.business-description {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  font-size: 2.1em;
-  font-weight: 900;
-  max-width: 60%;
-  margin: auto;
-  & .goalies-free {
-    font-size: 0.6em;
-  }
-}
+// .business-description {
+//   display: flex;
+//   justify-content: center;
+//   flex-direction: column;
+//   align-items: center;
+//   font-size: 2.1em;
+//   font-weight: 900;
+//   max-width: 80%;
+//   margin: auto;
+//   & .goalies-free {
+//     font-size: 0.6em;
+//   }
+// }
 
-.business-description button {
-  margin-top: 1em;
-}
+// .business-description button {
+//   margin-top: 1em;
+// }
 
-@media only screen and (max-width: 350px) {
-  .business-description button {
-    display: none;
-  }
-}
+// @media only screen and (max-width: 350px) {
+//   .business-description button {
+//     display: none;
+//   }
+// }
 
-#landing-upcoming-games {
-  text-align: center;
-  background-color: white;
-}
+// #landing-upcoming-games {
+//   text-align: center;
+//   background-color: white;
+// }
 
-.upcoming-games h2 {
-  padding: 2em 0 2em 0;
-}
+// .upcoming-games h2 {
+//   padding: 2em 0 2em 0;
+// }

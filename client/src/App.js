@@ -30,8 +30,6 @@ toast.configure({ position: toast.POSITION.TOP_CENTER, autoClose: false });
 class App extends Component {
   componentDidMount() {
     this.props.fetchUser();
-    // console.log('props!!', this.prop s);
-    // this.props.fetchUserNormal();
   }
   render() {
     return (

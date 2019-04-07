@@ -36,8 +36,6 @@ module.exports = app => {
 
   // POST /api/games *  Allows Admin to add games.  * ADMIN
   app.post('/api/games/', (req, res) => {
-    console.log('req.session.passport', req.session.passport.user);
-    // if (req.session.passport.user === '5c7b0b253f0801dc2228f66a') {
     const newGame = new Game({
       arena: req.body.arena,
       address: req.body.address,
@@ -61,17 +59,10 @@ module.exports = app => {
       players: []
     });
     newGame.save().then(Game => res.json(Game));
-    // } else {
-    //   return;
-    // }
   });
 
   // PUT /api/games/ * Adds user to game/ Add Game to User * PRIVATE
   app.put('/api/games/', (req, res) => {
-    console.log('req.body games', req.body);
-    console.log('req.session games', req.session);
-    console.log('req.cookies games', req.cookies);
-
     const authId = req.body.userId;
 
     if (

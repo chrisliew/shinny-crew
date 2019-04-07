@@ -58,7 +58,6 @@ class Register extends Component {
       } else {
         toast.success('Register successful');
         axios.post('/api/login', registerInfo).then(res => {
-          console.log('res.data', res);
           if (res.data) {
             window.location.replace('/');
           }

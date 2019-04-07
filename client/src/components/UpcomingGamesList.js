@@ -70,8 +70,6 @@ class UpcomingGamesList extends Component {
       lastName: lastName
     };
 
-    console.log('gameuseridposition', gameUserIdPosition);
-
     this.props.addGameUserRequest(gameUserIdPosition);
 
     const userInfo = {
@@ -137,8 +135,6 @@ class UpcomingGamesList extends Component {
     const { open } = this.state;
     const { openGame } = this.state;
     const selectedGame = this.props.selectedGame;
-
-    console.log('this.props.upcominggames', this.props);
 
     return (
       <div id='upcoming-games' className='upcoming-games'>

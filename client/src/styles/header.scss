@@ -17,6 +17,12 @@
   margin-left: 1em;
 }
 
+@media only screen and (max-width: 500px) {
+  .company {
+    display: none;
+  }
+}
+
 .navbar-logged-in {
   display: flex;
   align-items: center;

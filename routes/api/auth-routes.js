@@ -13,7 +13,6 @@ module.exports = app => {
 
     (async login => {
       const existingUser = await User.findOne({ email: email });
-      console.log('existinguser', existingUser);
       if (!existingUser) {
         return res.json({ email: 'Email does not exist' });
       }
@@ -31,7 +30,6 @@ module.exports = app => {
             res.json({ username: existingUser.username, email: email });
             // res.redirect('/');
             return;
-            // return console.log('req', res.cookie);
             // Sets cookie session and userdata back to person
           } else if (!response) {
             return res.json({ loginFailed: 'loginFailed' });
@@ -67,9 +65,4 @@ module.exports = app => {
       });
     });
   });
-  // app.post('/api/current_user_normal', (req, res) => {
-  // Find user based on parameter passed in here
-  // send back stuff here
-  // res.send({ email: 'dude@dude.com', username: '2pac' });
-  // });
 };

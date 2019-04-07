@@ -24,7 +24,6 @@ class Login extends Component {
       password: this.state.password
     };
     axios.post('/api/login', userLogin).then(res => {
-      console.log('res.data', res.data);
       if (res.data.loginFailed) {
         toast.warn('Email or Password incorrect');
         return;
@@ -36,7 +35,6 @@ class Login extends Component {
         window.location.replace('/');
       }
     });
-    // axios.post('/api/current_user', userLogin).then(res => console.log(res));
     this.setState({
       email: '',
       password: ''

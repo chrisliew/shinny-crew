@@ -24,7 +24,6 @@ class LoginForm extends Component {
       password: this.state.password
     };
     axios.post('/api/login', userLogin).then(res => {
-      console.log('res.data', res.data);
       if (res.data.loginFailed) {
         toast.error('Email or Password incorrect');
         return;

@@ -70,7 +70,6 @@ module.exports = app => {
   });
 
   app.post('/api/email/contact', (req, res) => {
-    console.log('contact route', req.body);
     sgMail.setApiKey(keys.sendGridKey);
     const msg = {
       to: 'chriswvliew@gmail.com',

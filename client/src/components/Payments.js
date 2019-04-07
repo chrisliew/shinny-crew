@@ -28,7 +28,6 @@ class Payments extends Component {
       gameId: game._id
     };
 
-    console.log('emaildata', emailData);
     return (
       <div>
         <StripeCheckout

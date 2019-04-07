@@ -112,14 +112,16 @@ class Header extends Component {
   render() {
     const { open } = this.state;
 
-    console.log('cookie!', document.cookie);
-
     return (
       <div>
         <Navbar className='container-fluid p-0 header' light expand='md'>
           <NavbarBrand className='navbar-brand' href='/'>
             <img className='logo' src='/images/hockey.png' alt='logo' />
-            Shinny Squad
+            {this.props.auth ? (
+              <span className='company'>Shinny Squad</span>
+            ) : (
+              <span>Shinny Squad</span>
+            )}
           </NavbarBrand>
 
           {/* <NavbarToggler onClick={this.toggle} /> */}

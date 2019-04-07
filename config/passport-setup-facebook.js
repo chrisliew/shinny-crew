@@ -26,8 +26,6 @@ passport.use(
         email: profile.emails[0].value
       });
 
-      console.log('existingEmailFacebook', existingEmail);
-
       if (existingEmail) {
         const user = await User.update(
           { email: existingEmail.email },
