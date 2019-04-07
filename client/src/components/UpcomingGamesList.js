@@ -70,6 +70,8 @@ class UpcomingGamesList extends Component {
       lastName: lastName
     };
 
+    console.log('gameuseridposition', gameUserIdPosition);
+
     this.props.addGameUserRequest(gameUserIdPosition);
 
     const userInfo = {
@@ -83,7 +85,7 @@ class UpcomingGamesList extends Component {
       position: this.state.position
     };
     this.props.sendEmailConfirm(userInfo);
-    window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
+    // window.location.href = `/confirm-game/${this.props.selectedGame._id}`;
   };
 
   handleOnDeleteGame = userInfo => event => {
@@ -197,7 +199,7 @@ class UpcomingGamesList extends Component {
                         .includes(this.props.auth._id) ? (
                         <div key={game._id}>
                           <div className='registration-status'>
-                            You Are Registered as a{' '}
+                            You are registered as a{' '}
                             <span className='position'>
                               {
                                 game.players.filter(

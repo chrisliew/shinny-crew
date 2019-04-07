@@ -15,7 +15,7 @@ class Home extends Component {
       <div className='home'>
         <div className='home-welcome'>
           <div className='box business-description'>
-            <div>A Easy Way To Join A </div>
+            <div>The Easiest Way To Join A </div>
             <div>Drop In Hockey Game In Vancouver</div>
             <div className='goalies-free'>Goalies Play For Free</div>
             <br />

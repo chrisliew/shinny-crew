@@ -156,7 +156,7 @@ class Game extends Component {
               0 ? (
               <div>
                 <div className='registration-status'>
-                  You Are Registered as a{' '}
+                  You are registered as a{' '}
                   <span className='position'>
                     {
                       game.players.filter(player => player.userID === authId)[0]

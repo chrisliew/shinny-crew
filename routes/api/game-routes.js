@@ -66,16 +66,8 @@ module.exports = app => {
     // }
   });
 
-  function loggedIn(req, res, next) {
-    if (req.user) {
-      next();
-    } else {
-      res.redirect('/login');
-    }
-  }
-
   // PUT /api/games/ * Adds user to game/ Add Game to User * PRIVATE
-  app.put('/api/games/', loggedIn, (req, res) => {
+  app.put('/api/games/', (req, res) => {
     console.log('req.body games', req.body);
     console.log('req.session games', req.session);
     console.log('req.cookies games', req.cookies);
@@ -128,8 +120,6 @@ module.exports = app => {
           }
         );
       }
-    } else {
-      res.redirect('/');
     }
   });
 
