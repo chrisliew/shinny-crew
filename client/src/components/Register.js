@@ -132,7 +132,7 @@ class Register extends Component {
               />
               <button className='register-button'>Register</button>
             </form>
-            <a href='/login'>Login here</a>
+            <a href='/login'>Already Have An Account? Login here</a>
           </div>
         </div>
       </div>
