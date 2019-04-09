@@ -36,6 +36,7 @@ class Payments extends Component {
           image='/images/puck.png'
           currency='CAD'
           amount={1800}
+          allowRememberMe={false}
           email='service@shinnysquad.com'
           token={token =>
             this.props
